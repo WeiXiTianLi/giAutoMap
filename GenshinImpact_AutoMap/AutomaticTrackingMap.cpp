@@ -41,8 +41,7 @@ void AutomaticTrackingMap::FrontEndUpdata()
 	{
 		//最小化显示窗口
 		ShowWindow(thisHandle, SW_MINIMIZE);
-		//设置原神窗口为前台
-		//SetForegroundWindow(GIS.giHandle);/* 对原神窗口的操作 */
+		SetWindowLong(thisHandle, GWL_EXSTYLE, (GetWindowLong(thisHandle, GWL_EXSTYLE) | WS_EX_TOOLWINDOW) & ~WS_EX_APPWINDOW);
 	}
 
 	setThreadMatchMat();
