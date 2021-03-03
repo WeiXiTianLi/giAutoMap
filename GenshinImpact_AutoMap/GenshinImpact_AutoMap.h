@@ -50,6 +50,7 @@ protected:
 	void wheelEvent(QWheelEvent *event);
 	void paintEvent(QPaintEvent *event);
 private:
+	//更新UID文本
 	void displayUID(int uid);
 private:
 	//实现该帧率所需要的延时
