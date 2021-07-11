@@ -28,6 +28,8 @@ install:
     - appveyor DownloadFile %OpenCvUrl%
     - 7z x ./*.zip -y -o%OpenCvDir%
     - rm -f ./*.zip
+    - cd %MyProjectDir%\%ProjectName%\resource
+    - 7z x ./*.7z -y -o%MyProjectDir%\%ProjectName%\resource
     
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;
@@ -46,12 +48,11 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     - cd %MyProjectDir%\x64\Release\
-    - chcp.com 65001 && ls && ren *.exe TianLi_Map.exe && ls && chcp.com
-    - chcp.com
-    - chcp.com 65001 && copy %MyProjectDir%\x64\Release\TianLi_Map.exe %MyProjectDir%\x64\build\ && chcp.com
+    - ren *.exe TianLi_Map.exe 
+    - copy %MyProjectDir%\x64\Release\TianLi_Map.exe %MyProjectDir%\x64\build\
     
     - cd %MyProjectDir%\x64\build\
-    - chcp.com 65001 && windeployqt TianLi_Map.exe && chcp.com
+    - windeployqt TianLi_Map.exe
 
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
     - 7z a %ProJectExeName%.7z %MyProjectDir%\x64\build\*
