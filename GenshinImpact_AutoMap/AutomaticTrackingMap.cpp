@@ -280,7 +280,7 @@ void AutomaticTrackingMap::Mat2QImage()
 
 void AutomaticTrackingMap::CustomProcess(int i)
 {
-	
+	i = i;
 }
 
 void AutomaticTrackingMap::updataDraw()
@@ -539,7 +539,7 @@ void AutomaticTrackingMap::testSaveScreen()
 		BITMAP bmp;
 		::GetObject(iconinfo.hbmColor, sizeof(BITMAP), &bmp);
 		int nChannels = bmp.bmBitsPixel == 1 ? 1 : bmp.bmBitsPixel / 8;
-		int depth = bmp.bmBitsPixel == 1 ? IPL_DEPTH_1U : IPL_DEPTH_8U;
+		//int depth = bmp.bmBitsPixel == 1 ? IPL_DEPTH_1U : IPL_DEPTH_8U;
 		//mat操作
 		cv::Mat v_mat;
 		v_mat.create(cvSize(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8UC3, nChannels));
@@ -867,7 +867,7 @@ void AutomaticTrackingMap::drawObjectLists()
 	Point p;
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
-	double minDist = 9999;
+	//double minDist = 9999;
 	for (int objKlass = 3; objKlass < OLS.objectListsNumber(); objKlass++)
 	{
 		if (OLS.isShow(objKlass))
