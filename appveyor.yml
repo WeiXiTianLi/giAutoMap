@@ -29,7 +29,7 @@ install:
     - 7z x ./*.zip -y -o%OpenCvDir%
     - rm -f ./*.zip
     - cd %MyProjectDir%\%ProjectName%\resource
-    - 7z x ./*.7z -y -o%MyProjectDir%\%ProjectName%\resource
+    - 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
     
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;
