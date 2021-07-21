@@ -142,28 +142,28 @@ public:
 应对存在一张目标图像需要在给定源图像中匹配的场景
 其中目标图像是固定的，需要使用时前初始化
 */
-class ATM_TM_Thread
-{
-	Mat workInput;
-	thread *tLoopWork = nullptr;
-	void(*ptr)(Mat &inMat) = nullptr;
-	bool isExitThread = false;
-	bool isExistFunction = false;
-	bool isRunWork = false;
-	bool isEndWork = false;
-
-	void run();
-
-public:
-	bool isInit = false;
-	ATM_TM_Thread();
-	~ATM_TM_Thread();
-	ATM_TM_Thread(void(*funPtr)(Mat &inMat));
-	void setFunction(void(*funPtr)(Mat &inMat));
-
-	void start(Mat & inMat);
-	bool isEnd();
-};
+//class ATM_TM_Thread
+//{
+//	Mat workInput;
+//	thread *tLoopWork = nullptr;
+//	void(*ptr)(Mat &inMat) = nullptr;
+//	bool isExitThread = false;
+//	bool isExistFunction = false;
+//	bool isRunWork = false;
+//	bool isEndWork = false;
+//
+//	void run();
+//
+//public:
+//	bool isInit = false;
+//	ATM_TM_Thread();
+//	~ATM_TM_Thread();
+//	ATM_TM_Thread(void(*funPtr)(Mat &inMat));
+//	void setFunction(void(*funPtr)(Mat &inMat));
+//
+//	void start(Mat & inMat);
+//	bool isEnd();
+//};
 
 class ATM_TM_Continuity
 {
