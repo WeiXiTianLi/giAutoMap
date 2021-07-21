@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 TEMPLATE = app
-TARGET = TianLi_Map
+TARGET = TianLi_popoMap
 DESTDIR = ../x64/Release
 CONFIG += release
 LIBS += -L"." \
