@@ -22,7 +22,7 @@ class ATM_TM_SurfMap
 
 	int minHessian = 400;
 	float ratio_thresh = 0.66f;
-	float mapScale = 1.3;//1.3;
+	float mapScale = 1.3f;//1.3;
 	int someSizeR = 106;
 	float MatchMatScale = 2.0;
 
