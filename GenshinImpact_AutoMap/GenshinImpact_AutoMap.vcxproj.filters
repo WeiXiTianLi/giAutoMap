@@ -306,5 +306,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="GenshinImpact_AutoMap.pro" />
   </ItemGroup>
 </Project>
