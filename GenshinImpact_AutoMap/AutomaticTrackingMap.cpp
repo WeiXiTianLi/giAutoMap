@@ -948,8 +948,8 @@ void AutomaticTrackingMap::drawAvatar()
 	if (isAutoMode)
 	{
 		Mat avatar= rotateAvatar(TMS.rotationAngle,1.0/1.3);//大地图与小地图之比
-		
-		addWeightedPNG(MainMat(Rect(autoMapCenter.x - RES.GIAVATARMASK.cols / 2, autoMapCenter.y - avatar.rows / 2, avatar.cols, avatar.rows)), avatar);
+		Mat DrawAvatarRoi = MainMat(Rect(autoMapCenter.x - RES.GIAVATARMASK.cols / 2, autoMapCenter.y - avatar.rows / 2, avatar.cols, avatar.rows));
+		addWeightedPNG(DrawAvatarRoi, avatar);
 	}
 }
 

@@ -542,8 +542,10 @@ void ATM_TM_SurfMap::SURFMatch()
 	}
 
 	isContinuity = false;
+	Point dp1 = hisP[1] - hisP[0];
+	Point dp2 = hisP[2] - hisP[1];
 
-	if ((dis(hisP[1] - hisP[0]) + dis(hisP[2] - hisP[1])) < 2000)
+	if ((dis(dp1) + dis(dp2)) < 2000)
 	{
 		if (hisP[2].x > someSizeR && hisP[2].x < img_scene.cols - someSizeR && hisP[2].y>someSizeR && hisP[2].y < img_scene.rows - someSizeR)
 		{
@@ -699,7 +701,7 @@ double ATM_TM_SurfMap::dis(Point & p)
 
 Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
 {
-	Point pos;
+	Point mpos;
 	double meanx = sumx / lisx.size(); //均值
 	double meany = sumy / lisy.size(); //均值
 	int x = (int)meanx;
@@ -735,15 +737,15 @@ Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy,
 				numy++;
 			}
 		}
-		int x = (int)(sumx / numx);
-		int y = (int)(sumy / numy);
-		pos = Point(x, y);
+		int xx = (int)(sumx / numx);
+		int yy = (int)(sumy / numy);
+		mpos = Point(xx, yy);
 	}
 	else
 	{
-		pos = Point(x, y);
+		mpos = Point(x, y);
 	}
-	return pos;
+	return mpos;
 }
 
 Point ATM_TM_SurfMap::SPC2(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
