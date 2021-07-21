@@ -558,86 +558,116 @@ void ATM_TM_SurfMap::SURFMatch()
 				detectorSomeMap = xfeatures2d::SURF::create(minHessian);
 				detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
 				detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
-				Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-				std::vector< std::vector<DMatch> > KNN_mTmp;
-				std::vector<DMatch> good_matchesTmp;
-				matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
-				std::vector<double> lisx;
-				std::vector<double> lisy;
-				double sumx = 0;
-				double sumy = 0;
-				for (size_t i = 0; i < KNN_mTmp.size(); i++)
-				{
-					if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
-					{
-						good_matchesTmp.push_back(KNN_mTmp[i][0]);
-						// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
-						lisx.push_back(((minMap.cols / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-						lisy.push_back(((minMap.rows / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
-						sumx += lisx.back();
-						sumy += lisy.back();
-					}
-				}
-				Mat img_matches, imgmap, imgminmap;
-				drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-				drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-				drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-
-				if (min(lisx.size(), lisy.size()) <= 4)
+				if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
 				{
 					isContinuity = false;
 				}
 				else
 				{
-					double meanx = sumx / lisx.size(); //均值
-					double meany = sumy / lisy.size(); //均值
-					Point p = SPC(lisx, sumx, lisy, sumy);
+					Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+					std::vector< std::vector<DMatch> > KNN_mTmp;
+					//std::vector<DMatch> good_matchesTmp;
+					matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
+					std::vector<double> lisx;
+					std::vector<double> lisy;
+					double sumx = 0;
+					double sumy = 0;
+					for (size_t i = 0; i < KNN_mTmp.size(); i++)
+					{
+						if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
+						{
+							//good_matchesTmp.push_back(KNN_mTmp[i][0]);
+							// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
+							if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
+							{
+								continue;
+							}
+							
+							lisx.push_back(((minMap.cols / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+							lisy.push_back(((minMap.rows / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+							sumx += lisx.back();
+							sumy += lisy.back();
+						}
+					}
+#ifdef _DEBUG
+					Mat img_matches, imgmap, imgminmap;
+					drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+					drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
-					int x = (int)meanx;
-					int y = (int)meany;
+					drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+#endif
+					if (min(lisx.size(), lisy.size()) <= 4)
+					{
+						isContinuity = false;
+					}
+					else
+					{
+						double meanx = sumx / lisx.size(); //均值
+						double meany = sumy / lisy.size(); //均值
+						Point p = SPC(lisx, sumx, lisy, sumy);
 
-					x = p.x;
-					y = p.y;
+						int x = (int)meanx;
+						int y = (int)meany;
 
- 					pos = Point(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
+						x = p.x;
+						y = p.y;
+
+						pos = Point(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
+					}
 				}
-			}
+				}
+
+				
 		}
 	}
 	if (!isContinuity)
 	{
 		detector->detectAndCompute(img_object, noArray(), Kp_MinMap, Dp_MinMap);
-		Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-		std::vector< std::vector<DMatch> > KNN_m;
-		//std::vector<DMatch> good_matches;
-		matcher->knnMatch(Dp_MinMap, Dp_Map, KNN_m, 2);
 
-		std::vector<double> lisx;
-		std::vector<double> lisy;
-		double sumx = 0;
-		double sumy = 0;
-		for (size_t i = 0; i < KNN_m.size(); i++)
+		if (Kp_MinMap.size() == 0)
 		{
-			if (KNN_m[i][0].distance < ratio_thresh * KNN_m[i][1].distance)
-			{
-				//good_matches.push_back(KNN_m[i][0]);
-				lisx.push_back(((img_object.cols / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.x)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.x));
-				lisy.push_back(((img_object.rows / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.y)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.y));
-				sumx += lisx.back();
-				sumy += lisy.back();
-			}
-		}
-		if (min(lisx.size(), lisy.size()) == 0)
-		{
-			cout << "SURF Match Fail" << endl;
+#ifdef _DEBUG
+			cout << "SURF Match Fail Not KeyPoint" << endl;
+#endif // _DEBUG
 			return;
 		}
 		else
 		{
-			cout << "SURF Match Point Number: " << lisx.size() << "," << lisy.size() << endl;
+			Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+			std::vector< std::vector<DMatch> > KNN_m;
+			//std::vector<DMatch> good_matches;
+			matcher->knnMatch(Dp_MinMap, Dp_Map, KNN_m, 2);
 
-			pos=SPC(lisx, sumx, lisy, sumy);
+			std::vector<double> lisx;
+			std::vector<double> lisy;
+			double sumx = 0;
+			double sumy = 0;
+			for (size_t i = 0; i < KNN_m.size(); i++)
+			{
+				if (KNN_m[i][0].distance < ratio_thresh * KNN_m[i][1].distance)
+				{
+					//good_matches.push_back(KNN_m[i][0]);
+					if (KNN_m[i][0].queryIdx >= Kp_MinMap.size())
+					{
+						continue;
+					}
+					lisx.push_back(((img_object.cols / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.x)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.x));
+					lisy.push_back(((img_object.rows / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.y)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.y));
+					sumx += lisx.back();
+					sumy += lisy.back();
+				}
+			}
+			if (min(lisx.size(), lisy.size()) == 0)
+			{
+				cout << "SURF Match Fail" << endl;
+				return;
+			}
+			else
+			{
+				cout << "SURF Match Point Number: " << lisx.size() << "," << lisy.size() << endl;
+
+				pos = SPC(lisx, sumx, lisy, sumy);
+			}
 		}
 	}
 
