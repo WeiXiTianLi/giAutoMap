@@ -6,6 +6,8 @@ TEMPLATE = app
 TARGET = TianLi_Map
 DESTDIR = ../x64/Release
 CONFIG += release
+INCLUDEPATH += %OpenCvDir%/include/ \
+	-%OpenCvDir%/include/opencv2/ \
 LIBS += -L"." \
     -lopencv_world450 \
     -lade \
