@@ -9,6 +9,7 @@ CONFIG += release
 INCLUDEPATH += C:/projects/opencv/include/ \
 	-C:/projects/opencv/include/opencv2/ \
 LIBS += -L"." \
+	-"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
 	-L"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
 	-l"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
     -lopencv_world450 \
