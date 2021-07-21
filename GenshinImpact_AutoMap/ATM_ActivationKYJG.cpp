@@ -1,5 +1,7 @@
 #include "ATM_ActivationKYJG.h"
 
+#pragma comment (lib, "user32.lib")
+
 void ATM_ActivationKYJG::setActivation()
 {
 	if (kyHandle != NULL)
