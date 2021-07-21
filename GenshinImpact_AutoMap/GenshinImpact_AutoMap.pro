@@ -25,12 +25,24 @@ LIBS += -L"." \
     -lopencv_img_hash450 \
     -lquirc \
     -lzlib \
-    -l$(Qt_LIBS_)
+    -l$(Qt_LIBS_) \
+	-lkernel32.lib \
+	-luser32.lib \
+	-lgdi32.lib \
+	-lwinspool.lib \
+	-lcomdlg32.lib \
+	-ladvapi32.lib \
+	-lshell32.lib \
+	-lole32.lib \
+	-loleaut32.lib \
+	-luuid.lib \
+	-lodbc32.lib \
+	-lodbccp32.lib \
 DEPENDPATH += .
-MOC_DIR += .
-OBJECTS_DIR += release
-UI_DIR += .
-RCC_DIR += .
+MOC_DIR += ./release/moc
+OBJECTS_DIR += ./release/obj
+UI_DIR += ./release/ui
+RCC_DIR += ./release/rcc
 win32:RC_FILE = GenshinImpact_AutoMap.rc
 HEADERS += ./ATM_ActivationKYJG.h \
     ./ATM_GiState.h \
