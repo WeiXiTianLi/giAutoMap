@@ -128,7 +128,7 @@ void ATM_ThreadMatch::cThreadTemplateUIDInit(Mat * TemplateUID)
 	if (tTemplateUIDInit == nullptr && tempUID.isInit == false)
 	{
 		templateUID = TemplateUID;
-		tTemplateUIDInit = new thread(&ATM_ThreadMatch::thread_TemplateUIDInit, this, templateUID);
+		tTemplateUIDInit = new thread(&ATM_ThreadMatch::thread_TemplateUIDInit, this, ref(templateUID));
 		tIsEndTemplateUIDInit = false;
 	}
 }
@@ -153,7 +153,7 @@ void ATM_ThreadMatch::cThreadTemplateStarInit(Mat & TemplateStar)
 	{
 		//templateStar = TemplateStar;
 		cvtColor(TemplateStar, templateStar, CV_RGB2GRAY);
-		tTemplateStarInit = new thread(&ATM_ThreadMatch::thread_TemplateStarInit, this, templateStar);
+		tTemplateStarInit = new thread(&ATM_ThreadMatch::thread_TemplateStarInit, this, ref(templateStar));
 		tIsEndTemplateStarInit = false;
 	}
 }
