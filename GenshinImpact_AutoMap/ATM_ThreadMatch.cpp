@@ -568,7 +568,9 @@ void ATM_TM_SurfMap::SURFMatch()
 				{
 					Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
 					std::vector< std::vector<DMatch> > KNN_mTmp;
-					//std::vector<DMatch> good_matchesTmp;
+#ifdef _DEBUG
+					std::vector<DMatch> good_matchesTmp;
+#endif
 					matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
 					std::vector<double> lisx;
 					std::vector<double> lisy;
@@ -578,7 +580,9 @@ void ATM_TM_SurfMap::SURFMatch()
 					{
 						if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
 						{
-							//good_matchesTmp.push_back(KNN_mTmp[i][0]);
+#ifdef _DEBUG
+							good_matchesTmp.push_back(KNN_mTmp[i][0]);
+#endif
 							// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
 							if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
 							{
@@ -661,13 +665,16 @@ void ATM_TM_SurfMap::SURFMatch()
 			}
 			if (min(lisx.size(), lisy.size()) == 0)
 			{
+#ifdef _DEBUG
 				cout << "SURF Match Fail" << endl;
+#endif
 				return;
 			}
 			else
 			{
+#ifdef _DEBUG
 				cout << "SURF Match Point Number: " << lisx.size() << "," << lisy.size() << endl;
-
+#endif
 				pos = SPC(lisx, sumx, lisy, sumy);
 			}
 		}
@@ -774,7 +781,9 @@ void ATM_TM_TemplatePaimon::TemplatePaimon()
 	Point minLoc, maxLoc;
 	//寻找最佳匹配位置
 	minMaxLoc(tmp, &minVal, &maxVal, &minLoc, &maxLoc);
+#ifdef _DEBUG
 	cout <<"Match Template MinVal & MaxVal" <<minVal << " , "<< maxVal<<endl;
+#endif
 	if (minVal < 0.51 || maxVal == 1)
 	{
 		isPaimonVisible = false;
@@ -1128,8 +1137,9 @@ void ATM_TM_TemplateStar::TemplateStar()
 	
 	matchTemplate(_starTemplate, _starMat, tmp, TM_CCOEFF_NORMED);
 	minMaxLoc(tmp, &minVal, &maxVal, &minLoc, &maxLoc);
+#ifdef _DEBUG
 	cout << "Match Star MinVal & MaxVal : " << minVal << " , " << maxVal << endl;
-
+#endif
 	if (maxVal < 0.66)
 	{
 		isStarVisible = false;
@@ -1146,7 +1156,9 @@ void ATM_TM_TemplateStar::TemplateStar()
 		_starMat(Rect(maxLoc.x, maxLoc.y, _starTemplate.cols, _starTemplate.rows)) = Scalar(0, 0, 0);
 		matchTemplate(_starTemplate, _starMat, tmp, TM_CCOEFF_NORMED);
 		minMaxLoc(tmp, &minVal, &maxVal, &minLoc, &maxLoc);
+#ifdef _DEBUG
 		cout << "Match Star MinVal & MaxVal : " << minVal << " , " << maxVal << endl;
+#endif
 		if (maxVal < 0.66)
 		{
 			isLoopMatch = false;

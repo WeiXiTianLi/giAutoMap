@@ -22,7 +22,7 @@ class ATM_TM_SurfMap
 
 	int minHessian = 400;
 	float ratio_thresh = 0.66f;
-	float mapScale = 1.3f;//1.3;
+	float mapScale = 1.0f;//1.3;
 	int someSizeR = 106;
 	float MatchMatScale = 2.0;
 
@@ -199,7 +199,8 @@ class ATM_ThreadMatch
 public:
 	~ATM_ThreadMatch();
 	ATM_TM_Continuity continuityState;
-	Point pos = Point(1466, 3272);
+	//Point pos = Point(1466, 3272);
+	Point pos = Point(5352, 9432);
 	bool isPaimonVisial = false;
 	bool isContinuity = false;
 	double rotationAngle = 0;
