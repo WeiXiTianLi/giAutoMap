@@ -455,7 +455,7 @@ void AutomaticTrackingMap::setScaleMapDelta(int x, int y,int delta)
 
 	if (delta > 0) 
 	{
-		if (MET.scale > 0.5)
+		if (MET.scale > 0.1)
 		{
 			MET.scale /= 1.2;
 			MET.zerosMinMap.x += dx * 0.2;//1.2-1
@@ -465,7 +465,7 @@ void AutomaticTrackingMap::setScaleMapDelta(int x, int y,int delta)
 	}
 	else 
 	{
-		if (MET.scale < 6)
+		if (MET.scale < 12)
 		{
 			MET.scale *= 1.2;
 			MET.zerosMinMap.x -= dx * 0.2;//1.2-1
@@ -742,7 +742,7 @@ void AutomaticTrackingMap::drawStarObjectLists()
 	OLS.visualStarKlassList.clear();
 	OLS.visualStarIdList.clear();
 	OLS.visualStarDisList.clear();
-	for (int objKlass = 0; objKlass < 3; objKlass++)
+	for (int objKlass = 0; objKlass < 4; objKlass++)
 	{
 		if (OLS.isShow(objKlass))
 		{
@@ -868,7 +868,7 @@ void AutomaticTrackingMap::drawObjectLists()
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	//double minDist = 9999;
-	for (int objKlass = 3; objKlass < OLS.objectListsNumber(); objKlass++)
+	for (int objKlass = 4; objKlass < OLS.objectListsNumber(); objKlass++)
 	{
 		if (OLS.isShow(objKlass))
 		{
@@ -959,16 +959,19 @@ void AutomaticTrackingMap::CopyToThis()
 	{
 		OLS._collectionStateFST = SLF._stateFST;
 	}
-	if (SLF._stateFST.row() != 0)
-
+	if (SLF._stateYST.row() != 0)
 	{
 		OLS._collectionStateYST = SLF._stateYST;
 	}
-	if (SLF._stateFST.row() != 0)
+	if (SLF._stateLST.row() != 0)
+	{
+		OLS._collectionStateLST = SLF._stateLST;
+	}
+	if (SLF._stateFHYS.row() != 0)
 	{
 		OLS._collectionStateFHYS = SLF._stateFHYS;
 	}
-	if (SLF._stateFST.row() != 0)
+	if (SLF._stateFlag.row() != 0)
 	{
 		OLS._collectionStateFlag = SLF._stateFlag;
 	}
@@ -978,6 +981,7 @@ void AutomaticTrackingMap::CopyToLocal()
 {
 	SLF._stateFST = OLS._collectionStateFST;
 	SLF._stateYST = OLS._collectionStateYST;
+	SLF._stateLST = OLS._collectionStateLST;
 	SLF._stateFHYS = OLS._collectionStateFHYS;
 	SLF._stateFlag = OLS._collectionStateFlag;
 }

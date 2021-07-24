@@ -309,6 +309,8 @@
     <Image Include="resource\ObjectIcons\ObjectList205.bmp" />
     <Image Include="resource\ObjectIcons\ObjectList205Mask.bmp" />
     <Image Include="resource\ObjectIcons\ObjectList2Mask.bmp" />
+    <Image Include="resource\ObjectIcons\ObjectList3.bmp" />
+    <Image Include="resource\ObjectIcons\ObjectList3Mask.bmp" />
     <Image Include="resource\ObjectIcons\ObjectList93.bmp" />
     <Image Include="resource\ObjectIcons\ObjectList93Mask.bmp" />
     <Image Include="resource\ObjectIcons\ObjectList94.bmp" />

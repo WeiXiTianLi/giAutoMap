@@ -183,7 +183,8 @@ void GenshinImpact_AutoMap::uiConnectButton()
 	// 在此：添加新的按钮
 	UIObjList.push_back(ui.UIObjList0Button); // 风神瞳
 	UIObjList.push_back(ui.UIObjList1Button); // 岩神瞳
-	UIObjList.push_back(ui.UIObjList2Button); // 绯红玉髓
+	UIObjList.push_back(ui.UIObjList2Button); // 雷神瞳
+	UIObjList.push_back(ui.UIObjList3Button); // 绯红玉髓
 	UIObjList.push_back(ui.UIObjList93Button); // 水晶矿
 	UIObjList.push_back(ui.UIObjList94Button); // 石珀
 	UIObjList.push_back(ui.UIObjList101Button); // 琉璃百合

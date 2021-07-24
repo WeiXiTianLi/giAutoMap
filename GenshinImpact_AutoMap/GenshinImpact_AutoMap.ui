@@ -17,7 +17,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>原神天理系统之自动地图</string>
+   <string>天理地图</string>
   </property>
   <property name="windowIcon">
    <iconset theme="MainIcon" resource="GenshinImpact_AutoMap.qrc">
@@ -508,6 +508,38 @@
     <property name="icon">
      <iconset resource="GenshinImpact_AutoMap_Icon.qrc">
       <normaloff>:/IconUIObjList/resource/UIObjList205.ico</normaloff>:/IconUIObjList/resource/UIObjList205.ico</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="UIObjList3Button">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>92</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="GenshinImpact_AutoMap_Icon.qrc">
+      <normaloff>:/IconUIObjList/resource/UIObjList3.ico</normaloff>:/IconUIObjList/resource/UIObjList3.ico</iconset>
     </property>
     <property name="iconSize">
      <size>
