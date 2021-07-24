@@ -48,9 +48,9 @@ public:
 class ATM_ObjectLists
 {
 	// 在此：添加新的物品需改数量
-	int _objectListsNumber = 11;
-	int _objectMaxNumbers[11] = { 65,131,80,169,104,36,17,120,33,75,69 };
-	bool _isShow[11] = { false };
+	int _objectListsNumber = 12;
+	int _objectMaxNumbers[12] = { 65,131,95,80,169,104,36,17,120,33,75,69 };
+	bool _isShow[12] = { false };
 	bool _isShowFlag = false;
 	ATM_ObjectList *_objList = nullptr;
 	ATM_ObjectFlag _objFlag;
@@ -60,6 +60,8 @@ class ATM_ObjectLists
 public:
 	ATM_Matrix _collectionStateFST = ATM_Matrix(1, 65);
 	ATM_Matrix _collectionStateYST = ATM_Matrix(1, 131);
+	ATM_Matrix _collectionStateLST = ATM_Matrix(1, 95);
+
 	ATM_Matrix _collectionStateFHYS = ATM_Matrix(1, 80);
 
 	ATM_Matrix _collectionStateSJK = ATM_Matrix(1, 169);
@@ -71,9 +73,10 @@ public:
 	ATM_Matrix _collectionStateXDC = ATM_Matrix(1, 75);
 	ATM_Matrix _collectionStateXL = ATM_Matrix(1, 69);
 
+
 	ATM_Matrix _collectionStateFlag;
 
-	ATM_Matrix *collectionState[11];
+	ATM_Matrix *collectionState[12];
 	vector<int> visualStarKlassList;
 	vector<int> visualStarIdList;
 	vector<double> visualStarDisList;
@@ -126,6 +129,7 @@ private:
 	void Init8();
 	void Init9();
 	void Init10();
+	void Init11();
 	//void InitId(int id);
 	void append(int i, int x, int y);
 };
