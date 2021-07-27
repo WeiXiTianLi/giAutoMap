@@ -50,12 +50,14 @@
 #define IDB_OBJICON105MASK              148
 #define IDB_OBJICON205                  149
 #define IDB_OBJICON205MASK              150
+#define IDB_OBJICON3                    151
+#define IDB_OBJICON3MASK                152
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        151
+#define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

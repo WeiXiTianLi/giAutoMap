@@ -62,6 +62,7 @@ void ATM_SaveLoadFile::save()
 
 	saveMatrix(fpSave, _stateFST);
 	saveMatrix(fpSave, _stateYST);
+	saveMatrix(fpSave, _stateLST);
 	saveMatrix(fpSave, _stateFHYS);
 	saveMatrix(fpSave, _stateFlag);
 
@@ -84,7 +85,38 @@ void ATM_SaveLoadFile::load()
 
 	loadMatrix(fpLoad, _stateFST);
 	loadMatrix(fpLoad, _stateYST);
+
+	/*
+	loadMatrix(fpLoad, _stateLST);
 	loadMatrix(fpLoad, _stateFHYS);
+
+	*/
+	int x = 0, y = 0;
+	fscanf_s(fpLoad, "%d %d", &x, &y);
+	if (_stateLST.row() != y)
+	{
+		ATM_Matrix & mat = _stateFHYS;
+		for (int i = 0; i < mat.col(); i++)
+		{
+			for (int ii = 0; ii < mat.row(); ii++)
+			{
+				fscanf_s(fpLoad, "%d", &mat[i][ii]);
+			}
+		}
+	}
+	else
+	{
+		ATM_Matrix & mat = _stateLST;
+		for (int i = 0; i < mat.col(); i++)
+		{
+			for (int ii = 0; ii < mat.row(); ii++)
+			{
+				fscanf_s(fpLoad, "%d", &mat[i][ii]);
+			}
+		}
+		loadMatrix(fpLoad, _stateFHYS);
+	}
+
 	loadMatrix(fpLoad, _stateFlag);
 
 	fclose(fpLoad);
@@ -132,9 +164,11 @@ void ATM_SaveLoadFile::getFilePath()
 
 string ATM_SaveLoadFile::getSystemTime()
 {
+	struct tm t;
 	time_t nowTime = time(NULL);
 	char nowTimeChars[64] = { 0 };
-	strftime(nowTimeChars, sizeof(nowTimeChars) - 1, "%Y-%m-%d %H:%M:%S", localtime(&nowTime));     //年-月-日 时-分-秒
+	localtime_s(&t, &nowTime);
+	strftime(nowTimeChars, sizeof(nowTimeChars) - 1, "%Y-%m-%d %H:%M:%S", &t);     //年-月-日 时-分-秒
 
 	return string(nowTimeChars);
 }
@@ -164,4 +198,23 @@ void ATM_SaveLoadFile::loadMatrix(FILE * fpLoad, ATM_Matrix & mat)
 			fscanf_s(fpLoad, "%d", &mat[i][ii]);
 		}
 	}
+}
+
+bool ATM_SaveLoadFile::loadMatrix2(FILE * fpLoad, ATM_Matrix & mat)
+{
+	int x = 0, y = 0;
+	fscanf_s(fpLoad, "%d %d", &x, &y);
+	if (mat.row() != y)
+	{
+		return false;
+	}
+	mat.reSet(x, y);
+	for (int i = 0; i < mat.col(); i++)
+	{
+		for (int ii = 0; ii < mat.row(); ii++)
+		{
+			fscanf_s(fpLoad, "%d", &mat[i][ii]);
+		}
+	}
+	return true;
 }
