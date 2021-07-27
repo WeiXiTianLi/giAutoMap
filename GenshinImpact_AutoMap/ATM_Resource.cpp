@@ -63,7 +63,8 @@ void ATM_Resource::loadMainMask()
 void ATM_Resource::loadGiAvatar()
 {
 	hGIAVATAR = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIAVATAR));
-	HBitmap2Mat(hGIAVATAR, GIAVATAR);
+	//HBitmap2Mat(hGIAVATAR, GIAVATAR);
+	HBitmap2MatAlpha(hGIAVATAR, GIAVATAR);
 }
 
 void ATM_Resource::loadGiAvatarMask()
