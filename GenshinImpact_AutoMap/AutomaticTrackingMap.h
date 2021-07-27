@@ -70,11 +70,13 @@ public:
 	Size mapSize = Size(RES.GIMAP.cols, RES.GIMAP.rows);
 	//完整地图世界中心，相对原点
 	//Point mapWorldCenter = Point(1416, 3306);
-	Point mapWorldCenter = Point(5352, 9432);
+	//Point mapWorldCenter = Point(5352, 9432);
+	Point mapWorldCenter = Point(1428, 2937);
 
 	//悬浮窗中心所对大地图位置
 	//Point2d zerosMinMap = Point(1466, 3272);//Point(5352, 9432)
-	Point2d zerosMinMap = Point(5352, 9432);//Point(5352, 9432)
+	//Point2d zerosMinMap = Point(5352, 9432);//Point(5352, 9432)
+	Point2d zerosMinMap = Point(1428, 2937);//Point(5352, 9432)
 	//悬浮窗相对原神窗口位置
 	Point offGiMinMap = Point(250, 100);
 	//

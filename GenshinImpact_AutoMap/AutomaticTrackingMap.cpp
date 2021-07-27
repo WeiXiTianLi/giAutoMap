@@ -455,7 +455,7 @@ void AutomaticTrackingMap::setScaleMapDelta(int x, int y,int delta)
 
 	if (delta > 0) 
 	{
-		if (MET.scale > 0.5)
+		if (MET.scale > 0.1)
 		{
 			MET.scale /= 1.2;
 			MET.zerosMinMap.x += dx * 0.2;//1.2-1
@@ -465,7 +465,7 @@ void AutomaticTrackingMap::setScaleMapDelta(int x, int y,int delta)
 	}
 	else 
 	{
-		if (MET.scale < 6)
+		if (MET.scale < 12)
 		{
 			MET.scale *= 1.2;
 			MET.zerosMinMap.x -= dx * 0.2;//1.2-1
@@ -742,7 +742,7 @@ void AutomaticTrackingMap::drawStarObjectLists()
 	OLS.visualStarKlassList.clear();
 	OLS.visualStarIdList.clear();
 	OLS.visualStarDisList.clear();
-	for (int objKlass = 0; objKlass < 3; objKlass++)
+	for (int objKlass = 0; objKlass < 4; objKlass++)
 	{
 		if (OLS.isShow(objKlass))
 		{
@@ -825,9 +825,15 @@ void AutomaticTrackingMap::drawStarObjectLists()
 					p = OLS.p(OLS.visualStarKlassList[i], OLS.visualStarIdList[i]);
 					x = (int)((p.x - minMapRect.x) / MET.scale) - RES.GISTAR.cols / 2;
 					y = (int)((p.y - minMapRect.y) / MET.scale) - RES.GISTAR.rows / 2;
-					ObjIconROIMat = MainMat(Rect(x, y, RES.GISTAR.cols, RES.GISTAR.rows));
-					addWeightedAlpha(ObjIconROIMat, RES.GISTAR, RES.GISTARMASK, 0.5);
+					if (x > 0 && y > 0 && x + RES.GISTAR.cols < autoMapSize.width&&y + RES.GISTAR.rows < autoMapSize.height)
+					{
+						ObjIconROIMat = MainMat(Rect(x, y, RES.GISTAR.cols, RES.GISTAR.rows));
+						addWeightedAlpha(ObjIconROIMat, RES.GISTAR, RES.GISTARMASK, 0.5);
+
+					}
+
 				}
+
 				TMS.isStarExist = true;
 				OLS.isSelectObj = true;
 
@@ -868,7 +874,7 @@ void AutomaticTrackingMap::drawObjectLists()
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	//double minDist = 9999;
-	for (int objKlass = 3; objKlass < OLS.objectListsNumber(); objKlass++)
+	for (int objKlass = 4; objKlass < OLS.objectListsNumber(); objKlass++)
 	{
 		if (OLS.isShow(objKlass))
 		{
@@ -948,7 +954,7 @@ void AutomaticTrackingMap::drawAvatar()
 	if (isAutoMode)
 	{
 		Mat avatar= rotateAvatar(TMS.rotationAngle,1.0/1.3);//大地图与小地图之比
-		Mat DrawAvatarRoi = MainMat(Rect(autoMapCenter.x - RES.GIAVATARMASK.cols / 2, autoMapCenter.y - avatar.rows / 2, avatar.cols, avatar.rows));
+		Mat DrawAvatarRoi = MainMat(Rect(autoMapCenter.x - avatar.cols / 2, autoMapCenter.y - avatar.rows / 2, avatar.cols, avatar.rows));
 		addWeightedPNG(DrawAvatarRoi, avatar);
 	}
 }
@@ -959,16 +965,19 @@ void AutomaticTrackingMap::CopyToThis()
 	{
 		OLS._collectionStateFST = SLF._stateFST;
 	}
-	if (SLF._stateFST.row() != 0)
-
+	if (SLF._stateYST.row() != 0)
 	{
 		OLS._collectionStateYST = SLF._stateYST;
 	}
-	if (SLF._stateFST.row() != 0)
+	if (SLF._stateLST.row() != 0)
+	{
+		OLS._collectionStateLST = SLF._stateLST;
+	}
+	if (SLF._stateFHYS.row() != 0)
 	{
 		OLS._collectionStateFHYS = SLF._stateFHYS;
 	}
-	if (SLF._stateFST.row() != 0)
+	if (SLF._stateFlag.row() != 0)
 	{
 		OLS._collectionStateFlag = SLF._stateFlag;
 	}
@@ -978,6 +987,7 @@ void AutomaticTrackingMap::CopyToLocal()
 {
 	SLF._stateFST = OLS._collectionStateFST;
 	SLF._stateYST = OLS._collectionStateYST;
+	SLF._stateLST = OLS._collectionStateLST;
 	SLF._stateFHYS = OLS._collectionStateFHYS;
 	SLF._stateFlag = OLS._collectionStateFlag;
 }
@@ -1028,6 +1038,7 @@ void AutomaticTrackingMap::addWeightedPNG(Mat & backgroundImage, Mat & Image)
 	split(backgroundImage, dstt_channels);
 
 	Mat Alpha = scr_channels[3];
+	//Mat Alpha = Mat(scr_channels[0].size(), CV_8UC1, Scalar(255));
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -1040,17 +1051,17 @@ void AutomaticTrackingMap::addWeightedPNG(Mat & backgroundImage, Mat & Image)
 Mat AutomaticTrackingMap::rotateAvatar(double angle)
 {
 	Mat avatar;
-	Point2f pt(RES.GIAVATARMASK.cols / 2., RES.GIAVATARMASK.rows / 2.);
+	Point2f pt(RES.GIAVATAR.cols / 2., RES.GIAVATAR.rows / 2.);
 	Mat r = getRotationMatrix2D(pt, angle, 1.0);
-	warpAffine(RES.GIAVATARMASK, avatar, r, Size(pt*2));
+	warpAffine(RES.GIAVATAR, avatar, r, Size(pt*2));
 	return avatar;
 }
 
 Mat AutomaticTrackingMap::rotateAvatar(double angle, double scale)
 {
 	Mat avatar;
-	Point2f pt(RES.GIAVATARMASK.cols / 2., RES.GIAVATARMASK.rows / 2.);
+	Point2f pt(RES.GIAVATAR.cols / 2., RES.GIAVATAR.rows / 2.);
 	Mat r = getRotationMatrix2D(pt, angle, scale);
-	warpAffine(RES.GIAVATARMASK, avatar, r, Size(pt * 2));
+	warpAffine(RES.GIAVATAR, avatar, r, Size(pt * 2));
 	return avatar;
 }
