@@ -674,9 +674,13 @@ void ATM_TM_SurfMap::SURFMatch()
 								}
 								else
 								{
-									if (min(lisx.size(), lisy.size()) >= 16)
+									if (min(lisx.size(), lisy.size()) >= 10)
 									{
 										isOnCity = true;
+									}
+									else
+									{
+										isOnCity = false;
 									}
 
 									double meanx = sumx / lisx.size(); //均值
@@ -715,7 +719,7 @@ void ATM_TM_SurfMap::SURFMatch()
 				{
 					//在城镇中
 					/***********************/
-								//重新从完整中地图取出角色周围部分地图
+					//重新从完整中地图取出角色周围部分地图
 					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
 					Mat minMap(img_object);
 
@@ -767,10 +771,18 @@ void ATM_TM_SurfMap::SURFMatch()
 #endif
 						if (max(lisx.size(), lisy.size()) > 4)
 						{
-							if (min(lisx.size(), lisy.size()) >= 16)
+							if (min(lisx.size(), lisy.size()) >= 10)
 							{
 								isOnCity = true;
 							}
+							else
+							{
+								isOnCity = false;
+							}
+							//if(max(lisx.size(), lisy.size()) <=10 )
+							//{
+							//	isOnCity = false;
+							//}
 
 							double meanx = sumx / lisx.size(); //均值
 							double meany = sumy / lisy.size(); //均值
