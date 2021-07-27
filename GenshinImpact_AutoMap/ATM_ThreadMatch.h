@@ -21,10 +21,10 @@ class ATM_TM_SurfMap
 	Mat _minMapMat;
 
 	int minHessian = 400;
-	float ratio_thresh = 0.66f;
-	float mapScale = 1.3f;//1.3;
+	double ratio_thresh = 0.66;
+	double mapScale = 1.3;//1.3;
 	int someSizeR = 106;
-	float MatchMatScale = 2.0;
+	double MatchMatScale = 2.0;
 
 	Ptr<xfeatures2d::SURF> detector, detectorSomeMap;
 	std::vector<KeyPoint> Kp_MinMap, Kp_Map, Kp_SomeMap;
@@ -76,9 +76,12 @@ class ATM_TM_ORBAvatar
 	Mat _avatarMat;
 	double rotationAngle = 0;
 
-	Ptr<ORB> orb;
-	vector<KeyPoint> Kp_Template, Kp_Avatar;
-	Mat Dp_Template, Dp_Avatar;
+	Mat gray0;
+	Mat gray1;
+	Mat gray2;
+	Mat and12;
+	Mat dilate_element = getStructuringElement(MORPH_RECT, Size(2, 2));
+	Mat erode_element = getStructuringElement(MORPH_RECT, Size(2, 2));
 
 public:
 	bool isInit = false;
