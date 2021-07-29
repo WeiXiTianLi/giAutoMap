@@ -10,7 +10,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
 <details>
-  <summary> # 效果演示 </summary>
+  <summary> 效果演示 </summary>
   
 ## 新分支
 
