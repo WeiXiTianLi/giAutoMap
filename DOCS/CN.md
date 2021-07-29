@@ -133,7 +133,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 ### 百度云
 ### `v1.070` 
 #### 添加了部分新资源，提高了追踪的稳定性
-链接：(https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
+[下载链接](https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
 提取码：esh8 
 
 ### `v2.011 预览版`
