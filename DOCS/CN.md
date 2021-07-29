@@ -1,13 +1,13 @@
 Now you are now viewing in [Chinese Simplified](DOCS/CN.md) 
 #  原神自动地图 `TianLi_Map`
-
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/2.0.1/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) 
 * 自动发现小地图上出现的神瞳并记录
 
 * 自动记忆神瞳是否收集，判断显示哪些神瞳没被发现
 
 * 神瞳已收集的话，神瞳就会变成半透明。
 
-* `Alt+T`或者地图任意位置左键双击开启关闭自动追踪，如果显示神瞳的话就会自动开始识别记录。
+* `Alt+T` 或者地图任意位置左键双击开启关闭自动追踪，如果显示神瞳的话就会自动开始识别记录。
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
 # 效果演示
@@ -70,7 +70,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 
 * opencv4.5.0
 
-## 工作原理与系统权限
+## 工作原理
 
 本地图是通过调用Windows Api来对原神的游戏窗口进行截屏，然后对画面进行图像处理，对地图与世界地图进行匹配来实现的自动追踪。
 
@@ -78,18 +78,18 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 
 目前所有涉及对原神窗口的操作如下：
 
-`giHandle = FindWindowA(NULL, "原神");` 获取原神窗口句柄
+* `giHandle = FindWindowA(NULL, "原神");` -- 获取原神窗口句柄
 
-`giIsDisplayFlag = !IsIconic(giHandle);` 判断原神是否处于最小化
+* `giIsDisplayFlag = !IsIconic(giHandle);` --判断原神是否处于最小化
 
-`GetWindowRect(giHandle, &giRect);` 获取原神窗口区域
+* `GetWindowRect(giHandle, &giRect);` --获取原神窗口区域
 
-`HDC hScreen = GetDC(giHandle);` 获取原神窗口画面，作用是截屏获取原神画面
+* `HDC hScreen = GetDC(giHandle);` --获取原神窗口画面，作用是截屏获取原神画面
 
-`SetForegroundWindow(giHandle);` 激活原神窗口为焦点
+* `SetForegroundWindow(giHandle);` --激活原神窗口为焦点
 
-`if (giHandle != NULL)` 判断原神窗口句柄是否为空
-
+* `if (giHandle != NULL)` --判断原神窗口句柄是否为空
+## 系统权限
 之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
 
 （说不定会改到AppData下的LocalLow里）
@@ -124,12 +124,12 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 ### Bilibili
 * [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
 
-* [使用]https://www.bilibili.com/video/BV1ar4y1A7c5  
-`链接版本只经过简单测试，如有任何问题可以提交反馈。`
-## 交流反馈
+* [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
+## 交流
 #### [QQ](538198823):538198823
-----
-### 百度云分流
+# 下载
+## [Github Releases](https://github.com/wmyfelix/GenshinImpact_AutoMap/releases)
+### 百度云
 ### `v1.070` 
 #### 添加了部分新资源，提高了追踪的稳定性
 链接：(https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
@@ -139,4 +139,4 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 #### 添加了雷神瞳+稻妻地图，更新了启动器 
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg 
-
+`链接版本只经过简单测试，如有任何问题可以提交反馈。`
