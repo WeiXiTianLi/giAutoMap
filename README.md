@@ -1,5 +1,5 @@
+[Testing Docs](/DOCS/CN.md)  
 # 原神自动地图（Genshin Impact Auto Map）
-[Testing Docs](/DOCS/CN.md)
 原神自动地图，基于原神小地图的自动标记资源地图
 
 目前做成了原神的PC端内嵌地图工具，神瞳自动标记+资源地图

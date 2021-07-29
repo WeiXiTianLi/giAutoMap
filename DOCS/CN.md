@@ -1,5 +1,5 @@
-Now you are now viewing in [Chinese Simplified](DOCS/CN.md) 
-#  原神自动地图 `TianLi_Map` [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
+Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
+#  原神自动地图 TianLi_Map [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
 * 自动发现小地图上出现的神瞳并记录
 
 * 自动记忆神瞳是否收集，判断显示哪些神瞳没被发现
@@ -19,22 +19,24 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 ![完美嵌入](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
 
 # 使用方法 / Shortcuts
-* [x] `Alt + T` 开启关闭自动追踪
 
-* [x] `Alt + F` 添加删除自定义标记
+* `Alt + T` 开启关闭自动追踪
 
-* [x] `Alt + Enter` 切换为无边框模式
+* `Alt + F` 添加删除自定义标记
 
-* [x] `Alt + M` 激活「空荧酒馆」原神地图客户端的大地图覆盖模式
+* `Alt + Enter` 切换为无边框模式
 
-* [x] `Alt + F8` 选择原神游戏窗口
+* `Alt + M` 激活「空荧酒馆」原神地图客户端的大地图覆盖模式
 
-* [x] `左键拖动`地图
-* [x] `滚轮` 缩放地图显示
+* `Alt + F8` 选择原神游戏窗口
 
-* [x] `中键`移动窗口位置
+* `左键拖动`地图
 
-* [x] `左键双击`左上角派蒙退出
+* `滚轮` 缩放地图显示
+
+* `中键`移动窗口位置
+
+* `左键双击`左上角派蒙退出
 # 开发
 ## 已经实现
 
@@ -137,5 +139,5 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md)
 ### `v2.011 `预览版
 #### 添加了雷神瞳+稻妻地图，更新了启动器 
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
-提取码：88yg 
+提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
