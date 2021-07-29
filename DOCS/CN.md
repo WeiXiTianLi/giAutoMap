@@ -1,6 +1,5 @@
 Now you are now viewing in [Chinese Simplified](DOCS/CN.md) 
-#  原神自动地图 `TianLi_Map`
-[![GitHub release (latest by date)](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/2.0.1/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) 
+#  原神自动地图 `TianLi_Map` [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
 * 自动发现小地图上出现的神瞳并记录
 
 * 自动记忆神瞳是否收集，判断显示哪些神瞳没被发现
