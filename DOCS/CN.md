@@ -12,11 +12,11 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 # 效果演示
 ## 新分支
 
-![完美嵌入](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
+![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
 
 ## 主分支
 
-![完美嵌入](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
+![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
 
 # 使用方法 / Shortcuts
 
