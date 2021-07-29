@@ -128,7 +128,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
 ## 交流
 #### [QQ](538198823):538198823
-# 下载
+``` {toggle} 下载
 ## [Github Releases](https://github.com/wmyfelix/GenshinImpact_AutoMap/releases)
 ### 百度云
 ### `v1.070` 
@@ -141,3 +141,4 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
+```
