@@ -9,18 +9,18 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `Alt+T` 或者地图任意位置左键双击开启关闭自动追踪，如果显示神瞳的话就会自动开始识别记录。
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
-<details>
-  <summary> 效果演示 </summary>
+    <details>
+     <summary> 效果演示 </summary>
   
-## 新分支
+    ## 新分支
 
-![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
+    ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
 
-## 主分支
+    ## 主分支
 
-![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
+    ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
 
-</details>
+    </details>
 
 # 使用方法 / Shortcuts
 
@@ -42,8 +42,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * `左键双击`左上角派蒙退出
 # Devs
+[DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
 <details>
-  <summary>开发</summary>
+  <summary>此项目的开发</summary>
   
   ## 已经实现
 
@@ -85,18 +86,21 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
   通过Api来设置地图为顶层窗口，使其保持在原神游戏窗口的上方。
 
   目前所有涉及对原神窗口的操作如下：
+  ``` C++
+   giHandle = FindWindowA(NULL, "原神"); //获取原神窗口句柄
 
-  * `giHandle = FindWindowA(NULL, "原神");` -- 获取原神窗口句柄
+   giIsDisplayFlag = !IsIconic(giHandle); //判断原神是否处于最小化
 
-  * `giIsDisplayFlag = !IsIconic(giHandle);` --判断原神是否处于最小化
+   GetWindowRect(giHandle, &giRect); //获取原神窗口区域
 
-  * `GetWindowRect(giHandle, &giRect);` --获取原神窗口区域
+   HDC hScreen = GetDC(giHandle); //获取原神窗口画面，作用是截屏获取原神画面
 
-  * `HDC hScreen = GetDC(giHandle);` --获取原神窗口画面，作用是截屏获取原神画面
+   SetForegroundWindow(giHandle); //激活原神窗口为焦点
 
-  * `SetForegroundWindow(giHandle);` --激活原神窗口为焦点
-
-  * `if (giHandle != NULL)` --判断原神窗口句柄是否为空
+   if (giHandle != NULL) //判断原神窗口句柄是否为空
+    
+   ```
+  
   ## 系统权限
   之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
 
@@ -114,7 +118,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 </details>
 
-
+----
 # 已知问题
 
 * 自动追踪在城镇中表现得非常鬼畜，来回乱闪。
@@ -127,10 +131,12 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 以至于角色位置识别误差非常大。
 目前的解决方案是判断当误差变大时尝试更新缩放因子来识别。（还没做）
 # 无法使用？
-* 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
+1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
    * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
    * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
-
+2. 请查看：[视频教程](#视频教程)
+3. 提交[Issues](/issues)
+3. 无论有没有问题，你都可以加群[♂](#交流)
 ## 视频教程
 ### Bilibili
 * [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
@@ -139,10 +145,12 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 ## 交流
 #### [QQ](538198823):538198823
 ----
-### [Github Releases](https://github.com/wmyfelix/GenshinImpact_AutoMap/releases)
+<Details>
+<summary>分流下载</summary>
+    
 ### 百度云
 ### `v1.070` 
-#### 添加了部分新资源，提高了追踪的稳定性
+ #### 添加了部分新资源，提高了追踪的稳定性
 [下载链接](https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
 提取码：esh8 
 
@@ -151,3 +159,4 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
+</Details>
