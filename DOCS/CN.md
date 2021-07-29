@@ -41,84 +41,81 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `中键`移动窗口位置
 
 * `左键双击`左上角派蒙退出
-
+# Devs
 <details>
-  <summary># 开发</summary>
+  <summary>开发</summary>
   
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
+  ## 已经实现
+
+  * [x] 通过游戏内小地图，自动识别角色所在位置以及角色朝向
+
+  * [x] 添加了自动识别UID
+
+  * [x] 检测游戏状态
+
+  * [x] 添加标记
+
+  * [x] 缩放改为以指针为中心
+
+  * [x] 根据数据库显示周围资源分布
+
+  * [x] 保存存档  
+
+  ## 计划实现
+
+  * [ ] 添加更多点位
+
+  * [ ] 优化UI（慢慢来）
+
+  * [ ] 优化匹配
+
+  * [ ] 添加图论部分实现导航收集某种资源的最短路径
+  ## 开发环境
+
+  * Visual Studio 2017 
+
+  * Qt5.12
+
+  * opencv4.5.0
+
+  ## 工作原理
+
+  本地图是通过调用Windows Api来对原神的游戏窗口进行截屏，然后对画面进行图像处理，对地图与世界地图进行匹配来实现的自动追踪。
+
+  通过Api来设置地图为顶层窗口，使其保持在原神游戏窗口的上方。
+
+  目前所有涉及对原神窗口的操作如下：
+
+  * `giHandle = FindWindowA(NULL, "原神");` -- 获取原神窗口句柄
+
+  * `giIsDisplayFlag = !IsIconic(giHandle);` --判断原神是否处于最小化
+
+  * `GetWindowRect(giHandle, &giRect);` --获取原神窗口区域
+
+  * `HDC hScreen = GetDC(giHandle);` --获取原神窗口画面，作用是截屏获取原神画面
+
+  * `SetForegroundWindow(giHandle);` --激活原神窗口为焦点
+
+  * `if (giHandle != NULL)` --判断原神窗口句柄是否为空
+  ## 系统权限
+  之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
+
+  （说不定会改到AppData下的LocalLow里）
+
+  如：`C:\Users\%USERNAME%\AppData\Local\Temp\GenshinImpactAutoMap`
+
+  日后可能会开发GPU加速图像处理的功能，需要使用GPU运算。
+
+  目前为了与“「空荧酒馆」原神地图”客户端通信还使用了本机的23333端口用来发送原神角色的位置、朝向以及UID。
+
+  还有读写文件存档。
+
+  除此之外不存在其他系统资源的使用，也没有获取系统权限的需求。
+
 </details>
-## 已经实现
 
-* [x] 通过游戏内小地图，自动识别角色所在位置以及角色朝向
 
-* [x] 添加了自动识别UID
-
-* [x] 检测游戏状态
-
-* [x] 添加标记
-
-* [x] 缩放改为以指针为中心
-
-* [x] 根据数据库显示周围资源分布
-
-* [x] 保存存档  
-
-## 计划实现
-
-* [ ] 添加更多点位
-
-* [ ] 优化UI（慢慢来）
-
-* [ ] 优化匹配
-
-* [ ] 添加图论部分实现导航收集某种资源的最短路径
-## 开发环境
-
-* Visual Studio 2017 
-
-* Qt5.12
-
-* opencv4.5.0
-
-## 工作原理
-
-本地图是通过调用Windows Api来对原神的游戏窗口进行截屏，然后对画面进行图像处理，对地图与世界地图进行匹配来实现的自动追踪。
-
-通过Api来设置地图为顶层窗口，使其保持在原神游戏窗口的上方。
-
-目前所有涉及对原神窗口的操作如下：
-
-* `giHandle = FindWindowA(NULL, "原神");` -- 获取原神窗口句柄
-
-* `giIsDisplayFlag = !IsIconic(giHandle);` --判断原神是否处于最小化
-
-* `GetWindowRect(giHandle, &giRect);` --获取原神窗口区域
-
-* `HDC hScreen = GetDC(giHandle);` --获取原神窗口画面，作用是截屏获取原神画面
-
-* `SetForegroundWindow(giHandle);` --激活原神窗口为焦点
-
-* `if (giHandle != NULL)` --判断原神窗口句柄是否为空
-## 系统权限
-之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
-
-（说不定会改到AppData下的LocalLow里）
-
-如：`C:\Users\%USERNAME%\AppData\Local\Temp\GenshinImpactAutoMap`
-
-日后可能会开发GPU加速图像处理的功能，需要使用GPU运算。
-
-目前为了与“「空荧酒馆」原神地图”客户端通信还使用了本机的23333端口用来发送原神角色的位置、朝向以及UID。
-
-还有读写文件存档。
-
-除此之外不存在其他系统资源的使用，也没有获取系统权限的需求。
-
-## 已知问题
+# 已知问题
 
 * 自动追踪在城镇中表现得非常鬼畜，来回乱闪。
 
@@ -129,7 +126,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 但是在城镇内部，原神小地图放大了，所以使用的缩放因子便不适合了。
 以至于角色位置识别误差非常大。
 目前的解决方案是判断当误差变大时尝试更新缩放因子来识别。（还没做）
-## 无法使用？
+# 无法使用？
 * 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
    * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
    * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
