@@ -136,7 +136,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 链接：(https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
 提取码：esh8 
 
-### `v2.011 `预览版
+### `v2.011 ` 预览版
 #### 添加了雷神瞳+稻妻地图，更新了启动器 
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg  
