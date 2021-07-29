@@ -1,4 +1,4 @@
-Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
+You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 #  原神自动地图 TianLi_Map [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
 * 自动发现小地图上出现的神瞳并记录
 
