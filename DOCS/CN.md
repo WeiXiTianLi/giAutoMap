@@ -41,6 +41,13 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `中键`移动窗口位置
 
 * `左键双击`左上角派蒙退出
+# 无法使用？
+1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
+   * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
+   * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
+2. 请查看：[视频教程](#视频教程)
+3. 提交[Issues](/issues)
+3. 无论有没有问题，你都可以加群[♂](#交流)
 # Devs
 [DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
 <details>
