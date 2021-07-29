@@ -9,7 +9,9 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `Alt+T` 或者地图任意位置左键双击开启关闭自动追踪，如果显示神瞳的话就会自动开始识别记录。
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
-# 效果演示
+<details>
+  <summary># 效果演示</summary>
+  
 ## 新分支
 
 ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
@@ -17,6 +19,8 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 ## 主分支
 
 ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
+
+</details>
 
 # 使用方法 / Shortcuts
 
@@ -37,7 +41,16 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `中键`移动窗口位置
 
 * `左键双击`左上角派蒙退出
-# 开发
+
+<details>
+  <summary># 开发</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
 ## 已经实现
 
 * [x] 通过游戏内小地图，自动识别角色所在位置以及角色朝向
@@ -128,7 +141,7 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
 ## 交流
 #### [QQ](538198823):538198823
-``` {toggle} 下载
+----
 ## [Github Releases](https://github.com/wmyfelix/GenshinImpact_AutoMap/releases)
 ### 百度云
 ### `v1.070` 
@@ -141,4 +154,3 @@ Now you are now viewing in [Chinese Simplified](DOCS/CN.md) !
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
-```
