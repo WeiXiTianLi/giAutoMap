@@ -48,6 +48,7 @@ build_script:
     - cd %MyProjectDir%\%ProjectName%
     - cd..
     - qmake
+    - nmake /K
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
     #- nmake
