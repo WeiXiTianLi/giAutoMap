@@ -47,6 +47,7 @@ build_script:
     - set PATH=%PATH%;%QTDIR%\bin;
     - cd %MyProjectDir%\%ProjectName%
     - cd..
+    - qmake
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
     #- nmake
