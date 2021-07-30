@@ -1,7 +1,10 @@
+[Testing Docs](/DOCS/CN.md)  
 # 原神自动地图（Genshin Impact Auto Map）
 原神自动地图，基于原神小地图的自动标记资源地图
 
 目前做成了原神的PC端内嵌地图工具，神瞳自动标记+资源地图
+
+[![Build status](https://ci.appveyor.com/api/projects/status/8kmemyn4jssya2xs?svg=true)](https://ci.appveyor.com/project/GengGode/genshinimpact-automap)
 
 QQ群：538198823
 使用说明吧算是：https://www.bilibili.com/video/BV1Wy4y1x754
