@@ -88,7 +88,7 @@ public:
 	string SystemUserLocalLow="";
 	string SystemUserFileIndex="";
 	string ApplicationCompanyName = "天理系统";
-	string ApplicationName="悬浮窗自动地图";
+	string ApplicationName="天理地图";
 	LANGID SystemLanguageID=0;
 	string SystemLanguage = "Chinese";
 	//Qt

@@ -30,6 +30,11 @@ public:
 
 	bool tryLoad();
 
+	void logRunExe();
+	void logExitExe();
+	void logUIDEvent(int newUID);
+	void logAvatarEvent(double x, double y, double a);
+	void logStarEvent(int starClass,int starId,int starState);
 	//ATM_Matrix* StateClass(int klass);
 
 private:

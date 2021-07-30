@@ -7,11 +7,16 @@ TARGET = TianLi_Map
 DESTDIR = ../x64/Release
 CONFIG += release
 INCLUDEPATH += C:/projects/opencv/include/ \
-	-C:/projects/opencv/include/opencv2/ \
+	C:/projects/opencv/include/opencv2/ \
+	D:/opencv/OpenCV4.5.0sg/build210618/bin/ \
+	D:/opencv/OpenCV4.5.0sg/build210618/include/ \
+	D:/opencv/OpenCV4.5.0sg/build210618/include/opencv2/ \
+	D:/opencv/OpenCV4.5.0sg/build210618/x64/vc15/staticlib/ \
+	D:/opencv/OpenCV4.5.0sg/build210618/x64/vc15/bin/ \
 LIBS += -L"." \
-	-"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
-	-L"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
-	-l"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
+	# -"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
+	# -L"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
+	# -l"C:/projects/opencv/x64/vc15/staticlib/*.lib" \
     -lopencv_world450 \
     -lade \
     -lIlmImf \
