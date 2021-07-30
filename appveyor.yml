@@ -40,7 +40,9 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-
+    
+    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
+    - set PATH=%PATH%;%QTDIR%\bin;
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
