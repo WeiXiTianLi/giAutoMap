@@ -35,7 +35,7 @@ install:
     #- 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
     
 before_build: 
-    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
+    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;
     - set PATH=%PATH%;%QTDIR%\bin;
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
