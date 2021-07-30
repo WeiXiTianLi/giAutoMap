@@ -16,6 +16,8 @@ environment:
     ProJectExeName: TianLi_Map
     MyProjectDir: C:\projects\genshinimpact-automap
     OpenCvDir: C:\projects\opencv\
+    opencvstaticinc: C:\projects\opencv\include; C:\projects\opencv\include\opencv2
+    opencvstaticlib: C:\projects\opencv\x64\vc15\staticlib
     OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
 skip_tags: true
 
@@ -28,21 +30,30 @@ install:
     - appveyor DownloadFile %OpenCvUrl%
     - 7z x ./*.zip -y -o%OpenCvDir%
     - rm -f ./*.zip
-    - cd %MyProjectDir%\%ProjectName%\resource
-    - 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
+    - dir %OpenCvDir%
+    #- cd %MyProjectDir%\%ProjectName%\resource
+    #- 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
     
 before_build: 
-    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
+    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;
     - set PATH=%PATH%;%QTDIR%\bin;
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-
+    
+    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
+    - set PATH=%PATH%;%QTDIR%\bin;
     - cd %MyProjectDir%\%ProjectName%
     - qmake
-    - nmake
+    - nmake /K
+    
+    - cd..
+
+    - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
+    #- qmake
+    #- nmake
     
 after_build:
     # copy include and source code files
