@@ -53,7 +53,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 [DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
 <details>
   <summary>此项目的开发</summary>
-  
+ 解压resource.rar在项目目录下，释放资源文件，否则编译不过。
+ 编译 MSBuild 即可，需要VS安装Qt VS Tools插件。
+ 
   ## 已经实现
 
   * [x] 通过游戏内小地图，自动识别角色所在位置以及角色朝向
