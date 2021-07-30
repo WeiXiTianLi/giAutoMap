@@ -12,6 +12,7 @@ environment:
     msvc: msvc2017
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
+    QT_Include: C:\Qt\5.14.2\msvc2017_64\include\QtWidgets\
     ProjectName: GenshinImpact_AutoMap
     ProJectExeName: TianLi_Map
     MyProjectDir: C:\projects\genshinimpact-automap
@@ -37,6 +38,7 @@ install:
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;
     - set PATH=%PATH%;%QTDIR%\bin;
+    - set PATH=%PATH%;%QT_Include%;
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
     
