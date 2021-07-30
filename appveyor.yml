@@ -28,6 +28,7 @@ install:
     - appveyor DownloadFile %OpenCvUrl%
     - 7z x ./*.zip -y -o%OpenCvDir%
     - rm -f ./*.zip
+    - dir %OpenCvDir%
     #- cd %MyProjectDir%\%ProjectName%\resource
     #- 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
     
