@@ -281,6 +281,9 @@ void ATM_GiState::getGiFrame()
 		getGiFrameMap();
 		getGiFrameUID();
 	}
+#ifdef _DEBUG
+	cout << "Gi Window Rect Mode: "<<giRectMode << endl;
+#endif
 }
 
 void ATM_GiState::getGiFramePaimon()

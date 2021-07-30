@@ -149,6 +149,34 @@ bool ATM_SaveLoadFile::tryLoad()
 	return false;
 }
 
+void ATM_SaveLoadFile::logRunExe()
+{
+	if (_access(_uidFilePath.c_str(), 0) == -1)
+	{
+		return;
+	}
+	else
+	{
+
+	}
+}
+
+void ATM_SaveLoadFile::logExitExe()
+{
+}
+
+void ATM_SaveLoadFile::logUIDEvent(int newUID)
+{
+}
+
+void ATM_SaveLoadFile::logAvatarEvent(double x, double y, double a)
+{
+}
+
+void ATM_SaveLoadFile::logStarEvent(int starClass, int starId, int starState)
+{
+}
+
 void ATM_SaveLoadFile::getUIDStr()
 {
 	char uidBuff[10];
