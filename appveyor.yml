@@ -49,7 +49,7 @@ build_script:
     - qmake
     - nmake /K
     - cd..
-  - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
+    - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
     #- nmake
     
