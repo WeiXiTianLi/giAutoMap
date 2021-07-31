@@ -27,13 +27,12 @@ install:
 
     # download opencv:
     - mkdir %OpenCvDir%
-    #- dir %OpenCvDir%
     - appveyor DownloadFile %OpenCvUrl%
     - 7z x ./*.zip -y -o%OpenCvDir%
     - rm -f ./*.zip
     - dir %OpenCvDir%
-    #- cd %MyProjectDir%\%ProjectName%\resource
-    #- 7z x ./GIMAP.zip -y -o%MyProjectDir%\%ProjectName%\resource
+    - cd %MyProjectDir%\%ProjectName%\resource
+    - 7z x ./resource.rar -y -o%MyProjectDir%\%ProjectName%\
     
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;
@@ -44,16 +43,13 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
     - set PATH=%PATH%;%QTDIR%\bin;
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake /K
-    
     - cd..
-
-    - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
+  - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
     #- nmake
     
