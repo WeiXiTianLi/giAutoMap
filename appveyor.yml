@@ -12,7 +12,7 @@ environment:
     msvc: msvc2017
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
-    QT_Include: C:\Qt\5.14.2\msvc2017_64\include; C:\Qt\5.14.2\msvc2017_64\include\QtWidgets\
+    QT_Include: C:\Qt\5.14.2\msvc2017_64\include; C:\Qt\5.14.2\msvc2017_64\include\QtWidgets\;D:\Qt\5.14.2\msvc2017_64\bin
     ProjectName: GenshinImpact_AutoMap
     ProJectExeName: TianLi_Map
     MyProjectDir: C:\projects\genshinimpact-automap
