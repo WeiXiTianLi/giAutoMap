@@ -38,6 +38,7 @@ before_build:
     - call %vs%\vcvars64.bat x64
     
 build_script:
+    - dir %QTDIR%
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%\%ProjectName%
     - qmake
