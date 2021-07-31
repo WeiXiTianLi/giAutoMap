@@ -45,8 +45,8 @@ build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%\%ProjectName%
 
-    - qmake -tp vc qt.pro
-    - qmake -o Makefile qt.pro
+    - qmake -tp vc GenshinImpact_AutoMap.pro
+    - qmake -o Makefile GenshinImpact_AutoMap.pro
     - nmake /K
     - cd..
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
