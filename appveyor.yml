@@ -34,14 +34,20 @@ install:
     
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
+    - set VC_IncludePath=%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
     
 build_script:
+    - env
+    - dir %QTDIR%
+    - dir %QTDIR%\include
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%\%ProjectName%
-    - qmake
-    #- nmake /K
+
+    - qmake -tp vc qt.pro
+    - qmake -o Makefile qt.pro
+    - nmake /K
     - cd..
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
