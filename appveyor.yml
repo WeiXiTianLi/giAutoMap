@@ -12,13 +12,11 @@ environment:
     msvc: msvc2017
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
-    QT_Include: C:\Qt\5.14.2\msvc2017_64\include\QtWidgets\
+    QT_Include: C:\Qt\5.14.2\msvc2017_64\include
     ProjectName: GenshinImpact_AutoMap
     ProJectExeName: TianLi_Map
     MyProjectDir: C:\projects\genshinimpact-automap
     OpenCvDir: C:\projects\opencv\
-    opencvstaticinc: C:\projects\opencv\include; C:\projects\opencv\include\opencv2
-    opencvstaticlib: C:\projects\opencv\x64\vc15\staticlib
     OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
 skip_tags: true
 
@@ -35,16 +33,12 @@ install:
     - 7z x ./resource.rar -y -o%MyProjectDir%\%ProjectName%\
     
 before_build: 
-    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;
-    - set PATH=%PATH%;%QTDIR%\bin;
-    - set PATH=%PATH%;%QT_Include%;
+    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\include\opencv2;%OpencvDir%\x64\vc15\staticlib;
-    - set PATH=%PATH%;%QTDIR%\bin;
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake /K
