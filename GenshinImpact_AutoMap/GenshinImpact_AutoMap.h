@@ -1,8 +1,8 @@
 #pragma once
 //#include <qfont.h>
-#include <qfontdatabase.h>
-#include <qtimer.h>
-#include <qpainter.h>
+#include <QFontdatabase>
+#include <QTimer>
+#include <QPainter>
 #include <QMouseEvent>
 #include <QtWidgets/QMainWindow>
 #include "ui_GenshinImpact_AutoMap.h"
