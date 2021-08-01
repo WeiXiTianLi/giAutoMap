@@ -12,6 +12,8 @@ class ATM_SaveLoadFile
 	string _saveIndex = "";
 	char _lastSaveTimeChars[60] = {'\0'};
 	string _uidFilePath = "";
+	string logFilePath = "";
+
 	const string _uid_ = "UID-";
 public:
 	ATM_Matrix _stateFST = ATM_Matrix(1, 65);
@@ -30,8 +32,9 @@ public:
 
 	bool tryLoad();
 
-	void logRunExe();
-	void logExitExe();
+	void logError(string mes);
+	void logExeRun();
+	void logExeExit();
 	void logUIDEvent(int newUID);
 	void logAvatarEvent(double x, double y, double a);
 	void logStarEvent(int starClass,int starId,int starState);

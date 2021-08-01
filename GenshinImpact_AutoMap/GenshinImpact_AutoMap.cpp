@@ -123,7 +123,7 @@ void GenshinImpact_AutoMap::wheelEvent(QWheelEvent * event)
 	update();
 }
 
-void GenshinImpact_AutoMap::paintEvent(QPaintEvent * event)
+void GenshinImpact_AutoMap::paintEvent(QPaintEvent *)
 {
 	//设置画面为地图
 	QPainter painter(this);

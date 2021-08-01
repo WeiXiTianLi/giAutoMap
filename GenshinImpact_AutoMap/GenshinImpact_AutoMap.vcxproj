@@ -231,6 +231,7 @@
     <ClCompile Include="QtClassMyExitButton.cpp" />
     <ClCompile Include="QtClassMyHotKayNativeEventFilter.cpp" />
     <ClCompile Include="QtClassMyHotKeyObject.cpp" />
+    <ClCompile Include="QtSingleApplication.cpp" />
     <ClCompile Include="QtWidgetsClassMySelectGenshinImpactHandle.cpp" />
     <QtRcc Include="GenshinImpact_AutoMap.qrc" />
     <QtRcc Include="GenshinImpact_AutoMap_Icon.qrc" />
@@ -263,6 +264,7 @@
     <ClInclude Include="QtClassMyHotKayNativeEventFilter.h" />
     <QtMoc Include="QtClassMyHotKeyObject.h" />
     <QtMoc Include="QtWidgetsClassMySelectGenshinImpactHandle.h" />
+    <QtMoc Include="QtSingleApplication.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -13,13 +13,13 @@ void ATM_SaveLoadFile::setIndex(string index)
 {
 	if (_access(index.c_str(), 0) == -1)
 	{
-		int e= _mkdir(index.c_str());//error 3
+		int e = _mkdir(index.c_str());//error 3
 		if (e == -1 && GetLastError() == 3)
 		{
 			int i = 0;
 			string _index(index);
-			i = index.rfind("\\",index.size()-2);
-			_index.erase(_index.begin()+ i,_index.end());
+			i = index.rfind("\\", (int)index.size() - 2);
+			_index.erase(_index.begin() + i, _index.end());
 			_mkdir(_index.c_str());
 			_mkdir(index.c_str());
 		}
@@ -56,7 +56,7 @@ void ATM_SaveLoadFile::save()
 	{
 		return;
 	}
-	
+
 	fprintf_s(fpSave, "%s\n", _uidStr.c_str());
 	fprintf_s(fpSave, "%s\n", getSystemTime().c_str());
 
@@ -149,32 +149,161 @@ bool ATM_SaveLoadFile::tryLoad()
 	return false;
 }
 
-void ATM_SaveLoadFile::logRunExe()
+void ATM_SaveLoadFile::logError(string mes)
 {
-	if (_access(_uidFilePath.c_str(), 0) == -1)
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
 	{
 		return;
 	}
-	else
-	{
 
-	}
+	fprintf_s(fpSave, "%s | LOG ERROR   | message: %s |\n",
+		getSystemTime().c_str(), mes.c_str());
+
+	fclose(fpSave);
+
 }
 
-void ATM_SaveLoadFile::logExitExe()
+void ATM_SaveLoadFile::logExeRun()
 {
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+
+	fprintf_s(fpSave, "%s | LOG EXE     | exe run |\n", getSystemTime().c_str());
+
+	fclose(fpSave);
+
+}
+
+void ATM_SaveLoadFile::logExeExit()
+{
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+
+	fprintf_s(fpSave, "%s | LOG EXE     | exe exit |\n", getSystemTime().c_str());
+
+	fclose(fpSave);
+
 }
 
 void ATM_SaveLoadFile::logUIDEvent(int newUID)
 {
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+
+	fprintf_s(fpSave, "%s | LOG UID     | UID_%d to UID_%d |\n",
+		getSystemTime().c_str(), _uid, newUID);
+
+	fclose(fpSave);
+
 }
 
 void ATM_SaveLoadFile::logAvatarEvent(double x, double y, double a)
 {
+	static double _x = 0;
+	static double _y = 0;
+	static double _a = 0;
+	if (abs(a - _a) < 1e-5 && abs(x - _x) < 1e-5 && abs(y - _y) < 1e-5)
+	{
+		_x = x;
+		_y = y;
+		_a = a;
+		return;
+	}
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+	
+	fprintf_s(fpSave, "%s | LOG AVATAR  | x: %lf y: %lf a: %lf |\n",
+		getSystemTime().c_str(), x, y, a);
+
+	_x = x;
+	_y = y;
+	_a = a;
+
+	fclose(fpSave);
+
 }
 
 void ATM_SaveLoadFile::logStarEvent(int starClass, int starId, int starState)
 {
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+
+	fprintf_s(fpSave, "%s | LOG STAR    | starClass: %d starId: %d starState: %d |\n",
+		getSystemTime().c_str(), starClass, starId, starState);
+
+	fclose(fpSave);
+
 }
 
 void ATM_SaveLoadFile::getUIDStr()
@@ -188,6 +317,7 @@ void ATM_SaveLoadFile::getFilePath()
 {
 	getUIDStr();
 	_uidFilePath = _saveIndex + _uid_ + _uidStr + ".ini";
+	logFilePath = _saveIndex + "ÖîÓòÖÜÓÎ.¼Ç";
 }
 
 string ATM_SaveLoadFile::getSystemTime()

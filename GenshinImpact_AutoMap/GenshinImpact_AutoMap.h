@@ -42,7 +42,7 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseDoubleClickEvent(QMouseEvent *event);
 	void wheelEvent(QWheelEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *);
 
 private:
 	void displayUID(int uid);

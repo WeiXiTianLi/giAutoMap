@@ -339,6 +339,7 @@ void ATM_ThreadMatch::CheckThread_OrbAvatarInit()
 
 void ATM_ThreadMatch::thread_OrbAvatarInit(Mat & tar)
 {
+	if (tar.empty());
 	orbAvatar.setAvatarTemplate(templateAvatar);
 	orbAvatar.Init();
 }
@@ -606,8 +607,15 @@ void ATM_TM_SurfMap::SURFMatch()
 
 						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 #endif
+#ifdef _DEBUG
+						if (var(lisx, sumx, lisy, sumy) > 10)
+						{
+
+						}
+#endif
 						if (min(lisx.size(), lisy.size()) <= 4)
 						{
+
 							//有可能处于城镇中
 
 							/***********************/
@@ -683,8 +691,8 @@ void ATM_TM_SurfMap::SURFMatch()
 										isOnCity = false;
 									}
 
-									double meanx = sumx / lisx.size(); //均值
-									double meany = sumy / lisy.size(); //均值
+									//double meanx = sumx / lisx.size(); //均值
+									//double meany = sumy / lisy.size(); //均值
 									Point p = SPC(lisx, sumx, lisy, sumy);
 
 									//int x = (int)meanx;
@@ -703,8 +711,8 @@ void ATM_TM_SurfMap::SURFMatch()
 						{
 							isOnCity = false;
 
-							double meanx = sumx / lisx.size(); //均值
-							double meany = sumy / lisy.size(); //均值
+							//double meanx = sumx / lisx.size(); //均值
+							//double meany = sumy / lisy.size(); //均值
 							Point p = SPC(lisx, sumx, lisy, sumy);
 
 
@@ -784,8 +792,8 @@ void ATM_TM_SurfMap::SURFMatch()
 							//	isOnCity = false;
 							//}
 
-							double meanx = sumx / lisx.size(); //均值
-							double meany = sumy / lisy.size(); //均值
+							//double meanx = sumx / lisx.size(); //均值
+							//double meany = sumy / lisy.size(); //均值
 							Point p = SPC(lisx, sumx, lisy, sumy);
 
 							int x = cvRound((p.x - someMap.cols / 2) / 2);
@@ -952,11 +960,26 @@ Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy,
 	return mpos;
 }
 
-Point ATM_TM_SurfMap::SPC2(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
-{
-	Point p;
+//Point ATM_TM_SurfMap::SPC2(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
+//{
+//	Point p;
+//
+//	return Point();
+//}
 
-	return Point();
+double ATM_TM_SurfMap::var(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
+{
+	double accumx = 0.0;
+	double accumy = 0.0;
+	for (int i = 0; i < min(lisx.size(), lisy.size()); i++)
+	{
+		accumx = (lisx[i] - sumx)*(lisx[i] - sumx);
+		accumy = (lisy[i] - sumy)*(lisy[i] - sumy);
+	}
+	double stdevx = sqrt(accumx / (lisx.size() - 1));
+	double stdevy = sqrt(accumy / (lisy.size() - 1));
+
+	return sqrt(stdevx * stdevx + stdevy * stdevy);
 }
 
 void ATM_TM_TemplatePaimon::setPaimonTemplate(Mat paimonTemplateMat)

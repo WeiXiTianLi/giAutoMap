@@ -92,6 +92,9 @@
     <ClCompile Include="ATM_Modules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QtSingleApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticTrackingMap.h">
@@ -302,6 +305,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QtWidgetsClassMySelectGenshinImpactHandle.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QtSingleApplication.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

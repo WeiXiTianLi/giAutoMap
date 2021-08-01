@@ -4,6 +4,7 @@ AutomaticTrackingMap::AutomaticTrackingMap()
 {
 	getSystemInfo();
 	SLF.setIndex(SystemUserFileIndex);
+	SLF.logExeRun();
 	//SLF.load();
 	loadLocal();
 }
@@ -12,6 +13,8 @@ AutomaticTrackingMap::~AutomaticTrackingMap()
 {
 	Exit();
 	SLF.save();
+
+	SLF.logExeExit();
 }
 
 void AutomaticTrackingMap::Init(HWND mapWindowsHandle)
@@ -100,6 +103,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 				{
 					SST.AutoMapUdpSocketSend(zerosMinMap.x, zerosMinMap.y, TMS.rotationAngle, TMS.uid);
 				}
+				SLF.logAvatarEvent(zerosMinMap.x, zerosMinMap.y, TMS.rotationAngle);
 			}
 			updataDraw();
 		}
@@ -155,6 +159,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 								{
 									OLS.setCollectionState(starPosKlass[i], starPosId[i], 2);
 									isSave = true;
+									SLF.logStarEvent(starPosKlass[i], starPosId[i], 2);
 								}
 								break;
 							}
@@ -164,6 +169,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 								{
 									OLS.setCollectionState(starPosKlass[i], starPosId[i], 2);
 									isSave = true;
+									SLF.logStarEvent(starPosKlass[i], starPosId[i], 2);
 								}
 								break;
 							}
@@ -203,6 +209,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 									{
 										OLS.setCollectionState(OLS.visualStarKlassList[i], OLS.visualStarIdList[i], 1);
 										isSave = true;
+										SLF.logStarEvent(OLS.visualStarKlassList[i], OLS.visualStarIdList[i], 1);
 									}
 									break;
 								}
@@ -217,6 +224,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 									{
 										OLS.setCollectionState(OLS.visualStarKlassList[i], OLS.visualStarIdList[i], 1);
 										isSave = true;
+										SLF.logStarEvent(OLS.visualStarKlassList[i], OLS.visualStarIdList[i], 1);
 									}
 									break;
 								}
@@ -239,6 +247,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 
 	if (SLF._uid != TMS.uid)
 	{
+		SLF.logUIDEvent(TMS.uid);
 		SLF.setUID(TMS.uid);
 		if (SLF.tryLoad())
 		{
