@@ -53,7 +53,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 [DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
 <details>
   <summary>此项目的开发</summary>
-  
+ 解压resource.rar在项目目录下，释放资源文件，否则编译不过。
+ 编译 MSBuild 即可，需要VS安装Qt VS Tools插件。
+ 
   ## 已经实现
 
   * [x] 通过游戏内小地图，自动识别角色所在位置以及角色朝向
@@ -138,13 +140,6 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 但是在城镇内部，原神小地图放大了，所以使用的缩放因子便不适合了。
 以至于角色位置识别误差非常大。
 目前的解决方案是判断当误差变大时尝试更新缩放因子来识别。（还没做）
-# 无法使用？
-1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
-   * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
-   * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
-2. 请查看：[视频教程](#视频教程)
-3. 提交[Issues](/issues)
-3. 无论有没有问题，你都可以加群[♂](#交流)
 ## 视频教程
 ### Bilibili
 * [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
