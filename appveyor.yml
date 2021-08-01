@@ -47,7 +47,7 @@ build_script:
 
     - qmake -tp vc GenshinImpact_AutoMap.pro
     - qmake -o Makefile GenshinImpact_AutoMap.pro
-    - nmake /K /MT
+    - nmake /K 
     - cd..
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
