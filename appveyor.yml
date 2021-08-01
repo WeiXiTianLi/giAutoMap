@@ -18,8 +18,14 @@ environment:
     MyProjectDir: C:\projects\genshinimpact-automap
     OpenCvDir: C:\projects\opencv\
     OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
+
+    APPVEYOR_RDP_PASSWORD: cL#!E9#M3L9%R7og
 skip_tags: true
 
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 install:
     - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
 
