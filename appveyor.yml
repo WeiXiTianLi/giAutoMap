@@ -1,5 +1,5 @@
 version: '1.0.{build}'
-image: Visual Studio 2019
+image: Visual Studio 2017
 configuration: Release
 platform:
     - x64
@@ -10,7 +10,7 @@ branches:
 environment:
     qt: 5.14
     msvc: msvc2017
-    vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
+    vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
     QT_Include: C:\Qt\5.14.2\msvc2017_64\include;C:\Qt\5.14.2\msvc2017_64\include\QtWidgets;C:\Qt\5.14.2\msvc2017_64\include\QtGui;C:\Qt\5.14.2\msvc2017_64\include\QtANGLE;C:\Qt\5.14.2\msvc2017_64\include\QtWebSockets;C:\Qt\5.14.2\msvc2017_64\include\QtNetwork;C:\Qt\5.14.2\msvc2017_64\include\QtCore;C:\Qt\5.14.2\msvc2017_64\bin
     ProjectName: GenshinImpact_AutoMap
@@ -24,8 +24,7 @@ skip_tags: true
 
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 install:
     - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
 
@@ -38,12 +37,15 @@ install:
     - cd %MyProjectDir%\%ProjectName%\
     - 7z x ./resource.rar -y -o%MyProjectDir%\%ProjectName%\
     
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
     - set VC_IncludePath=%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
     - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
-    
+
 build_script:
     - env
     - dir %QTDIR%
@@ -53,7 +55,7 @@ build_script:
 
     - qmake -tp vc GenshinImpact_AutoMap.pro
     - qmake -o Makefile GenshinImpact_AutoMap.pro
-    - nmake /K 
+    #- nmake /K 
     - cd..
     - MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
