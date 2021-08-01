@@ -832,6 +832,7 @@ void AutomaticTrackingMap::drawStarObjectLists()
 				for (int i = 0; i < OLS.visualStarIdList.size(); i++)
 				{
 					p = OLS.p(OLS.visualStarKlassList[i], OLS.visualStarIdList[i]);
+					//SLF.logStarEvent(OLS.visualStarKlassList[i], OLS.visualStarIdList[i],p.x, p.y);
 					x = (int)((p.x - minMapRect.x) / MET.scale) - RES.GISTAR.cols / 2;
 					y = (int)((p.y - minMapRect.y) / MET.scale) - RES.GISTAR.rows / 2;
 					if (x > 0 && y > 0 && x + RES.GISTAR.cols < autoMapSize.width&&y + RES.GISTAR.rows < autoMapSize.height)

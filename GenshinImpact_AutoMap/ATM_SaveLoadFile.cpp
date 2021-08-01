@@ -306,6 +306,29 @@ void ATM_SaveLoadFile::logStarEvent(int starClass, int starId, int starState)
 
 }
 
+void ATM_SaveLoadFile::logStarEvent(int starClass, int starId, int x, int y)
+{
+	if (_access(logFilePath.c_str(), 0) == -1)
+	{
+		string _index(logFilePath);
+		int i = logFilePath.rfind("\\", (int)logFilePath.size() - 2);
+		_index.erase(_index.begin() + i, _index.end());
+		_mkdir(_index.c_str());
+	}
+	FILE *fpSave;
+	errno_t err;
+	err = fopen_s(&fpSave, logFilePath.c_str(), "a");
+	if (fpSave == NULL)
+	{
+		return;
+	}
+
+	fprintf_s(fpSave, "%s | LOG STAR    | starCoor updata starClass: %d starId: %d x: %d y: %d|\n",
+		getSystemTime().c_str(), starClass, starId, x, y);
+
+	fclose(fpSave);
+}
+
 void ATM_SaveLoadFile::getUIDStr()
 {
 	char uidBuff[10];
