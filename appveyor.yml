@@ -38,7 +38,7 @@ install:
     - 7z x ./resource.rar -y -o%MyProjectDir%\%ProjectName%\
     
 on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   
 before_build: 
     - set PATH=%PATH%;%OpencvDir%\include;%OpencvDir%\x64\vc15\staticlib;C:\projects\opencv\bin;%QTDIR%\bin;%QT_Include%
@@ -57,6 +57,8 @@ build_script:
     #- qmake -o Makefile GenshinImpact_AutoMap.pro
     #- nmake /K 
     - cd..
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    
     #- MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
     #- qmake
     #- nmake
