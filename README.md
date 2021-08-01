@@ -71,6 +71,8 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
   * [x] 根据数据库显示周围资源分布
 
   * [x] 保存存档  
+ 
+  * [x] 保存日志，包含可追溯数据，如存档损坏，可以此追溯
 
   ## 计划实现
 
@@ -81,6 +83,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
   * [ ] 优化匹配
 
   * [ ] 添加图论部分实现导航收集某种资源的最短路径
+ 
+  * [ ] 添加惯性导航部分
+ 
   ## 开发环境
 
   * Visual Studio 2017 
