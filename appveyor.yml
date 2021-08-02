@@ -1,4 +1,4 @@
-version: '1.0.{build}'
+version: '2.1.{build}'
 image: Visual Studio 2019
 configuration: Release
 platform:
@@ -71,10 +71,13 @@ after_build:
     - copy %MyProjectDir%\x64\Release\TianLi_Map.exe %MyProjectDir%\x64\build\
     
     - cd %MyProjectDir%\x64\build\
-    - windeployqt TianLi_Map.exe
+    - windeployqt TianLi_Map.exe -release
 
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
     - 7z a %ProJectExeName%.7z %MyProjectDir%\x64\build\*
+    
+    #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     
     - appveyor PushArtifact version.tag
     - appveyor PushArtifact %ProJectExeName%.7z
