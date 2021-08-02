@@ -31,9 +31,9 @@ class ATM_TM_SurfMap
 	Mat Dp_MinMap, Dp_Map, Dp_SomeMap;
 
 	//static Point hisP[3];
-	Point hisP[3];
+	Point2d hisP[3];
 
-	Point pos;
+	Point2d pos;
 public:
 	ATM_TM_SurfMap();
 	~ATM_TM_SurfMap();
@@ -47,12 +47,12 @@ public:
 
 	void Init();
 	void SURFMatch();
-	Point SURFMatch(Mat minMapMat);
-	Point getLocalPos();
+	Point2d SURFMatch(Mat minMapMat);
+	Point2d getLocalPos();
 	bool getIsContinuity();
 private:
-	double dis(Point &p);
-	Point SPC(vector<double> lisx,double sumx, vector<double> lisy, double sumy);
+	double dis(Point2d &p);
+	Point2d SPC(vector<double> lisx,double sumx, vector<double> lisy, double sumy);
 	//Point SPC2(vector<double> lisx, double sumx, vector<double> lisy, double sumy);
 	double var(vector<double> lisx, double sumx, vector<double> lisy, double sumy);
 };
@@ -129,7 +129,7 @@ class ATM_TM_TemplateStar
 	Mat _starTemplate;
 	Mat _starMat;
 	bool isStarVisible = false;
-	vector<Point> pos;
+	vector<Point2d> pos;
 public:
 	bool isInit = false;
 
@@ -138,7 +138,7 @@ public:
 	void setStarMat(Mat starMat);
 	void TemplateStar();
 	bool getStar();
-	vector<Point> getStarPos();
+	vector<Point2d> getStarPos();
 };
 
 //实现线程的单独控制
@@ -205,14 +205,14 @@ public:
 	~ATM_ThreadMatch();
 	ATM_TM_Continuity continuityState;
 	//Point pos = Point(1466, 3272);
-	Point pos = Point(5352, 9432);
+	Point2d pos = Point2d(5352, 9432);
 	bool isPaimonVisial = false;
 	bool isContinuity = false;
 	double rotationAngle = 0;
 	int uid = 0;
 	bool isStarExist = false;
 	bool isStarVisible = false;
-	vector<Point> starPos;
+	vector<Point2d> starPos;
 
 
 	bool isExistObjMinMap = false;

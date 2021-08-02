@@ -543,8 +543,8 @@ void ATM_TM_SurfMap::SURFMatch()
 	}
 
 	isContinuity = false;
-	Point dp1 = hisP[1] - hisP[0];
-	Point dp2 = hisP[2] - hisP[1];
+	Point2d dp1 = hisP[1] - hisP[0];
+	Point2d dp2 = hisP[2] - hisP[1];
 
 	//角色移动连续性判断
 	if ((dis(dp1) + dis(dp2)) < 2000)
@@ -594,8 +594,8 @@ void ATM_TM_SurfMap::SURFMatch()
 									continue;
 								}
 
-								lisx.push_back(((minMap.cols / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-								lisy.push_back(((minMap.rows / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
 								sumx += lisx.back();
 								sumy += lisy.back();
 							}
@@ -663,8 +663,8 @@ void ATM_TM_SurfMap::SURFMatch()
 											continue;
 										}
 
-										lisx.push_back(((minMap.cols / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-										lisy.push_back(((minMap.rows / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+										lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+										lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
 										sumx += lisx.back();
 										sumy += lisy.back();
 									}
@@ -693,15 +693,15 @@ void ATM_TM_SurfMap::SURFMatch()
 
 									//double meanx = sumx / lisx.size(); //均值
 									//double meany = sumy / lisy.size(); //均值
-									Point p = SPC(lisx, sumx, lisy, sumy);
+									Point2d p = SPC(lisx, sumx, lisy, sumy);
 
 									//int x = (int)meanx;
 									//int y = (int)meany;
 
-									int x = cvRound((p.x - someMap.cols / 2) / 2);
-									int y = cvRound((p.y - someMap.rows / 2) / 2);
+									double x = (p.x - someMap.cols / 2.0) / 2.0;
+									double y = (p.y - someMap.rows / 2.0) / 2.0;
 
-									pos = Point(x + hisP[2].x, y + hisP[2].y);
+									pos = Point2d(x + hisP[2].x, y + hisP[2].y);
 								}
 							}
 							/***********************/
@@ -713,13 +713,13 @@ void ATM_TM_SurfMap::SURFMatch()
 
 							//double meanx = sumx / lisx.size(); //均值
 							//double meany = sumy / lisy.size(); //均值
-							Point p = SPC(lisx, sumx, lisy, sumy);
+							Point2d p = SPC(lisx, sumx, lisy, sumy);
 
 
-							int x = p.x;
-							int y = p.y;
+							double x = p.x;
+							double y = p.y;
 
-							pos = Point(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
+							pos = Point2d(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
 						}
 					}
 				}
@@ -764,8 +764,8 @@ void ATM_TM_SurfMap::SURFMatch()
 									continue;
 								}
 
-								lisx.push_back(((minMap.cols / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-								lisy.push_back(((minMap.rows / 2 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
 								sumx += lisx.back();
 								sumy += lisy.back();
 							}
@@ -794,12 +794,12 @@ void ATM_TM_SurfMap::SURFMatch()
 
 							//double meanx = sumx / lisx.size(); //均值
 							//double meany = sumy / lisy.size(); //均值
-							Point p = SPC(lisx, sumx, lisy, sumy);
+							Point2d p = SPC(lisx, sumx, lisy, sumy);
 
-							int x = cvRound((p.x - someMap.cols / 2) / 2);
-							int y = cvRound((p.y - someMap.rows / 2) / 2);
+							double x = (p.x - someMap.cols / 2.0) / 2.0;
+							double y = (p.y - someMap.rows / 2.0) / 2.0;
 
-							pos = Point(x + hisP[2].x, y + hisP[2].y);
+							pos = Point2d(x + hisP[2].x, y + hisP[2].y);
 						}
 						else
 						{
@@ -849,8 +849,8 @@ void ATM_TM_SurfMap::SURFMatch()
 					{
 						continue;
 					}
-					lisx.push_back(((img_object.cols / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.x)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.x));
-					lisy.push_back(((img_object.rows / 2 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.y)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.y));
+					lisx.push_back(((img_object.cols / 2.0 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.x)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.x));
+					lisy.push_back(((img_object.rows / 2.0 - Kp_MinMap[KNN_m[i][0].queryIdx].pt.y)*mapScale + Kp_Map[KNN_m[i][0].trainIdx].pt.y));
 					sumx += lisx.back();
 					sumy += lisy.back();
 				}
@@ -889,12 +889,12 @@ void ATM_TM_SurfMap::SURFMatch()
 
 }
 
-Point ATM_TM_SurfMap::SURFMatch(Mat minMapMat)
+Point2d ATM_TM_SurfMap::SURFMatch(Mat minMapMat)
 {
-	return Point();
+	return Point2d();
 }
 
-Point ATM_TM_SurfMap::getLocalPos()
+Point2d ATM_TM_SurfMap::getLocalPos()
 {
 	return pos;
 }
@@ -904,20 +904,20 @@ bool ATM_TM_SurfMap::getIsContinuity()
 	return isContinuity;
 }
 
-double ATM_TM_SurfMap::dis(Point & p)
+double ATM_TM_SurfMap::dis(Point2d & p)
 {
 	return sqrt(p.x*p.x + p.y*p.y);
 }
 
-Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
+Point2d ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
 {
 	//这个剔除异常点算法
 	//回头要改
-	Point mpos;
+	Point2d mpos;
 	double meanx = sumx / lisx.size(); //均值
 	double meany = sumy / lisy.size(); //均值
-	int x = (int)meanx;
-	int y = (int)meany;
+	double x = meanx;
+	double y = meany;
 	if (min(lisx.size(), lisy.size()) > 3)
 	{
 		double accumx = 0.0;
@@ -933,8 +933,8 @@ Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy,
 
 		sumx = 0;
 		sumy = 0;
-		int numx = 0;
-		int numy = 0;
+		double numx = 0;
+		double numy = 0;
 		for (int i = 0; i < min(lisx.size(), lisy.size()); i++)
 		{
 			if (abs(lisx[i] - meanx) < 1 * stdevx)
@@ -949,13 +949,13 @@ Point ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy,
 				numy++;
 			}
 		}
-		int xx = (int)(sumx / numx);
-		int yy = (int)(sumy / numy);
-		mpos = Point(xx, yy);
+		double xx = sumx / numx;
+		double yy = sumy / numy;
+		mpos = Point2d(xx, yy);
 	}
 	else
 	{
-		mpos = Point(x, y);
+		mpos = Point2d(x, y);
 	}
 	return mpos;
 }
@@ -1393,7 +1393,7 @@ bool ATM_TM_TemplateStar::getStar()
 	return isStarVisible;
 }
 
-vector<Point> ATM_TM_TemplateStar::getStarPos()
+vector<Point2d> ATM_TM_TemplateStar::getStarPos()
 {
 	return pos;
 }

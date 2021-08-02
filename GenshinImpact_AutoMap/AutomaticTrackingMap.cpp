@@ -129,7 +129,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 					vector<int> starPosDis;
 					for (int i = 0; i < TMS.starPos.size(); i++)
 					{
-						Point p = TMS.starPos[i] * 1.3 + (Point)zerosMinMap;
+						Point2d p = TMS.starPos[i] * 1.3 + zerosMinMap;
 						double minDis = 999;
 						vector<double> dis;
 						int klass = 0, id = 0;
@@ -742,9 +742,9 @@ void AutomaticTrackingMap::setThreadMatchMat()
 void AutomaticTrackingMap::drawStarObjectLists()
 {
 	//draw Star
-	static Point avatarPos = zerosMinMap;
+	static Point2d avatarPos = zerosMinMap;
 	int x = 0, y = 0;
-	Point p;
+	Point2d p;
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	double minDist = 9999;
@@ -880,7 +880,7 @@ void AutomaticTrackingMap::drawObjectLists()
 {
 	//draw obj
 	int x = 0, y = 0;
-	Point p;
+	Point2d p;
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	//double minDist = 9999;
@@ -911,7 +911,7 @@ void AutomaticTrackingMap::drawFlagLists()
 {
 	//draw Flag
 	int x = 0, y = 0;
-	Point p;
+	Point2d p;
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	double minDist = 9999;
