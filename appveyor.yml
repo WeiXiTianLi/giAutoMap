@@ -76,6 +76,9 @@ after_build:
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
     - 7z a %ProJectExeName%.7z %MyProjectDir%\x64\build\*
     
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    
     - appveyor PushArtifact version.tag
     - appveyor PushArtifact %ProJectExeName%.7z
     
