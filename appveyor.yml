@@ -57,11 +57,11 @@ build_script:
     #- qmake -o Makefile GenshinImpact_AutoMap.pro
     #- nmake /K 
     #- cd..
-    #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     
     #- MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
-    - qmake
-    - nmake
+    #- qmake
+    #- nmake
     
 after_build:
     # copy include and source code files
