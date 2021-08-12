@@ -19,6 +19,7 @@ class ATM_TM_SurfMap
 {
 	Mat _mapMat;
 	Mat _minMapMat;
+	Mat _minMapLastMat;
 
 	int minHessian = 400;
 	double ratio_thresh = 0.66;

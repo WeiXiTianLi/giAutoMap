@@ -22,8 +22,8 @@ GenshinImpact_AutoMap::GenshinImpact_AutoMap(QWidget *parent)
 	connect(hotKeyAutoMode, SIGNAL(Activated()), this, SLOT(setAutoMode()));
 	hotKeyAddFlag = new QtClassMyHotKeyObject("Alt+F", this);
 	connect(hotKeyAddFlag, SIGNAL(Activated()), this, SLOT(setAddFlag()));
-	hotKeyActivationKongYingJiuGuan = new QtClassMyHotKeyObject("Alt+M", this);
-	connect(hotKeyActivationKongYingJiuGuan, SIGNAL(Activated()), this, SLOT(setActivationKongYingJiuGuan()));
+	//hotKeyActivationKongYingJiuGuan = new QtClassMyHotKeyObject("Alt+M", this);
+	//connect(hotKeyActivationKongYingJiuGuan, SIGNAL(Activated()), this, SLOT(setActivationKongYingJiuGuan()));
 	hotKeyActivationSelectGenshinImpact = new QtClassMyHotKeyObject("Alt+F8", this);
 	connect(hotKeyActivationSelectGenshinImpact, SIGNAL(Activated()), this, SLOT(setActivationSelectGenshinImpact()));
 
@@ -56,7 +56,7 @@ GenshinImpact_AutoMap::~GenshinImpact_AutoMap()
 	delete myCursor;
 	delete hotKeyAutoMode;
 	delete hotKeyAddFlag;
-	delete hotKeyActivationKongYingJiuGuan;
+	//delete hotKeyActivationKongYingJiuGuan;
 	delete hotKeyActivationSelectGenshinImpact;
 	delete widgetsSelectGI;
 }
