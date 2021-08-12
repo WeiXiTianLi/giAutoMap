@@ -23,7 +23,7 @@ environment:
 skip_tags: true
 
 init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
     - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
@@ -56,7 +56,7 @@ build_script:
     #- qmake -tp vc GenshinImpact_AutoMap.pro
     #- qmake -o Makefile GenshinImpact_AutoMap.pro
     #- nmake /K 
-    - cd..
+    #- cd..
     - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     
     #- MSBuild %ProjectName%.sln /p:Configuration=Release /p:Platform=x64 
