@@ -3,6 +3,30 @@
 bool ATM_GiState::isRun()
 {
 	giHandle = FindWindowA(giWndClass.c_str(), giName.c_str());/* 对原神窗口的操作 */
+	if (giHandle == nullptr)
+	{
+		LPCWSTR giWindowName = { L"原神" };
+		if (giHandle == NULL)
+		{
+			giWindowName = L"Genshin Impact";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：原神 */
+		}
+		if (giHandle == NULL)
+		{
+			giWindowName = L"\u539F\u795E";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：原神 */
+		}
+		if (giHandle == NULL)
+		{
+			giWindowName = L"\uC6D0\uC2E0";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：?? */
+		}
+	}
+	
+
+#ifdef _DEBUG
+	cout << "giHandle: " << giHandle << endl;
+#endif
 	isRunning = giHandle != NULL ? true : false;
 	return isRunning;
 }
@@ -10,6 +34,28 @@ bool ATM_GiState::isRun()
 void ATM_GiState::getHandle()
 {
 	giHandle = FindWindowA(giWndClass.c_str(), giName.c_str());
+	if (giHandle == nullptr)
+	{
+		LPCWSTR giWindowName = { L"原神" };
+		if (giHandle == NULL)
+		{
+			giWindowName = L"Genshin Impact";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：原神 */
+		}
+		if (giHandle == NULL)
+		{
+			giWindowName = L"\u539F\u795E";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：原神 */
+		}
+		if (giHandle == NULL)
+		{
+			giWindowName = L"\uC6D0\uC2E0";
+			giHandle = FindWindowW(L"UnityWndClass", giWindowName); /* 匹配名称：?? */
+		}
+	}
+#ifdef _DEBUG
+	cout << "giHandle: " << giHandle << endl;
+#endif
 	getRect();
 }
 
@@ -478,12 +524,12 @@ void ATM_GiState::setGiNameClass(LANGID SystemLanguageID)
 		}
 		case 0x0409:
 		{
-			giName = "GenshinImpact";
+			giName = "Genshin Impact";
 			break;     
 		}
 		default:
 		{
-			giName = "GenshinImpact";//GenshinImpact.
+			giName = "Genshin Impact";//GenshinImpact.
 			break;
 		}
 	}

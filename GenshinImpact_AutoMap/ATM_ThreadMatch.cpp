@@ -554,110 +554,19 @@ void ATM_TM_SurfMap::SURFMatch()
 			isContinuity = true;
 			if (isContinuity)
 			{
-				
-				//惯导部分
-				if (_minMapLastMat.empty() == false)
-				{
-					Mat someMap(_minMapLastMat);//上一帧小地图画面
-					Mat minMap(img_object);//当前帧小地图画面
 
-					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
-					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
-
-					//没检测到特征点 连续性断开
-					if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
-					{
-						isContinuity = false;
-					}
-					else
-					{
-						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-						std::vector< std::vector<DMatch> > KNN_mTmp;
-#ifdef _DEBUG
-						std::vector<DMatch> good_matchesTmp;
-#endif
-						matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
-						std::vector<double> lisx;
-						std::vector<double> lisy;
-						double sumx = 0;
-						double sumy = 0;
-						for (size_t i = 0; i < KNN_mTmp.size(); i++)
-						{
-							if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
-							{
-#ifdef _DEBUG
-								good_matchesTmp.push_back(KNN_mTmp[i][0]);
-#endif
-								// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
-								if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
-								{
-									continue;
-								}
-
-								//mapScale 考虑城镇和大世界两种
-								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*1.0 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*1.0 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
-								sumx += lisx.back();
-								sumy += lisy.back();
-							}
-						}
-
-#ifdef _DEBUG
-						Mat img_matches, imgmap, imgminmap;
-						drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-						drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-#endif
-
-						if (max(lisx.size(), lisy.size()) > 4)
-						{
-							if (min(lisx.size(), lisy.size()) >= 10)
-							{
-								isOnCity = true;
-							}
-							else
-							{
-								isOnCity = false;
-							}
-							//if(max(lisx.size(), lisy.size()) <=10 )
-							//{
-							//	isOnCity = false;
-							//}
-
-							Point2d p = Point2d(sumx / (double)lisx.size(), sumy / lisy.size()); //均值
-							//double meany = sumy / lisy.size(); //均值
-							//Point2d p = SPC(lisx, sumx, lisy, sumy);
-							
-							double x = (p.x - someMap.cols / 2.0);
-							double y = (p.y - someMap.rows / 2.0);
-
-							pos = Point2d(x + hisP[2].x, y + hisP[2].y);
-							minMap.copyTo(_minMapLastMat);
-						}
-					}
-
-
-				}
-				else
-				{
-					Mat minMap(img_object);//当前帧小地图画面
-					minMap.copyTo(_minMapLastMat);
-				}
-
-			
-//				if (isOnCity == false)
+//				
+//				//惯导部分
+//				if (_minMapLastMat.empty() == false)
 //				{
-//					//不在城镇中时
-//					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
-//					Mat minMap(img_object);
-//					//resize(someMap, someMap, Size(), MatchMatScale, MatchMatScale, 1);
-//					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
+//					Mat someMap(_minMapLastMat);//上一帧小地图画面
+//					Mat minMap(img_object);//当前帧小地图画面
 //
 //					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
 //					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
 //					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+//
+//					//没检测到特征点 连续性断开
 //					if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
 //					{
 //						isContinuity = false;
@@ -687,12 +596,14 @@ void ATM_TM_SurfMap::SURFMatch()
 //									continue;
 //								}
 //
-//								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-//								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+//								//mapScale 考虑城镇和大世界两种
+//								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*1.0 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+//								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*1.0 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
 //								sumx += lisx.back();
 //								sumy += lisy.back();
 //							}
 //						}
+//
 //#ifdef _DEBUG
 //						Mat img_matches, imgmap, imgminmap;
 //						drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
@@ -700,176 +611,7 @@ void ATM_TM_SurfMap::SURFMatch()
 //
 //						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 //#endif
-//#ifdef _DEBUG
-//						if (var(lisx, sumx, lisy, sumy) > 10)
-//						{
 //
-//						}
-//#endif
-//						if (min(lisx.size(), lisy.size()) <= 4)
-//						{
-//
-//							//有可能处于城镇中
-//
-//							/***********************/
-//							//重新从完整中地图取出角色周围部分地图
-//							img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)).copyTo(someMap);
-//							//Mat minMap(img_object);
-//
-//							resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
-//							//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
-//
-//							detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-//							detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
-//							//detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
-//							if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
-//							{
-//								isContinuity = false;
-//							}
-//							else
-//							{
-//								Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-//								std::vector< std::vector<DMatch> > KNN_mTmp;
-//#ifdef _DEBUG
-//								std::vector<DMatch> good_matchesTmp;
-//#endif
-//								matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
-//								//std::vector<double> lisx;
-//								//std::vector<double> lisy;
-//								lisx.clear();
-//								lisy.clear();
-//								//double sumx = 0;
-//								//double sumy = 0;
-//								sumx = 0;
-//								sumy = 0;
-//
-//								for (size_t i = 0; i < KNN_mTmp.size(); i++)
-//								{
-//									if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
-//									{
-//#ifdef _DEBUG
-//										good_matchesTmp.push_back(KNN_mTmp[i][0]);
-//#endif
-//										// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
-//										if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
-//										{
-//											continue;
-//										}
-//
-//										lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-//										lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
-//										sumx += lisx.back();
-//										sumy += lisy.back();
-//									}
-//								}
-//#ifdef _DEBUG
-//								//Mat img_matches, imgmap, imgminmap;
-//								drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-//								drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-//
-//								drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-//#endif
-//								if (min(lisx.size(), lisy.size()) <= 4)
-//								{
-//									isContinuity = false;
-//								}
-//								else
-//								{
-//									if (min(lisx.size(), lisy.size()) >= 10)
-//									{
-//										isOnCity = true;
-//									}
-//									else
-//									{
-//										isOnCity = false;
-//									}
-//
-//									//double meanx = sumx / lisx.size(); //均值
-//									//double meany = sumy / lisy.size(); //均值
-//									Point2d p = SPC(lisx, sumx, lisy, sumy);
-//
-//									//int x = (int)meanx;
-//									//int y = (int)meany;
-//
-//									double x = (p.x - someMap.cols / 2.0) / 2.0;
-//									double y = (p.y - someMap.rows / 2.0) / 2.0;
-//
-//									pos = Point2d(x + hisP[2].x, y + hisP[2].y);
-//								}
-//							}
-//							/***********************/
-//							//isContinuity = false;
-//						}
-//						else
-//						{
-//							isOnCity = false;
-//
-//							//double meanx = sumx / lisx.size(); //均值
-//							//double meany = sumy / lisy.size(); //均值
-//							Point2d p = SPC(lisx, sumx, lisy, sumy);
-//
-//
-//							double x = p.x;
-//							double y = p.y;
-//
-//							pos = Point2d(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
-//						}
-//					}
-//				}
-//				else
-//				{
-//					//在城镇中
-//					/***********************/
-//					//重新从完整中地图取出角色周围部分地图
-//					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
-//					Mat minMap(img_object);
-//
-//					resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
-//					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
-//
-//					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-//					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
-//					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
-//
-//					if (Kp_SomeMap.size() >= 2 && Kp_MinMap.size() >= 2)
-//					{
-//						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-//						std::vector< std::vector<DMatch> > KNN_mTmp;
-//#ifdef _DEBUG
-//						std::vector<DMatch> good_matchesTmp;
-//#endif
-//						matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
-//						std::vector<double> lisx;
-//						std::vector<double> lisy;
-//						double sumx = 0;
-//						double sumy = 0;
-//
-//						for (size_t i = 0; i < KNN_mTmp.size(); i++)
-//						{
-//							if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
-//							{
-//#ifdef _DEBUG
-//								good_matchesTmp.push_back(KNN_mTmp[i][0]);
-//#endif
-//								// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
-//								if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
-//								{
-//									continue;
-//								}
-//
-//								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
-//								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
-//								sumx += lisx.back();
-//								sumy += lisy.back();
-//							}
-//						}
-//#ifdef _DEBUG
-//						Mat img_matches, imgmap, imgminmap;
-//						drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-//						drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-//
-//						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-//#endif
 //						if (max(lisx.size(), lisy.size()) > 4)
 //						{
 //							if (min(lisx.size(), lisy.size()) >= 10)
@@ -885,25 +627,284 @@ void ATM_TM_SurfMap::SURFMatch()
 //							//	isOnCity = false;
 //							//}
 //
-//							//double meanx = sumx / lisx.size(); //均值
+//							Point2d p = Point2d(sumx / (double)lisx.size(), sumy / lisy.size()); //均值
 //							//double meany = sumy / lisy.size(); //均值
-//							Point2d p = SPC(lisx, sumx, lisy, sumy);
-//
-//							double x = (p.x - someMap.cols / 2.0) / 2.0;
-//							double y = (p.y - someMap.rows / 2.0) / 2.0;
+//							//Point2d p = SPC(lisx, sumx, lisy, sumy);
+//							
+//							double x = (p.x - someMap.cols / 2.0);
+//							double y = (p.y - someMap.rows / 2.0);
 //
 //							pos = Point2d(x + hisP[2].x, y + hisP[2].y);
+//							minMap.copyTo(_minMapLastMat);
 //						}
-//						else
-//						{
-//							isContinuity = false;
-//						}//if (max(lisx.size(), lisy.size()) > 4)
 //					}
-//					else
-//					{
-//						isContinuity = false;
-//					}//if (Kp_SomeMap.size() != 0 && Kp_MinMap.size() != 0)
-//				}// if(isOnCity==false)
+//
+//
+//				}
+//				else
+//				{
+//					Mat minMap(img_object);//当前帧小地图画面
+//					minMap.copyTo(_minMapLastMat);
+//				}
+
+			
+				if (isOnCity == false)
+				{
+					//不在城镇中时
+					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
+					Mat minMap(img_object);
+					//resize(someMap, someMap, Size(), MatchMatScale, MatchMatScale, 1);
+					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
+
+					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
+					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
+					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+					if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
+					{
+						isContinuity = false;
+					}
+					else
+					{
+						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+						std::vector< std::vector<DMatch> > KNN_mTmp;
+#ifdef _DEBUG
+						std::vector<DMatch> good_matchesTmp;
+#endif
+						matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
+						std::vector<double> lisx;
+						std::vector<double> lisy;
+						double sumx = 0;
+						double sumy = 0;
+						for (size_t i = 0; i < KNN_mTmp.size(); i++)
+						{
+							if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
+							{
+#ifdef _DEBUG
+								good_matchesTmp.push_back(KNN_mTmp[i][0]);
+#endif
+								// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
+								if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
+								{
+									continue;
+								}
+
+								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*mapScale + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+								sumx += lisx.back();
+								sumy += lisy.back();
+							}
+						}
+#ifdef _DEBUG
+						Mat img_matches, imgmap, imgminmap;
+						drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+						drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+
+						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+#endif
+#ifdef _DEBUG
+						if (var(lisx, sumx, lisy, sumy) > 10)
+						{
+
+						}
+#endif
+						if (min(lisx.size(), lisy.size()) <= 4)
+						{
+
+							//有可能处于城镇中
+
+							/***********************/
+							//重新从完整中地图取出角色周围部分地图
+							img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)).copyTo(someMap);
+							//Mat minMap(img_object);
+
+							resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
+							//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
+
+							detectorSomeMap = xfeatures2d::SURF::create(minHessian);
+							detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
+							//detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+							if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
+							{
+								isContinuity = false;
+							}
+							else
+							{
+								Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+								std::vector< std::vector<DMatch> > KNN_mTmp;
+#ifdef _DEBUG
+								std::vector<DMatch> good_matchesTmp;
+#endif
+								matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
+								//std::vector<double> lisx;
+								//std::vector<double> lisy;
+								lisx.clear();
+								lisy.clear();
+								//double sumx = 0;
+								//double sumy = 0;
+								sumx = 0;
+								sumy = 0;
+
+								for (size_t i = 0; i < KNN_mTmp.size(); i++)
+								{
+									if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
+									{
+#ifdef _DEBUG
+										good_matchesTmp.push_back(KNN_mTmp[i][0]);
+#endif
+										// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
+										if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
+										{
+											continue;
+										}
+
+										lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+										lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+										sumx += lisx.back();
+										sumy += lisy.back();
+									}
+								}
+#ifdef _DEBUG
+								//Mat img_matches, imgmap, imgminmap;
+								drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+								drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+
+								drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+#endif
+								if (min(lisx.size(), lisy.size()) <= 4)
+								{
+									isContinuity = false;
+								}
+								else
+								{
+									if (min(lisx.size(), lisy.size()) >= 10)
+									{
+										isOnCity = true;
+									}
+									else
+									{
+										isOnCity = false;
+									}
+
+									//double meanx = sumx / lisx.size(); //均值
+									//double meany = sumy / lisy.size(); //均值
+									Point2d p = SPC(lisx, sumx, lisy, sumy);
+
+									//int x = (int)meanx;
+									//int y = (int)meany;
+
+									double x = (p.x - someMap.cols / 2.0) / 2.0;
+									double y = (p.y - someMap.rows / 2.0) / 2.0;
+
+									pos = Point2d(x + hisP[2].x, y + hisP[2].y);
+								}
+							}
+							/***********************/
+							//isContinuity = false;
+						}
+						else
+						{
+							isOnCity = false;
+
+							//double meanx = sumx / lisx.size(); //均值
+							//double meany = sumy / lisy.size(); //均值
+							Point2d p = SPC(lisx, sumx, lisy, sumy);
+
+
+							double x = p.x;
+							double y = p.y;
+
+							pos = Point2d(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
+						}
+					}
+				}
+				else
+				{
+					//在城镇中
+					/***********************/
+					//重新从完整中地图取出角色周围部分地图
+					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
+					Mat minMap(img_object);
+
+					resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
+					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
+
+					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
+					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
+					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+
+					if (Kp_SomeMap.size() >= 2 && Kp_MinMap.size() >= 2)
+					{
+						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+						std::vector< std::vector<DMatch> > KNN_mTmp;
+#ifdef _DEBUG
+						std::vector<DMatch> good_matchesTmp;
+#endif
+						matcherTmp->knnMatch(Dp_MinMap, Dp_SomeMap, KNN_mTmp, 2);
+						std::vector<double> lisx;
+						std::vector<double> lisy;
+						double sumx = 0;
+						double sumy = 0;
+
+						for (size_t i = 0; i < KNN_mTmp.size(); i++)
+						{
+							if (KNN_mTmp[i][0].distance < ratio_thresh * KNN_mTmp[i][1].distance)
+							{
+#ifdef _DEBUG
+								good_matchesTmp.push_back(KNN_mTmp[i][0]);
+#endif
+								// 这里有个bug回卡进来，进入副本或者切换放大招时偶尔触发
+								if (KNN_mTmp[i][0].queryIdx >= Kp_MinMap.size())
+								{
+									continue;
+								}
+
+								lisx.push_back(((minMap.cols / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.x)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.x));
+								lisy.push_back(((minMap.rows / 2.0 - Kp_MinMap[KNN_mTmp[i][0].queryIdx].pt.y)*0.8667 + Kp_SomeMap[KNN_mTmp[i][0].trainIdx].pt.y));
+								sumx += lisx.back();
+								sumy += lisy.back();
+							}
+						}
+#ifdef _DEBUG
+						Mat img_matches, imgmap, imgminmap;
+						drawKeypoints(someMap, Kp_SomeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+						drawKeypoints(img_object, Kp_MinMap, imgminmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+
+						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+#endif
+						if (max(lisx.size(), lisy.size()) > 4)
+						{
+							if (min(lisx.size(), lisy.size()) >= 10)
+							{
+								isOnCity = true;
+							}
+							else
+							{
+								isOnCity = false;
+							}
+							//if(max(lisx.size(), lisy.size()) <=10 )
+							//{
+							//	isOnCity = false;
+							//}
+
+							//double meanx = sumx / lisx.size(); //均值
+							//double meany = sumy / lisy.size(); //均值
+							Point2d p = SPC(lisx, sumx, lisy, sumy);
+
+							double x = (p.x - someMap.cols / 2.0) / 2.0;
+							double y = (p.y - someMap.rows / 2.0) / 2.0;
+
+							pos = Point2d(x + hisP[2].x, y + hisP[2].y);
+						}
+						else
+						{
+							isContinuity = false;
+						}//if (max(lisx.size(), lisy.size()) > 4)
+					}
+					else
+					{
+						isContinuity = false;
+					}//if (Kp_SomeMap.size() != 0 && Kp_MinMap.size() != 0)
+				}// if(isOnCity==false)
 			}//if (isContinuity)
 		}
 	}//if ((dis(dp1) + dis(dp2)) < 2000)
