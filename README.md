@@ -1,6 +1,9 @@
 You are now viewing in [Chinese Simplified](DOCS/CN.md) !
+
 #  原神自动地图 TianLi_Map [![Build status](https://ci.appveyor.com/api/projects/status/8kmemyn4jssya2xs?svg=true)](https://ci.appveyor.com/project/GengGode/genshinimpact-automap)
+ 
  [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
+
 * 自动发现小地图上出现的神瞳并记录
 
 * 自动记忆神瞳是否收集，判断显示哪些神瞳没被发现
@@ -42,7 +45,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `中键`移动窗口位置
 
 * `左键双击`左上角派蒙退出
+
 # 无法使用？
+
 1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
    * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
    * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
@@ -50,7 +55,9 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 2. 请查看：[视频教程](#视频教程)
 3. 提交[Issues](/issues)
 3. 无论有没有问题，你都可以加群[♂](#交流)
+
 # Devs
+
 [DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
 <details>
   <summary>此项目的开发</summary>
@@ -118,6 +125,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
    ```
   
   ## 系统权限
+ 
   之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
 
   （说不定会改到AppData下的LocalLow里）
@@ -140,25 +148,28 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * 手柄适配 无
 * 除1920 * 1080外分辨率的 uid 识别 无
 * 除 16 ：9 分辨率外的自动追踪 无
+
 ## 视频教程
+
 ### Bilibili
+
 * [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
 
 * [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
+
 ## 交流
+
 #### [QQ](538198823):538198823
 ----
 <Details>
 <summary>分流下载</summary>
     
 ### 百度云
-### `v1.070` 
- #### 添加了部分新资源，提高了追踪的稳定性
-[下载链接](https://pan.baidu.com/s/1J0VcqqFcUQ3d59skq6m0WQ)
-提取码：esh8 
-
+ 
 ### `v2.011 预览版`
+ 
 #### 添加了雷神瞳+稻妻地图，更新了启动器 
+ 
 [下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
 提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
