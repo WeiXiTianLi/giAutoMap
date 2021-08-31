@@ -81,7 +81,7 @@ void ATM_TM_SurfMap::SURFMatch()
 	Point2d dp2 = hisP[2] - hisP[1];
 
 	//角色移动连续性判断
-	if ((dis(dp1) + dis(dp2)) < 2000)
+	if (dis(dp2) < 1000)
 	{
 		if (hisP[2].x > someSizeR && hisP[2].x < img_scene.cols - someSizeR && hisP[2].y>someSizeR && hisP[2].y < img_scene.rows - someSizeR)
 		{
@@ -442,6 +442,10 @@ void ATM_TM_SurfMap::SURFMatch()
 			}//if (isContinuity)
 		}
 	}//if ((dis(dp1) + dis(dp2)) < 2000)
+	else
+	{
+	isConveying = true;
+	}
 	if (!isContinuity)
 	{
 		detector->detectAndCompute(img_object, noArray(), Kp_MinMap, Dp_MinMap);
@@ -510,21 +514,43 @@ void ATM_TM_SurfMap::SURFMatch()
 			}
 		}
 	}
+	if (isConveying)
+	{
+		KF.init(stateNum, measureNum, 0);
 
-	//Point statePt = Point((int)KF.statePost.at<float>(0), (int)KF.statePost.at<float>(1));
+		KF.statePost.at<float>(0) = pos.x;
+		KF.statePost.at<float>(1) = pos.y;
 
-	//2.kalman prediction   
-	Mat prediction = KF.predict();
-	Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
+		Mat prediction = KF.predict();
+		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
 
-	//3.update measurement
-	measurement.at<float>(0,0) = static_cast<float>(pos.x);
-	measurement.at<float>(1,0) = static_cast<float>(pos.y);
+		//3.update measurement
+		measurement.at<float>(0, 0) = static_cast<float>(pos.x);
+		measurement.at<float>(1, 0) = static_cast<float>(pos.y);
 
-	//4.update
-	KF.correct(measurement);
+		//4.update
+		KF.correct(measurement);
 
-	pos= Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+	}
+	else
+	{
+		//Point statePt = Point((int)KF.statePost.at<float>(0), (int)KF.statePost.at<float>(1));
+
+//2.kalman prediction   
+		Mat prediction = KF.predict();
+		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
+
+		//3.update measurement
+		measurement.at<float>(0, 0) = static_cast<float>(pos.x);
+		measurement.at<float>(1, 0) = static_cast<float>(pos.y);
+
+		//4.update
+		KF.correct(measurement);
+
+		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+	}
+
 
 
 

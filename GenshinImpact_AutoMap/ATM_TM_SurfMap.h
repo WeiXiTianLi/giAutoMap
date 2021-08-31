@@ -51,6 +51,7 @@ public:
 public:
 	bool isInit = false;
 	bool isContinuity = false;
+	bool isConveying = false;
 	bool isOnCity = false;
 	void setMap(Mat mapMat);
 	void setMinMap(Mat minMapMat);
