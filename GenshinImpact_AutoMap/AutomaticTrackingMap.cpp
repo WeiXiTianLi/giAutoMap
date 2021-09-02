@@ -427,7 +427,7 @@ void AutomaticTrackingMap::setMoveMapDownPos(int x, int y)
 void AutomaticTrackingMap::setMoveMapUpPos(int x, int y)
 {
 	MET.setMouseLeftUpPos(x, y);
-	MET.normalizationZerosMinMap(Rect(0, 0, mapSize.width, mapSize.width));
+	MET.normalizationZerosMinMap(Rect(0, 0, mapSize.width, mapSize.height));
 	zerosMinMap = MET.zerosMinMap;
 	updataDraw();
 }
@@ -435,7 +435,7 @@ void AutomaticTrackingMap::setMoveMapUpPos(int x, int y)
 void AutomaticTrackingMap::setMoveMapMovePos(int x, int y)
 {
 	MET.setMouseLeftMovePos(x, y);
-	MET.normalizationZerosMinMap(Rect(0,0,mapSize.width,mapSize.width));
+	MET.normalizationZerosMinMap(Rect(0,0,mapSize.width,mapSize.height));
 	zerosMinMap = MET.zerosMinMap;
 	updataDraw();
 }

@@ -56,8 +56,8 @@ void ATM_ObjectList::append(int x, int y)
 	{
 		throw "List Full";
 	}
-	_x[_orderPtr] = x+11;
-	_y[_orderPtr] = y-369;
+	_x[_orderPtr] = x+11;//+11;
+	_y[_orderPtr] = y-288;//-163;//369
 	_orderPtr++;
 }
 
