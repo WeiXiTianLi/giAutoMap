@@ -43,7 +43,7 @@ private:
 	HBITMAP *hGINUMUID;
 
 	void loadPngGiMap();
-	void loadGiMap();
+	//void loadGiMap();
 	void loadMainMask();
 	void loadGiAvatar();
 	void loadGiAvatarMask();

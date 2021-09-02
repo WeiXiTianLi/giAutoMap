@@ -3,7 +3,6 @@
 // π© GenshinImpact_AutoMap.rc  π”√
 //
 #define IDI_ICON                        101
-#define IDB_GIMAP                       102
 #define IDB_MAINMASK                    103
 #define IDB_PAIMON1920X1080             104
 #define IDB_PAIMON1680X1050             105

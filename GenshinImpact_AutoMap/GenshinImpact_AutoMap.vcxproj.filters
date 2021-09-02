@@ -185,9 +185,6 @@
     <Image Include="resource\mainicon.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resource\GIMAP.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="resource\BackGroundMask.bmp">
       <Filter>Resource Files</Filter>
     </Image>

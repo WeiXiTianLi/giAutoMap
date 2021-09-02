@@ -110,12 +110,12 @@ void ATM_Resource::loadPngGiMap()
 
 }
 
-void ATM_Resource::loadGiMap()
-{
-	hGIMAP = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIMAP));
-	HBitmap2Mat(hGIMAP, GIMAP);
-	DeleteObject(hGIMAP);
-}
+//void ATM_Resource::loadGiMap()
+//{
+//	hGIMAP = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIMAP));
+//	HBitmap2Mat(hGIMAP, GIMAP);
+//	DeleteObject(hGIMAP);
+//}
 
 void ATM_Resource::loadMainMask()
 {
