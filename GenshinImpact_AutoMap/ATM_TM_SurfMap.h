@@ -5,10 +5,9 @@
 #include <opencv2/features2d.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
-#include <opencv2/xfeatures2d/cuda.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
-#include <opencv2/opencv_modules.hpp>
-#include <opencv2/core/cuda.hpp>
+//#include <opencv2/xfeatures2d/cuda.hpp>
+//#include <opencv2/opencv_modules.hpp>
+//#include <opencv2/core/cuda.hpp>
 #include <opencv2/video/tracking.hpp>
 
 #include <opencv2/imgproc/imgproc_c.h>
@@ -23,7 +22,7 @@ class ATM_TM_SurfMap
 
 	int minHessian = 400;
 	double ratio_thresh = 0.66;
-	double mapScale = 1.3;//1.3;
+	double mapScale = 1.33;//1.3;
 	int someSizeR = 106;
 	double MatchMatScale = 2.0;
 

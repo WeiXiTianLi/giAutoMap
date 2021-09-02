@@ -444,7 +444,7 @@ void ATM_TM_SurfMap::SURFMatch()
 	}//if ((dis(dp1) + dis(dp2)) < 2000)
 	else
 	{
-	isConveying = true;
+		isConveying = true;
 	}
 	if (!isContinuity)
 	{
@@ -532,12 +532,13 @@ void ATM_TM_SurfMap::SURFMatch()
 		KF.correct(measurement);
 
 		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+		//isConveying = false;
 	}
 	else
 	{
 		//Point statePt = Point((int)KF.statePost.at<float>(0), (int)KF.statePost.at<float>(1));
 
-//2.kalman prediction   
+		//2.kalman prediction   
 		Mat prediction = KF.predict();
 		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
 
@@ -550,9 +551,6 @@ void ATM_TM_SurfMap::SURFMatch()
 
 		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
 	}
-
-
-
 
 	hisP[0] = hisP[1];
 	hisP[1] = hisP[2];

@@ -1,4 +1,5 @@
 #include "ATM_Resource.h"
+#include <wincodec.h>
 
 ATM_Resource::ATM_Resource()
 {
@@ -17,7 +18,8 @@ ATM_Resource::ATM_Resource()
 	GIPAIMON = new Mat[4];
 	GINUMUID = new Mat[11];//NUM
 
-	loadGiMap();
+	loadPngGiMap();
+	//loadGiMap();
 	loadMainMask();
 	loadGiAvatar();
 	loadGiAvatarMask();
@@ -48,16 +50,78 @@ ATM_Resource::~ATM_Resource()
 	delete[] GINUMUID;
 }
 
+void ATM_Resource::loadPngGiMap()
+{
+	HMODULE hModu = NULL;
+	IWICStream *pIWICStream = NULL;
+	IWICBitmapDecoder *pIDecoder = NULL;
+	IWICBitmapFrameDecode *pIDecoderFrame = NULL;
+	IWICImagingFactory *m_pIWICFactory = NULL;
+	IWICBitmapSource *bitmap_source = NULL; 
+	HRSRC imageResHandle = NULL;
+	HGLOBAL imageResDataHandle = NULL;
+	void *pImageFile = NULL;
+	DWORD imageFileSize = 0;
+
+	hModu = GetModuleHandle(0);
+
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+
+	CoCreateInstance(
+		CLSID_WICImagingFactory,
+		NULL,
+		CLSCTX_INPROC_SERVER,
+		IID_PPV_ARGS(&m_pIWICFactory)
+	);
+
+	imageResHandle = FindResource(hModu, MAKEINTRESOURCE(IDB_PNG_GIMAP), L"PNG");
+	imageResDataHandle = LoadResource(hModu, imageResHandle);
+	pImageFile = LockResource(imageResDataHandle);
+	imageFileSize = SizeofResource(hModu, imageResHandle);
+	m_pIWICFactory->CreateStream(&pIWICStream);
+
+	pIWICStream->InitializeFromMemory(
+		reinterpret_cast<BYTE*>(pImageFile),
+		imageFileSize);
+	m_pIWICFactory->CreateDecoderFromStream(
+		pIWICStream,                   // The stream to use to create the decoder
+		NULL,                          // Do not prefer a particular vendor
+		WICDecodeMetadataCacheOnLoad,  // Cache metadata when needed
+		&pIDecoder);                   // Pointer to the decoder
+	pIDecoder->GetFrame(0, &pIDecoderFrame);
+
+	bitmap_source = pIDecoderFrame;
+
+	UINT width = 0, height = 0, depht = 4;
+	bitmap_source->GetSize(&width, &height);
+
+	{
+		std::vector<BYTE> buffer(width * height * depht);
+		bitmap_source->CopyPixels(NULL, width * depht, buffer.size(), buffer.data());
+
+		HBITMAP hGIMAP = CreateBitmap(width, height, 1, 8 * depht, buffer.data());
+
+		HBitmap2Mat(hGIMAP, GIMAP);
+
+		DeleteObject(hGIMAP);
+	}
+	DeleteObject(bitmap_source);
+	CoUninitialize();
+
+}
+
 void ATM_Resource::loadGiMap()
 {
 	hGIMAP = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIMAP));
 	HBitmap2Mat(hGIMAP, GIMAP);
+	DeleteObject(hGIMAP);
 }
 
 void ATM_Resource::loadMainMask()
 {
 	hMAINMASK = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_MAINMASK));
 	HBitmap2Mat(hMAINMASK, MAINMASK);
+	DeleteObject(hMAINMASK);
 }
 
 void ATM_Resource::loadGiAvatar()
@@ -65,67 +129,87 @@ void ATM_Resource::loadGiAvatar()
 	hGIAVATAR = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIAVATAR));
 	//HBitmap2Mat(hGIAVATAR, GIAVATAR);
 	HBitmap2MatAlpha(hGIAVATAR, GIAVATAR);
+	DeleteObject(hGIAVATAR);
 }
 
 void ATM_Resource::loadGiAvatarMask()
 {
 	hGIAVATARMASK = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GIAVATARMASK));
 	HBitmap2MatAlpha(hGIAVATARMASK, GIAVATARMASK);
+	DeleteObject(hGIAVATARMASK);
 }
 
 void ATM_Resource::loadGiStar()
 {
 	hGISTAR = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GISTAR));
 	HBitmap2Mat(hGISTAR, GISTAR);
+	DeleteObject(hGISTAR);
 }
 
 void ATM_Resource::loadGiStarMask()
 {
 	hGISTARMASK = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_GISTARMASK));
 	HBitmap2Mat(hGISTARMASK, GISTARMASK);
+	DeleteObject(hGISTARMASK);
 }
 
 void ATM_Resource::loadGiPaimon()
 {
 	hGIPAIMON[0]= LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_PAIMON1920X1080));
 	HBitmap2Mat(hGIPAIMON[0], GIPAIMON[0]);
+	DeleteObject(hGIPAIMON[0]);
 	hGIPAIMON[1] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_PAIMON1680X1050));
 	HBitmap2Mat(hGIPAIMON[1], GIPAIMON[1]);
+	DeleteObject(hGIPAIMON[1]);
 	hGIPAIMON[2] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_PAIMON1440X900));
 	HBitmap2Mat(hGIPAIMON[2], GIPAIMON[2]);
+	DeleteObject(hGIPAIMON[2]);
 	hGIPAIMON[3] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_PAIMON1366X768));
 	HBitmap2Mat(hGIPAIMON[3], GIPAIMON[3]);
+	DeleteObject(hGIPAIMON[3]);
 }
 
 void ATM_Resource::loadGiObjIcon()
 {
 	hGIOBJICON[0] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON0));
 	HBitmap2Mat(hGIOBJICON[0], GIOBJICON[0]);
+	DeleteObject(hGIOBJICON[0]);
 	hGIOBJICON[1] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON1));
 	HBitmap2Mat(hGIOBJICON[1], GIOBJICON[1]);
+	DeleteObject(hGIOBJICON[1]);
 	hGIOBJICON[2] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON2));
 	HBitmap2Mat(hGIOBJICON[2], GIOBJICON[2]);
+	DeleteObject(hGIOBJICON[2]);
 	hGIOBJICON[3] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON3));
 	HBitmap2Mat(hGIOBJICON[3], GIOBJICON[3]);
+	DeleteObject(hGIOBJICON[3]);
 
 	hGIOBJICON[4] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON93));
 	HBitmap2Mat(hGIOBJICON[4], GIOBJICON[4]);
+	DeleteObject(hGIOBJICON[4]);
 	hGIOBJICON[5] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON94));
 	HBitmap2Mat(hGIOBJICON[5], GIOBJICON[5]);
+	DeleteObject(hGIOBJICON[5]);
 
 	hGIOBJICON[6] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON101));
 	HBitmap2Mat(hGIOBJICON[6], GIOBJICON[6]);
+	DeleteObject(hGIOBJICON[6]);
 	hGIOBJICON[7] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON102));
 	HBitmap2Mat(hGIOBJICON[7], GIOBJICON[7]);
+	DeleteObject(hGIOBJICON[7]);
 	hGIOBJICON[8] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON103));
 	HBitmap2Mat(hGIOBJICON[8], GIOBJICON[8]);
+	DeleteObject(hGIOBJICON[8]);
 	hGIOBJICON[9] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON104));
 	HBitmap2Mat(hGIOBJICON[9], GIOBJICON[9]);
+	DeleteObject(hGIOBJICON[9]);
 	hGIOBJICON[10] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON105));
 	HBitmap2Mat(hGIOBJICON[10], GIOBJICON[10]);
+	DeleteObject(hGIOBJICON[10]);
 
 	hGIOBJICON[11] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON205));
 	HBitmap2Mat(hGIOBJICON[11], GIOBJICON[11]);
+	DeleteObject(hGIOBJICON[11]);
 }
 
 void ATM_Resource::loadGiObjIconMask()
@@ -133,50 +217,64 @@ void ATM_Resource::loadGiObjIconMask()
 	hGIOBJICONMASK[0] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON0MASK));
 	HBitmap2Mat(hGIOBJICONMASK[0], GIOBJICONMASK[0]);
 	Mat2MaskMat(GIOBJICONMASK[0], GIOBJICONMASK[0]);
+	DeleteObject(hGIOBJICONMASK[0]);
 	hGIOBJICONMASK[1] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON1MASK));
 	HBitmap2Mat(hGIOBJICONMASK[1], GIOBJICONMASK[1]);
 	Mat2MaskMat(GIOBJICONMASK[1], GIOBJICONMASK[1]);
+	DeleteObject(hGIOBJICONMASK[1]);
 	hGIOBJICONMASK[2] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON2MASK));
 	HBitmap2Mat(hGIOBJICONMASK[2], GIOBJICONMASK[2]);
 	Mat2MaskMat(GIOBJICONMASK[2], GIOBJICONMASK[2]);
+	DeleteObject(hGIOBJICONMASK[2]);
 	hGIOBJICONMASK[3] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON3MASK));
 	HBitmap2Mat(hGIOBJICONMASK[3], GIOBJICONMASK[3]);
 	Mat2MaskMat(GIOBJICONMASK[3], GIOBJICONMASK[3]);
+	DeleteObject(hGIOBJICONMASK[3]);
 
 	hGIOBJICONMASK[4] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON93MASK));
 	HBitmap2Mat(hGIOBJICONMASK[4], GIOBJICONMASK[4]);
 	Mat2MaskMat(GIOBJICONMASK[4], GIOBJICONMASK[4]);
+	DeleteObject(hGIOBJICONMASK[4]);
 	hGIOBJICONMASK[5] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON94MASK));
 	HBitmap2Mat(hGIOBJICONMASK[5], GIOBJICONMASK[5]);
 	Mat2MaskMat(GIOBJICONMASK[5], GIOBJICONMASK[5]);
+	DeleteObject(hGIOBJICONMASK[5]);
 
 	hGIOBJICONMASK[6] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON101MASK));
 	HBitmap2Mat(hGIOBJICONMASK[6], GIOBJICONMASK[6]);
 	Mat2MaskMat(GIOBJICONMASK[6], GIOBJICONMASK[6]);
+	DeleteObject(hGIOBJICONMASK[6]);
 	hGIOBJICONMASK[7] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON102MASK));
 	HBitmap2Mat(hGIOBJICONMASK[7], GIOBJICONMASK[7]);
 	Mat2MaskMat(GIOBJICONMASK[7], GIOBJICONMASK[7]);
+	DeleteObject(hGIOBJICONMASK[7]);
 	hGIOBJICONMASK[8] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON103MASK));
 	HBitmap2Mat(hGIOBJICONMASK[8], GIOBJICONMASK[8]);
 	Mat2MaskMat(GIOBJICONMASK[8], GIOBJICONMASK[8]);
+	DeleteObject(hGIOBJICONMASK[8]);
 	hGIOBJICONMASK[9] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON104MASK));
 	HBitmap2Mat(hGIOBJICONMASK[9], GIOBJICONMASK[9]);
 	Mat2MaskMat(GIOBJICONMASK[9], GIOBJICONMASK[9]);
+	DeleteObject(hGIOBJICONMASK[9]);
 	hGIOBJICONMASK[10] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON105MASK));
 	HBitmap2Mat(hGIOBJICONMASK[10], GIOBJICONMASK[10]);
 	Mat2MaskMat(GIOBJICONMASK[10], GIOBJICONMASK[10]);
+	DeleteObject(hGIOBJICONMASK[10]);
 
 	hGIOBJICONMASK[11] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON205MASK));
 	HBitmap2Mat(hGIOBJICONMASK[11], GIOBJICONMASK[11]);
 	Mat2MaskMat(GIOBJICONMASK[11], GIOBJICONMASK[11]);
+	DeleteObject(hGIOBJICONMASK[11]);
 }
 
 void ATM_Resource::loadGiObjFlagIcon()
 {
 	hGIOBJFLAGICON[0] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJFLAGICON0));
 	HBitmap2Mat(hGIOBJFLAGICON[0], GIOBJFLAGICON[0]);
+	DeleteObject(hGIOBJFLAGICON[0]);
 	hGIOBJFLAGICON[1] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJFLAGICON1));
 	HBitmap2Mat(hGIOBJFLAGICON[1], GIOBJFLAGICON[1]);
+	DeleteObject(hGIOBJFLAGICON[1]);
 }
 
 void ATM_Resource::loadGiObjFlagIconMask()

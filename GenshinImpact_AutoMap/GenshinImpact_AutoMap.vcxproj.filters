@@ -332,6 +332,9 @@
     <Image Include="resource\ObjectIcons\ObjectList3Mask.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resource\GIMAP.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtClassMyExitButton.h">
