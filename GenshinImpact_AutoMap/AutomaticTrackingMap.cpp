@@ -301,6 +301,8 @@ Mat AutomaticTrackingMap::getViewMap()
 {
 	static Mat minMap;
 
+	//需要能越过边界，否则大范围显示时无法保证角色箭头处于正确位置
+
 	Point minMapPoint = Point(0, 0);
 
 	Size reMapSize = autoMapSize;

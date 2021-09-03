@@ -286,3 +286,5 @@ __pycache__/
 /.git.bfg-report/2021-07-31/01-26-14/cache-stats.txt
 opencv2/
 GenshinImpact_AutoMap/GenshinImpact_AutoMap.vcxproj
+/GenshinImpact_AutoMap/TestOutput0.png
+/GenshinImpact_AutoMap/TestOutput1.png
