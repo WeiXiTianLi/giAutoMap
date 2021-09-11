@@ -11,6 +11,7 @@
 #include <opencv2/core/cuda.hpp>
 
 #include <opencv2/imgproc/imgproc_c.h>
+#include "ATM_TM_ThreadBase.h"
 #include "ATM_TM_SurfMap.h"
 #include "ATM_TM_TemplatePaimon.h"
 #include "ATM_TM_ORBAvatar.h"
@@ -51,6 +52,8 @@ class ATM_ThreadMatch
 	ATM_TM_TemplateUID tempUID;
 	ATM_TM_TemplateStar tempStar;
 	//ATM_TM_Thread tempUID;
+
+	ATM_TM_toPoint test;
 public:
 	~ATM_ThreadMatch();
 	ATM_TM_Continuity continuityState;
