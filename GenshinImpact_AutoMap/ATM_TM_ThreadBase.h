@@ -2,11 +2,11 @@
 #include <thread>
 #include <Windows.h>
 #include <opencv2/opencv.hpp>
-#include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
-
-#include <opencv2/imgproc/imgproc_c.h>
+//#include <opencv2/features2d.hpp>
+//#include <opencv2/xfeatures2d.hpp>
+//#include <opencv2/xfeatures2d/nonfree.hpp>
+//
+//#include <opencv2/imgproc/imgproc_c.h>
 using namespace std;
 using namespace cv;
 
@@ -27,9 +27,10 @@ public:
 	bool isInit = false;
 	ATM_TM_ThreadBase();
 	~ATM_TM_ThreadBase();
-	ATM_TM_ThreadBase(void(*funPtr)(Mat &inMat));
 
-	void setFunction(void(*funPtr)(Mat &inMat));
+	//ATM_TM_ThreadBase(void(*funPtr)(Mat &inMat));
+
+	//void setFunction(void(*funPtr)(Mat &inMat));
 	virtual void workfun();
 	void start(Mat & inMat);
 	bool isEnd();

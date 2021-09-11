@@ -237,6 +237,7 @@
     <ClCompile Include="ATM_SaveLoadFile.cpp" />
     <ClCompile Include="ATM_SendSocket.cpp" />
     <ClCompile Include="ATM_ThreadMatch.cpp" />
+    <ClCompile Include="ATM_TM_InertiaMap.cpp" />
     <ClCompile Include="ATM_TM_ORBAvatar.cpp" />
     <ClCompile Include="ATM_TM_SurfMap.cpp" />
     <ClCompile Include="ATM_TM_TemplatePaimon.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="ATM_SaveLoadFile.h" />
     <ClInclude Include="ATM_SendSocket.h" />
     <ClInclude Include="ATM_ThreadMatch.h" />
+    <ClInclude Include="ATM_TM_InertiaMap.h" />
     <ClInclude Include="ATM_TM_ORBAvatar.h" />
     <ClInclude Include="ATM_TM_SurfMap.h" />
     <ClInclude Include="ATM_TM_TemplatePaimon.h" />

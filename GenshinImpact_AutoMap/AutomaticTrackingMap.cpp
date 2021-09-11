@@ -244,7 +244,7 @@ void AutomaticTrackingMap::BackEndUpdata()
 		}
 	}
 
-
+	//uid存档更新部分
 	if (SLF._uid != TMS.uid)
 	{
 		SLF.logUIDEvent(TMS.uid);
@@ -723,6 +723,7 @@ void AutomaticTrackingMap::setThisState()
 	}
 }
 
+//设置多线程匹配图像
 void AutomaticTrackingMap::setThreadMatchMat()
 {
 	if (GIS.isRunning&&GIS.giRectMode > 0)
@@ -743,6 +744,7 @@ void AutomaticTrackingMap::setThreadMatchMat()
 	}
 }
 
+//绘制神瞳状态
 void AutomaticTrackingMap::drawStarObjectLists()
 {
 	//draw Star
