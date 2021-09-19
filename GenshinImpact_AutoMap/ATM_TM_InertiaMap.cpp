@@ -68,10 +68,10 @@ void ATM_TM_InertiaMap::SURFMatch()
 		}
 #ifdef _DEBUG
 		Mat img_matches, imgmap, imgnowMap;
-		drawKeypoints(someMap, Kp_BeforeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-		drawKeypoints(img_object, Kp_NowMap, imgnowMap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		drawKeypoints(beforeMap, Kp_BeforeMap, imgmap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		drawKeypoints(nowMap, Kp_NowMap, imgnowMap, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
-		drawMatches(img_object, Kp_NowMap, someMap, Kp_BeforeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+		drawMatches(beforeMap, Kp_NowMap, nowMap, Kp_BeforeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 #endif
 		//好的特征点对的数量过少也结束
 		if (min(lisx.size(), lisy.size()) == 0)

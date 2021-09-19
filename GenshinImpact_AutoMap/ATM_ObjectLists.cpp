@@ -187,19 +187,32 @@ ATM_ObjectLists::ATM_ObjectLists()
 	{
 		_objList[i] = ATM_ObjectList(_objectMaxNumbers[i]);
 	}
-
-	collectionState[0] = &_collectionStateFST;
-	collectionState[1] = &_collectionStateYST;
-	collectionState[2] = &_collectionStateLST;
-	collectionState[3] = &_collectionStateFHYS;
-	collectionState[4] = &_collectionStateSJK;
-	collectionState[5] = &_collectionStateSB;
-	collectionState[6] = &_collectionStateLLBH;
-	collectionState[7] = &_collectionStateQX;
-	collectionState[8] = &_collectionStateLLD;
-	collectionState[9] = &_collectionStateGGG;
-	collectionState[10] = &_collectionStateXDC;
-	collectionState[11] = &_collectionStateXL;
+	int i = 0;
+	collectionState[i] = &_collectionStateFST;
+	i++;
+	collectionState[i] = &_collectionStateYST;
+	i++;
+	collectionState[i] = &_collectionStateLST;
+	i++;
+	collectionState[i] = &_collectionStateFHYS;
+	i++;
+	collectionState[i] = &_collectionStateLST2;
+	i++;
+	collectionState[i] = &_collectionStateSJK;
+	i++;
+	collectionState[i] = &_collectionStateSB;
+	i++;
+	collectionState[i] = &_collectionStateLLBH;
+	i++;
+	collectionState[i] = &_collectionStateQX;
+	i++;
+	collectionState[i] = &_collectionStateLLD;
+	i++;
+	collectionState[i] = &_collectionStateGGG;
+	i++;
+	collectionState[i] = &_collectionStateXDC;
+	i++;
+	collectionState[i] = &_collectionStateXL;
 
 	Init();
 }
@@ -354,8 +367,7 @@ int ATM_ObjectLists::getCollectionState(int klass, int i)
 void ATM_ObjectLists::copyFrom(int klass, ATM_Matrix & mat)
 {
 	mat.copyTo((*collectionState[klass]));
-	/*************/
-	if (klass == 4)
+	if (klass == 5)/******/
 	{
 		reAppendFlag();
 	}
@@ -368,7 +380,7 @@ void ATM_ObjectLists::copyTo(int klass, ATM_Matrix * mat)
 
 void ATM_ObjectLists::Init0()
 {
-	int i = 0;
+	int i = getFunCount();
 	{
 		append(i, 1628, 747);
 		append(i, 1754, 535);
@@ -440,7 +452,7 @@ void ATM_ObjectLists::Init0()
 
 void ATM_ObjectLists::Init1()
 {
-	int i = 1;
+	int i = getFunCount();
 	{
 		append(i, 1139, 1159);
 		append(i, 1081, 1345);
@@ -578,7 +590,7 @@ void ATM_ObjectLists::Init1()
 
 void ATM_ObjectLists::Init2()
 {
-	int i = 2;
+	int i = getFunCount();
 	{
 		append(i, 4774, 4776);
 		append(i, 5223, 4973);
@@ -681,7 +693,7 @@ void ATM_ObjectLists::Init2()
 
 void ATM_ObjectLists::Init3()
 {
-	int i = 3;
+	int i = getFunCount();
 	{
 		append(i, 2442, 1953);
 		append(i, 2625, 2089);
@@ -768,7 +780,69 @@ void ATM_ObjectLists::Init3()
 
 void ATM_ObjectLists::Init4()
 {
-	int i = 4;
+	int i = getFunCount();
+	{
+		append(i, 2137, 5589);
+		append(i, 2243, 5786);
+		append(i, 2297, 5813);
+		append(i, 2358, 5937);
+		append(i, 5115, 6401);
+		append(i, 5084, 6568);
+		append(i, 5000, 6488);
+		append(i, 5052, 6402);
+		append(i, 5274, 6379);
+		append(i, 5147, 6312);
+		append(i, 5083, 6226);
+		append(i, 5054, 6236);
+		append(i, 5050, 6186);
+		append(i, 4656, 6482);
+		append(i, 4641, 6534);
+		append(i, 4688, 6535);
+		append(i, 4812, 6339);
+		append(i, 4848, 6298);
+		append(i, 5313, 6273);
+		append(i, 5250, 6154);
+		append(i, 2469, 5628);
+		append(i, 2619, 5585);
+		append(i, 2446, 5942);
+		append(i, 2488, 5874);
+		append(i, 2292, 5861);
+		append(i, 2523, 5794);
+		append(i, 2256, 5704);
+		append(i, 5053, 6474);
+		append(i, 4666, 6292);
+		append(i, 5383, 6329);
+		append(i, 4540, 6096);
+		append(i, 5003, 6195);
+		append(i, 5067, 6471);
+		append(i, 5065, 6455);
+		append(i, 5070, 6485);
+		append(i, 2086, 5850);
+		append(i, 2551, 5797);
+		append(i, 5066, 6692);
+		append(i, 4925, 6231);
+		append(i, 4730, 6293);
+		append(i, 4786, 6664);
+		append(i, 5487, 6634);
+		append(i, 5183, 6588);
+		append(i, 2520, 6066);
+		append(i, 2354, 5996);
+		append(i, 2401, 5999);
+		append(i, 2388, 5624);
+		append(i, 2423, 5706);
+		append(i, 2344, 5678);
+		append(i, 4688, 6292);
+		append(i, 4651, 6296);
+		append(i, 2170, 5749);
+		append(i, 4886, 6231);
+		append(i, 5392, 6592);
+		append(i, 4957, 6500);
+	}
+}
+
+void ATM_ObjectLists::Init5()
+{
+	int i = getFunCount();
 	{
 	append(i, 2276, 2882);
 	append(i, 2273, 2886);
@@ -942,9 +1016,9 @@ void ATM_ObjectLists::Init4()
 }
 }
 
-void ATM_ObjectLists::Init5()
+void ATM_ObjectLists::Init6()
 {
-	int i = 5;
+	int i = getFunCount();
 	{
 	append(i, 787, 3528);
 	append(i, 808, 3473);
@@ -1053,9 +1127,9 @@ void ATM_ObjectLists::Init5()
 }
 }
 
-void ATM_ObjectLists::Init6()
+void ATM_ObjectLists::Init7()
 {
-	int i = 6;
+	int i = getFunCount();
 	{
 	append(i, 1507, 3337);
 	append(i, 1509, 3340);
@@ -1096,9 +1170,9 @@ void ATM_ObjectLists::Init6()
 }
 }
 
-void ATM_ObjectLists::Init7()
+void ATM_ObjectLists::Init8()
 {
-	int i = 7;
+	int i = getFunCount();
 	{
 	append(i, 1188, 2190);
 	append(i, 1186, 2194);
@@ -1120,9 +1194,9 @@ void ATM_ObjectLists::Init7()
 }
 }
 
-void ATM_ObjectLists::Init8()
+void ATM_ObjectLists::Init9()
 {
-	int i = 8;
+	int i = getFunCount();
 	{
 	append(i, 1922, 1727);
 	append(i, 1894, 1741);
@@ -1247,9 +1321,9 @@ void ATM_ObjectLists::Init8()
 }
 }
 
-void ATM_ObjectLists::Init9()
+void ATM_ObjectLists::Init10()
 {
-	int i = 9;
+	int i = getFunCount();
 	{
 	append(i, 2068, 1121);
 	append(i, 2060, 1148);
@@ -1287,9 +1361,9 @@ void ATM_ObjectLists::Init9()
 }
 }
 
-void ATM_ObjectLists::Init10()
+void ATM_ObjectLists::Init11()
 {
-	int i = 10;
+	int i = getFunCount();
 	{
 	append(i, 3046, 1048);
 	append(i, 3045, 1052);
@@ -1369,9 +1443,9 @@ void ATM_ObjectLists::Init10()
 }
 }
 
-void ATM_ObjectLists::Init11()
+void ATM_ObjectLists::Init12()
 {
-	int i = 11;
+	int i = getFunCount();
 	{
 		append(i, 1778, 2781);
 		append(i, 1963, 2616);
@@ -1443,6 +1517,11 @@ void ATM_ObjectLists::Init11()
 		append(i, 1828, 2521);
 		append(i, 1905, 2517);
 	}
+}
+
+int ATM_ObjectLists::getFunCount()
+{
+	return funCount++;
 }
 
 void ATM_ObjectLists::append(int i, int x, int y)

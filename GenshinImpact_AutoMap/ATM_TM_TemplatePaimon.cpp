@@ -36,3 +36,10 @@ bool ATM_TM_TemplatePaimon::getPaimonVisible()
 {
 	return isPaimonVisible;
 }
+
+bool ATM_TM_TemplatePaimon::getPaimonVisible(Mat paimonMat)
+{
+	setPaimonMat(paimonMat);
+	TemplatePaimon();
+	return getPaimonVisible();
+}

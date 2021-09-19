@@ -48,21 +48,27 @@ public:
 class ATM_ObjectLists
 {
 	// 在此：添加新的物品需改数量
-	int _objectListsNumber = 12;
-	int _objectMaxNumbers[12] = { 65,131,95,80,169,104,36,17,120,33,75,69 };
-	bool _isShow[12] = { false };
+	/******/
+	int _objectListsNumber = 13;
+	int _objectMaxNumbers[13] = { 65,131,95,80,55,169,104,36,17,120,33,75,69 };
+	bool _isShow[13] = { false };
+	/******/
 	bool _isShowFlag = false;
 	ATM_ObjectList *_objList = nullptr;
 	ATM_ObjectFlag _objFlag;
 
 	vector<vector<vector<int>>> _objLists;
 
+	int funCount = 0;
 public:
+	/******/
 	ATM_Matrix _collectionStateFST = ATM_Matrix(1, 65);
 	ATM_Matrix _collectionStateYST = ATM_Matrix(1, 131);
 	ATM_Matrix _collectionStateLST = ATM_Matrix(1, 95);
 
 	ATM_Matrix _collectionStateFHYS = ATM_Matrix(1, 80);
+	
+	ATM_Matrix _collectionStateLST2 = ATM_Matrix(1, 55);//150-95= 55
 
 	ATM_Matrix _collectionStateSJK = ATM_Matrix(1, 169);
 	ATM_Matrix _collectionStateSB = ATM_Matrix(1, 104);
@@ -72,11 +78,13 @@ public:
 	ATM_Matrix _collectionStateGGG = ATM_Matrix(1, 33);
 	ATM_Matrix _collectionStateXDC = ATM_Matrix(1, 75);
 	ATM_Matrix _collectionStateXL = ATM_Matrix(1, 69);
+	/******/
 
 
 	ATM_Matrix _collectionStateFlag;
-
-	ATM_Matrix *collectionState[12];
+	/******/
+	ATM_Matrix *collectionState[13];
+	/******/
 	vector<int> visualStarKlassList;
 	vector<int> visualStarIdList;
 	vector<double> visualStarDisList;
@@ -87,6 +95,7 @@ public:
 	bool isSelectObj = false;
 	int selectObjKlass = -1;
 	int selectObjID = -1;
+
 
 	ATM_ObjectLists();
 	~ATM_ObjectLists();
@@ -130,6 +139,8 @@ private:
 	void Init9();
 	void Init10();
 	void Init11();
+	void Init12();
 	//void InitId(int id);
+	int getFunCount();
 	void append(int i, int x, int y);
 };

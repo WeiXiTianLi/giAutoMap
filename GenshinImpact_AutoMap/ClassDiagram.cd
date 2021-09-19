@@ -1,67 +1,263 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ATM_TM_SurfMap">
-    <Position X="15" Y="1.75" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ATM_ActivationKYJG" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QQAAAAIgIaAGBIgBAACAAIACAIgBQAAmgAACJAAAAQA=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AAAAIAAAAAQABAAAAAAAQAAAAAAAAAAAAAABAAAABAQ=</HashCode>
+      <FileName>ATM_ActivationKYJG.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_TemplatePaimon">
-    <Position X="13.25" Y="2" Width="1.5" />
+  <Class Name="ATM_GiState" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAKABAgAAAAAAAAAAgQAAgA=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AECAEkCgCGikAADEAAAEgKCAAAEAABAggQBAAACAAgA=</HashCode>
+      <FileName>ATM_GiState.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_ORBAvatar">
-    <Position X="7.5" Y="2" Width="1.5" />
+  <Class Name="ATM_GI_ScreenResolution" Collapsed="true">
+    <Position X="0.5" Y="2" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAECAAAADAgAAQAEAAAACAAACAgAAAgAAACAEAAAEQ=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ATM_GI_ScreenResolution.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_TemplateUID">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="ATM_TM_TemplateUID::ATM_TM_Template_NumUID" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>ATM_ThreadMatch.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
+  <Class Name="GISR_Undefinde" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AACAAAIAAQAAAEAIGAAAAAAABAAAEAAgAAACAAAAAAA=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ATM_GI_ScreenResolution.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_TemplateStar">
-    <Position X="5.75" Y="2.25" Width="1.5" />
+  <Class Name="ATM_GI_SR" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAACEAAAAAAAAAAAAAJAAAAAAAASgAQACAAAAAAI=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ATM_GI_ScreenResolution.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_Thread">
-    <Position X="9.5" Y="2" Width="1.5" />
+  <Class Name="ATM_MatrixD" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAwAAAAAAAIAhACQAAAAAABAAAEggAAABAAAAAAI=</HashCode>
-      <FileName>ATM_ThreadMatch.h</FileName>
+      <HashCode>AAAAEAAEAJCAAAAAkAhAARACAgmAAIACkAAwJOAEAAQ=</HashCode>
+      <FileName>ATM_Matrix.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ATM_TM_Continuity">
-    <Position X="11.25" Y="2" Width="1.5" />
+  <Class Name="ATM_MatrixI">
+    <Position X="10.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgEAAEAJCAAAAAkAxAARACAgmAAAACkAAwJOAEAAQ=</HashCode>
+      <FileName>ATM_Matrix.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_MouseEvent" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAYAEQCACAAAACgIBAACAEBhAKCAgQECAAAAZAA=</HashCode>
+      <FileName>ATM_MouseEvent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_ObjectList" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAAgQAAAAAAAgAAAAAEFgAAAAAgA=</HashCode>
+      <FileName>ATM_ObjectLists.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_ObjectFlag" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAgIAIQAAAAAAIgAAAAAAAAAAAAAAEFgAEAAAgA=</HashCode>
+      <FileName>ATM_ObjectLists.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_ObjectLists" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBh0ARAEJAACCAgNSQIFEAEKbIAkFQAAEVFiAkgAAQA=</HashCode>
+      <FileName>ATM_ObjectLists.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_Resource" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoCAEgAgERAAgJAIAxIAgAAACSBBAAAAQFJCaSKAYEQ=</HashCode>
+      <FileName>ATM_Resource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_SaveLoadFile" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEoICBAEQQAUhSGAADFAQAgAgAAAABASAAQKA=</HashCode>
+      <FileName>ATM_SaveLoadFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_SendSocket" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAQAAAIAAQAAAAAAAEoAAAABAABAAACAAgAAAAAACQ=</HashCode>
+      <FileName>ATM_SendSocket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_Continuity" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>ATM_ThreadMatch.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ATM_ThreadMatch">
-    <Position X="3.75" Y="0.5" Width="1.5" />
+    <Position X="22.25" Y="1.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>KKUADCQGAABgHgyeE6CnCIII0QYWmHSpIUMLEDBEAKY=</HashCode>
+      <HashCode>KKUADCQGAABoHgyeE6CnCIII0QYWmHSpIUMLEDBEAKY=</HashCode>
       <FileName>ATM_ThreadMatch.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="ATM_TM_InertiaMap" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQABAAAAAIAAAEgAAAAAAKEAAIAAAggAIIAAIAgAEAA=</HashCode>
+      <FileName>ATM_TM_InertiaMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_ORBAvatar" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAECAAAADAgAAACEAAAAAAAAAEAQABgAAACgEAAAAQ=</HashCode>
+      <FileName>ATM_TM_ORBAvatar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_SurfMap">
+    <Position X="21" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QQAAAIIAIaAOBIgBAACAIIACAIgBQBAmgAIGJEAQAQA=</HashCode>
+      <FileName>ATM_TM_SurfMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_TemplatePaimon" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAKABAgAAAAAAAAAAgQAAgA=</HashCode>
+      <FileName>ATM_TM_TemplatePaimon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_TemplatePaimonT" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAQgAAA=</HashCode>
+      <FileName>ATM_TM_TemplatePaimon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_TemplateStar" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAACEAAAAAAAAAAAAAJAAAAAAAASgAQACAAAAAAI=</HashCode>
+      <FileName>ATM_TM_TemplateStar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_TemplateUID" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="ATM_TM_TemplateUID::ATM_TM_Template_NumUID" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ATM_TM_TemplateUID.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACAAAIAAQAAAEAIGAAAAAAABAAAEAAgAAACAAAAAAA=</HashCode>
+      <FileName>ATM_TM_TemplateUID.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_ThreadBase&lt;FunOut, FunIn, _Obj&gt;" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAA0EIAAAAAAAlACAAAAAAABABAQgAEAABAAAEAAI=</HashCode>
+      <FileName>ATM_TM_ThreadBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutomaticTrackingMap" Collapsed="true">
+    <Position X="1.5" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>XuATNICCBETuKZwgEHgQFqEQZCIiYIggIITCAIJAQAA=</HashCode>
+      <FileName>AutomaticTrackingMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtClassMyHotKayNativeEventFilter" Collapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAQAAACAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QtClassMyHotKayNativeEventFilter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenshinImpact_AutoMap">
+    <Position X="15.5" Y="7.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>ICogEAAiUAhUHIAABAAABAjAgAIUAAAAEAQAUgAQIAA=</HashCode>
+      <FileName>GenshinImpact_AutoMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtClassMyExitButton" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QtClassMyExitButton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtClassMyHotKeyObject" Collapsed="true">
+    <Position X="15.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACQCACAEAgQAAAAAAAkAAAAAAAEAAgA=</HashCode>
+      <FileName>QtClassMyHotKeyObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtWidgetsClassMySelectGenshinImpactHandle" Collapsed="true">
+    <Position X="18.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQgAAAIBAEAAAAAAEAJBAAAEQAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>QtWidgetsClassMySelectGenshinImpactHandle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QtSingleApplication" Collapsed="true">
+    <Position X="17" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAIAAAAAgAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>QtSingleApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM_TM_Base_TemplateMatch" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgAAgABAAACAAAAACAQEAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ATM_TM_Base_TemplateMatch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="ATM_Matrix" Collapsed="true">
+    <Position X="6.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ATM_Matrix.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ATmap" Collapsed="true">
+    <Position X="1.75" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutomaticTrackingMap.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="RectMode" Collapsed="true">
+    <Position X="13.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAABAIIAQAAAAAAAAAAAABCACAARAAAAAgAAAgE=</HashCode>
+      <FileName>ATM_GiState.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ThisWinState" Collapsed="true">
+    <Position X="15.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAgAAAAAAAAQIAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>AutomaticTrackingMap.h</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Microsoft YaHei UI" Size="9" />
 </ClassDiagram>

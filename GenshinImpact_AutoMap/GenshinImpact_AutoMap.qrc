@@ -11,10 +11,6 @@
     <file>resource/UI1.ico</file>
     <file>resource/UI.ico</file>
   </qresource>
-  <qresource prefix="IconAutoMode">
-    <file>resource/AutoModeSwitchOn.ico</file>
-    <file>resource/AutoModeSwitchOff.ico</file>
-  </qresource>
   <qresource prefix="BackGroundImage"/>
   <qresource prefix="CurMain">
     <file>resource/GenshinImpactCur.cur</file>

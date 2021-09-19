@@ -116,6 +116,15 @@
     <ClCompile Include="ATM_TM_InertiaMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ATM_TM_Base_TemplateMatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ATM_TM_Base_SurfMatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ATM_TM_Base_Match.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticTrackingMap.h">
@@ -179,6 +188,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ATM_TM_InertiaMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ATM_TM_Base_TemplateMatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ATM_TM_Base_SurfMatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ATM_TM_Base_Match.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -338,6 +356,12 @@
     <Image Include="resource\GIMAP.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resource\ObjectIcons\ObjectList4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\ObjectIcons\ObjectList4Mask.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtClassMyExitButton.h">
@@ -359,7 +383,7 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="GenshinImpact_AutoMap.pro" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

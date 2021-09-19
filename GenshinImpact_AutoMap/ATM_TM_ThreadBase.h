@@ -1,12 +1,13 @@
 #pragma once
 #include <thread>
 #include <Windows.h>
+#include <functional>
 #include <opencv2/opencv.hpp>
 
 using namespace std;
 using namespace cv;
 
-template <class FunOut,class FunIn>
+template <class FunOut, class FunIn, class _Obj >
 class ATM_TM_ThreadBase
 {
 	//实现线程的单独控制
@@ -15,7 +16,8 @@ class ATM_TM_ThreadBase
 	thread *tLoopWork = nullptr;
 
 	//工作函数
-	FunOut*(*ptr)(FunIn *funIn) = nullptr;
+	//FunOut(_Obj::*ptr)(FunIn funIn) = nullptr;
+	function<FunOut(FunIn)> fptr = nullptr;
 
 	//输入输出变量
 	FunOut *_funOut = nullptr;
@@ -37,7 +39,7 @@ class ATM_TM_ThreadBase
 		while (isExitThread == false)
 		{
 			//是否运行工作为真并且工作函数不为空
-			if (isRunWork && (*ptr) != nullptr)
+			if (isRunWork && fptr != nullptr)
 			{
 				//是否结束工作为假，工作已运行中
 				isEndWork = false;
@@ -45,7 +47,7 @@ class ATM_TM_ThreadBase
 				//应当先加锁
 
 				//执行函数
-				_funOut = ptr(_funIn);
+				*_funOut = fptr(*_funIn);
 
 				//应当释放锁
 
@@ -64,11 +66,14 @@ class ATM_TM_ThreadBase
 
 public:
 	//bool isInit = false;
+	//无参构造
 	ATM_TM_ThreadBase()
 	{
 		//构造线程实体，并且运行线程执行实体
 		tLoopWork = new thread(&ATM_TM_ThreadBase::run, this);
 	};
+
+	//运行结束最后一次工作析构
 	~ATM_TM_ThreadBase()
 	{
 		//如果线程实体不为空
@@ -85,7 +90,8 @@ public:
 		}
 	}
 
-	ATM_TM_ThreadBase(FunOut(*funPtr)(FunIn &funIn))
+	//带工作函数构造
+	ATM_TM_ThreadBase(function<FunOut(FunIn)> funPtr)
 	{
 		//直接设置工作函数
 		fptr = funPtr;
@@ -93,51 +99,63 @@ public:
 		tLoopWork = new thread(&ATM_TM_ThreadBase::run, this);
 	}
 
-	//void setFunction(FunOut(*funPtr)(FunIn &funIn))
-	//{
-	//	//设置工作函数
-	//	if (isRunWork && (*ptr) != nullptr)
-	//	{
-
-	//	}
-	//	fptr = funPtr;
-	//}
+	//设置工作函数
+	void setFunction(function<FunOut(FunIn)> funPtr)
+	{
+		//不在工作中
+		if (isRunWork)
+		{
+			fptr = funPtr;
+		}
+	}
 
 	//virtual void workfun() {}
+
+	//无参数输入直接运行
 	void start()
 	{
 		isRunWork = true;
 		isEndWork = false;
 	}
 
-	void start(FunIn & funIn)
+	//输入参数并开始运行
+	void start(FunIn funIn)
 	{
-		//if (isExistFunction == false)
-		//{
-		//	throw"Not Found Work Function";
-		//}
-		////workInput = funIn;
+		_funIn= funIn;
 		isRunWork = true;
 		isEndWork = false;
 	}
 
+	//设置输入参数
 	void setFunIn(FunIn funIn)
 	{
 		_funIn = funIn;
 	}
 
+	//获取输出
 	FunOut getFunOut()
 	{
 		return _funOut;
 	}
 
+	//工作是否结束
 	bool isEnd()
 	{
 		return isEndWork;
 	}
+
+	bool getWorkOut(FunOut &out)
+	{
+		if (isEnd())
+		{
+			out = getFunOut();
+			return true;
+		}
+		return false;
+	}
 };
-typedef ATM_TM_ThreadBase<bool, Mat> ATM_TM_toBool;
-typedef ATM_TM_ThreadBase<int, Mat> ATM_TM_toInt;
-typedef ATM_TM_ThreadBase<double, Mat> ATM_TM_toDouble;
-typedef ATM_TM_ThreadBase<Point2d, Mat> ATM_TM_toPoint;
-typedef ATM_TM_ThreadBase<vector<Point2d>, Mat> ATM_TM_toVecPoint;
+//typedef ATM_TM_ThreadBase<bool, Mat> ATM_TM_toBool;
+//typedef ATM_TM_ThreadBase<int, Mat> ATM_TM_toInt;
+//typedef ATM_TM_ThreadBase<double, Mat> ATM_TM_toDouble;
+//typedef ATM_TM_ThreadBase<Point2d, Mat> ATM_TM_toPoint;
+//typedef ATM_TM_ThreadBase<vector<Point2d>, Mat> ATM_TM_toVecPoint;

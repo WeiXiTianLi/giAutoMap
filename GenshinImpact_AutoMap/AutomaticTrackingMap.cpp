@@ -757,7 +757,7 @@ void AutomaticTrackingMap::drawStarObjectLists()
 	OLS.visualStarKlassList.clear();
 	OLS.visualStarIdList.clear();
 	OLS.visualStarDisList.clear();
-	for (int objKlass = 0; objKlass < 4; objKlass++)
+	for (int objKlass = 0; objKlass < 5; objKlass++) /***********/
 	{
 		if (OLS.isShow(objKlass))
 		{
@@ -890,7 +890,7 @@ void AutomaticTrackingMap::drawObjectLists()
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	//double minDist = 9999;
-	for (int objKlass = 4; objKlass < OLS.objectListsNumber(); objKlass++)
+	for (int objKlass = 5; objKlass < OLS.objectListsNumber(); objKlass++)/*********/
 	{
 		if (OLS.isShow(objKlass))
 		{
