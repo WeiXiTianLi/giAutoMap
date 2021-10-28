@@ -20,6 +20,8 @@ public:
 	ATM_Matrix _stateYST = ATM_Matrix(1, 131);
 	ATM_Matrix _stateLST = ATM_Matrix(1, 95);
 	ATM_Matrix _stateFHYS = ATM_Matrix(1, 80);
+	ATM_Matrix _stateLST2 = ATM_Matrix(1, 50);
+	/********/
 	ATM_Matrix _stateFlag;
 	int _uid = 0;
 
@@ -43,6 +45,8 @@ public:
 
 private:
 
+	void loadVersion(FILE * fpSave);
+	
 	void getUIDStr();
 	void getFilePath();
 	string getSystemTime();

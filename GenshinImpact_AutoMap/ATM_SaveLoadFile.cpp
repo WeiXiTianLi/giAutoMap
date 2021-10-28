@@ -64,6 +64,7 @@ void ATM_SaveLoadFile::save()
 	saveMatrix(fpSave, _stateYST);
 	saveMatrix(fpSave, _stateLST);
 	saveMatrix(fpSave, _stateFHYS);
+	//saveMatrix(fpSave, _stateLST2);
 	saveMatrix(fpSave, _stateFlag);
 
 	fclose(fpSave);

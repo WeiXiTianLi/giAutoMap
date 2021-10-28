@@ -417,7 +417,7 @@ void AutomaticTrackingMap::setWindowsPos()
 
 void AutomaticTrackingMap::setWindowsPos(HWND _thisHandle)
 {
-	SetWindowPos(_thisHandle, HWND_TOPMOST, GIS.giRect.left + offGiMinMap.x, GIS.giRect.top + offGiMinMap.y, 0, 0, SWP_NOSIZE);
+ 	SetWindowPos(_thisHandle, HWND_TOPMOST, GIS.giRect.left + offGiMinMap.x, GIS.giRect.top + offGiMinMap.y, 0, 0, SWP_NOSIZE);
 }
 
 void AutomaticTrackingMap::setMoveMapDownPos(int x, int y)
