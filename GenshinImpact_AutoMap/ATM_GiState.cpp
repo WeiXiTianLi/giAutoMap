@@ -216,12 +216,68 @@ void ATM_GiState::getGiScreen()
 
 	GetBitmapBits(hBmp, bmp.bmHeight*bmp.bmWidth*nChannels, giFrame.data);
 }
+void ATM_GiState::getGiScreen2()
+{
+	static HBITMAP	hBmp;
+	BITMAP bmp;
 
+	DeleteObject(hBmp);
+
+	cout << "getGiScreen2: " << giHandle << endl;
+	giHandle = (HWND)0x580F98;
+
+	if (giHandle == NULL)return;
+
+	//获取目标句柄的窗口大小RECT
+	//GetWindowRect(giHandle, &giRect);/* 对原神窗口的操作 */
+	GetClientRect(giHandle, &giRect);/* 对原神窗口的操作 */
+
+	//获取目标句柄的DC
+	HDC hScreen = GetDC(giHandle);/* 对原神窗口的操作 */
+	HDC hCompDC = CreateCompatibleDC(hScreen);
+
+	//获取目标句柄的宽度和高度
+	int	nWidth = giRect.right - giRect.left;
+	int	nHeight = giRect.bottom - giRect.top;
+
+	//创建Bitmap对象
+	hBmp = CreateCompatibleBitmap(hScreen, nWidth, nHeight);//得到位图
+
+	SelectObject(hCompDC, hBmp); //不写就全黑
+	BitBlt(hCompDC, 0, 0, nWidth, nHeight, hScreen, 0, 0, SRCCOPY);
+
+	//释放对象
+	DeleteDC(hScreen);
+	DeleteDC(hCompDC);
+
+	//类型转换
+	GetObject(hBmp, sizeof(BITMAP), &bmp);
+
+	int nChannels = bmp.bmBitsPixel == 1 ? 1 : bmp.bmBitsPixel / 8;
+	int depth = bmp.bmBitsPixel == 1 ? IPL_DEPTH_1U : IPL_DEPTH_8U;
+
+	//mat操作
+	giFrame.create(cv::Size(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8U, nChannels));
+
+	GetBitmapBits(hBmp, bmp.bmHeight * bmp.bmWidth * nChannels, giFrame.data);
+}
 void ATM_GiState::getGiFrame()
 {
-	if (giWndClass == "UnityWndClass")
+	if (isAutoScreen)
 	{
-		getGiScreen();
+		if (giWndClass == "UnityWndClass")
+		{
+			getGiScreen2();
+		}
+		else
+		{
+			getGiScreen2();
+
+		}
+		//else
+		//{
+		//	getScreen(giHandle)
+		//}
 	}
 	else
 	{
@@ -398,6 +454,9 @@ void ATM_GiState::setGiHandle(HWND GiHandle)
 	{
 		char classNameLis[256];
 		char nameLis[256];
+		cout << GiHandle << endl;
+		GiHandle = (HWND)0x580F98;
+		cout << GiHandle << endl;
 		giHandle = GiHandle;
 		GetClassNameA(GiHandle, classNameLis, 256);
 		giWndClass = classNameLis;

@@ -151,6 +151,8 @@ public:
 	//´°¿Ú´óÐ¡
 	Size giSize;
 
+	bool isAutoScreen = true;
+
 	bool isRun();
 	void getHandle();
 	void getRect();
@@ -160,7 +162,10 @@ public:
 
 	void getAllScreen();
 
+	//void getScreen(HWND handle); 
+
 	void getGiScreen();
+	void getGiScreen2();
 	void getGiFrame();
 	void getGiFramePaimon();
 	void getGiFrameMap();

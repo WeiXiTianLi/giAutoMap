@@ -160,12 +160,12 @@
     </Link>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.14.2_msvc2017_64</QtInstall>
+    <QtInstall>5.14.2_msvc2017_64_old</QtInstall>
     <QtModules>core;gui;websockets;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D452T1_C|x64'" Label="QtSettings">
-    <QtInstall>5.14.2_msvc2017_64</QtInstall>
+    <QtInstall>5.14.2_msvc2017_64_old</QtInstall>
     <QtModules>core;gui;websockets;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -212,7 +212,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
