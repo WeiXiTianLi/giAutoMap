@@ -54,7 +54,7 @@ class ATM_ThreadMatch
 	//ATM_TM_Thread tempUID;
 
 	//ATM_TM_toBool tWork_Paimon;
-	ATM_TM_TemplatePaimonT paimonT;
+	//ATM_TM_TemplatePaimonT paimonT;
 	//ATM_TM_ThreadBase<bool, Mat> tWork_Paimon2(tempPaimon.getPaimonVisible(Mat));
 	//ATM_TM_toPoint test;
 public:

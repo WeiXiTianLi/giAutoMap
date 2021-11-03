@@ -3,11 +3,20 @@
 bool ATM_GiState::isRun()
 {
 	isRunning = IsWindow(giHandle);
+	//if (giName != "原神")
+	//{
+	//	isRunning = true;
+	//}
 	return isRunning;
 }
 
 void ATM_GiState::getHandle()
 {
+	if (giName != "原神")
+	{
+		getRect();
+		return;
+	}
 	giHandle = FindWindowA(giWndClass.c_str(), giName.c_str());
 	if (giHandle == NULL)
 	{
@@ -71,17 +80,24 @@ int ATM_GiState::getGiRectMode()
 
 	if (giHandle != NULL)
 	{
-
+		const Size size1920x1080 = Size(1920, 1080);
+		const Size size1680x1050 = Size(1650, 1080);
 		
 
-		//if (giSize == size1920x1080)
+		if (giSize == size1920x1080)
 		{
 			isFullScreen = true;
-			//giSize = size1920x1080;
-			//giRectMode = RectMode::F_1920x1080;
+			giSize = size1920x1080;
+			giRectMode = RectMode::FW_1920x1080;
 			return giRectMode;
 		}
-		
+		if (giSize == size1680x1050)
+		{
+			isFullScreen = true;
+			giSize = size1680x1050;
+			giRectMode = RectMode::FW_1680x1050;
+			return giRectMode;
+		}
 		giRectMode = RectMode::FW_UNDIFINDE;
 	}
 	else
@@ -93,6 +109,7 @@ int ATM_GiState::getGiRectMode()
 
 int ATM_GiState::getGiState()
 {
+	//true ? getHandle() : giRectMode = RectMode::FW_MINIMIZE;
 	isRun() ? getHandle() : giRectMode = RectMode::FW_MINIMIZE;
 	return giRectMode;
 }
@@ -224,7 +241,6 @@ void ATM_GiState::getGiScreen2()
 	DeleteObject(hBmp);
 
 	cout << "getGiScreen2: " << giHandle << endl;
-	giHandle = (HWND)0x580F98;
 
 	if (giHandle == NULL)return;
 
@@ -260,6 +276,11 @@ void ATM_GiState::getGiScreen2()
 	giFrame.create(cv::Size(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8U, nChannels));
 
 	GetBitmapBits(hBmp, bmp.bmHeight * bmp.bmWidth * nChannels, giFrame.data);
+
+	if (giFrame.channels() == 3)
+	{
+		cvtColor(giFrame, giFrame, CV_RGB2RGBA);
+	}
 }
 void ATM_GiState::getGiFrame()
 {
@@ -267,7 +288,7 @@ void ATM_GiState::getGiFrame()
 	{
 		if (giWndClass == "UnityWndClass")
 		{
-			getGiScreen2();
+			getGiScreen();
 		}
 		else
 		{
@@ -345,7 +366,7 @@ void ATM_GiState::getGiFramePaimon()
 			resIdPaimon = 0;
 			if (giSize.width / giSize.height == 64 / 27)
 			{
-				PaimonRect = Rect(cvCeil(giSize.width*0.038), cvCeil(giSize.height*0.012), cvCeil(giSize.height / 9 * 16 *0.035), cvCeil(giSize.height / 9 * 16 *0.0406));
+				PaimonRect = Rect(cvCeil(giSize.width*0.038), cvCeil(giSize.height*0.012), cvCeil(giSize.height / 9.0 * 16.0 *0.035), cvCeil(giSize.height / 9.0 * 16.0 *0.0406));
 			}
 			break;
 		}
@@ -374,7 +395,7 @@ void ATM_GiState::getGiFrameMap()
 			mapRect = Rect(cvCeil(giSize.width*0.032), cvCeil(giSize.width*0.01), cvCeil(giSize.width *0.11), cvCeil(giSize.width*0.11));
 			if (giSize.width / giSize.height == 64 / 27)
 			{
-				mapRect = Rect(cvCeil(giSize.width*0.051), cvCeil(giSize.height / 9 * 16 *0.01), cvCeil(giSize.height/9*16 *0.11), cvCeil(giSize.height / 9 * 16 *0.11));
+				mapRect = Rect(cvCeil(giSize.width*0.051), cvCeil(giSize.height / 9.0 * 16.0 *0.01), cvCeil(giSize.height/9.0*16.0 *0.11), cvCeil(giSize.height / 9.0 * 16.0 *0.11));
 			}
 			break;
 		}
@@ -454,9 +475,7 @@ void ATM_GiState::setGiHandle(HWND GiHandle)
 	{
 		char classNameLis[256];
 		char nameLis[256];
-		cout << GiHandle << endl;
-		GiHandle = (HWND)0x580F98;
-		cout << GiHandle << endl;
+		//cout << GiHandle << endl;
 		giHandle = GiHandle;
 		GetClassNameA(GiHandle, classNameLis, 256);
 		giWndClass = classNameLis;

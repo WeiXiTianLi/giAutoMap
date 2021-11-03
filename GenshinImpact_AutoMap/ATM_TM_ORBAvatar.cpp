@@ -95,6 +95,7 @@ void ATM_TM_ORBAvatar::ORBMatch()
 	AvatarKeyLine = Vector2UnitVector(AvatarKeyLine);
 	KeyLine = AvatarKeyLine[0] + AvatarKeyLine[1];
 	rotationAngle = Line2Angle(KeyLine);
+	return;
 }
 
 double ATM_TM_ORBAvatar::getRotationAngle()

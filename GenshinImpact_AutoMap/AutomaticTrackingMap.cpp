@@ -402,6 +402,7 @@ void AutomaticTrackingMap::getGiHandle()
 
 void AutomaticTrackingMap::getThisHandle()
 {
+	//¸Ä
 	thisHandle = FindWindowA(NULL, "GenshinImpact_AutoMap");
 }
 
@@ -538,7 +539,7 @@ void AutomaticTrackingMap::setGenshinImpactWndHandle(HWND giHandle)
 
 void AutomaticTrackingMap::testSaveScreen()
 {
-	if (GIS.isRun())
+	//if (GIS.isRun())
 	{
 		static int i = 0;
 		imwrite("TestOutput"+ to_string(i)+".png", GIS.giFrame);

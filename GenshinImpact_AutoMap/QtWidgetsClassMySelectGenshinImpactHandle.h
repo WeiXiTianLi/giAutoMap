@@ -38,3 +38,5 @@ private slots:
 signals:
 	void SendGenshinImpactWndHandleToATM(HWND giHandle);
 };
+
+
