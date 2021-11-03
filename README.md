@@ -13,18 +13,6 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 * `Alt+T` 或者地图任意位置左键双击开启关闭自动追踪，如果显示神瞳的话就会自动开始识别记录。
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
-    <details>
-     <summary> 效果演示 </summary>
-  
-    ## 新分支
-
-    ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show1.png?raw=true)
-
-    ## 主分支
-
-    ![](https://github.com/GengGode/GenshinImpact_AutoMap/blob/master/Image/Show2.png?raw=true)
-
-    </details>
 
 # 使用方法 / Shortcuts
 
@@ -98,7 +86,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
   * Visual Studio 2017 
 
-  * Qt5.12
+  * Qt5.14.2
 
   * opencv4.5.0
 
@@ -174,3 +162,11 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 提取码：88yg  
 `链接版本只经过简单测试，如有任何问题可以提交反馈。`
 </Details>
+
+# 免责声明
+
+天理地图不提供任何形式的保证。所有与使用本软件的直接风险均由用户承担。
+
+如果您发现本软件包含错误或者有更好的建议，请联系我以便这些错误和建议得到及时的应用。
+
+联系方式：ysx20201029@163.com 
