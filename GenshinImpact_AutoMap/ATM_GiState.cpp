@@ -362,8 +362,10 @@ void ATM_GiState::getGiFramePaimon()
 		}
 		default:
 		{
+
 			PaimonRect = Rect(cvCeil(giSize.width*0.0135), cvCeil(giSize.width*0.006075), cvCeil(giSize.width*0.035), cvCeil(giSize.width*0.0406));
 			resIdPaimon = 0;
+			//   ≈‰¥¯”„∆¡
 			if (giSize.width / giSize.height == 64 / 27)
 			{
 				PaimonRect = Rect(cvCeil(giSize.width*0.038), cvCeil(giSize.height*0.012), cvCeil(giSize.height / 9.0 * 16.0 *0.035), cvCeil(giSize.height / 9.0 * 16.0 *0.0406));
