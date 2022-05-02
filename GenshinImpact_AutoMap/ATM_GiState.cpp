@@ -53,12 +53,12 @@ void ATM_GiState::getRect()
 		int y_offset = GetSystemMetrics(SM_CYDLGFRAME) + GetSystemMetrics(SM_CYCAPTION);
 
 		/*SetWindowPos(
-			hwnd, 
-			0, 
-			margins_xy.cxLeftWidth + (isNoBorder ? 0 : x_offset), 
-			margins_xy.cxRightWidth + (isNoBorder ? 0 : y_offset), 
-			margins_size.cyTopHeight, 
-			margins_size.cyBottomHeight, 
+			hwnd,
+			0,
+			margins_xy.cxLeftWidth + (isNoBorder ? 0 : x_offset),
+			margins_xy.cxRightWidth + (isNoBorder ? 0 : y_offset),
+			margins_size.cyTopHeight,
+			margins_size.cyBottomHeight,
 			SWP_NOACTIVATE | SWP_FRAMECHANGED
 			);
 		*/
@@ -82,20 +82,20 @@ int ATM_GiState::getGiRectMode()
 	{
 		const Size size1920x1080 = Size(1920, 1080);
 		const Size size1680x1050 = Size(1650, 1080);
-		
 
-		if (giSize == size1920x1080)
+
+		if (giFrame.cols == 1920)
 		{
 			isFullScreen = true;
 			giSize = size1920x1080;
 			giRectMode = RectMode::FW_1920x1080;
 			return giRectMode;
 		}
-		if (giSize == size1680x1050)
+		if (giFrame.rows == 1080)
 		{
 			isFullScreen = true;
-			giSize = size1680x1050;
-			giRectMode = RectMode::FW_1680x1050;
+			giSize = size1920x1080;
+			giRectMode = RectMode::FW_1920x1080;
 			return giRectMode;
 		}
 		giRectMode = RectMode::FW_UNDIFINDE;
@@ -118,25 +118,25 @@ Point ATM_GiState::getOffset()
 	cv::Point res;
 	switch (giRectMode)
 	{
-		case FW_1920x1080:
-		{
-			res.x = 288;
-			res.y = 82;
-			break;
-		}
-		case FW_1680x1050:
-		{
-			res.x = 250;
-			res.y = 82;
-			break;
-		}
-		
-		default:
-		{
+	case FW_1920x1080:
+	{
+		res.x = 288;
+		res.y = 82;
+		break;
+	}
+	case FW_1680x1050:
+	{
+		res.x = 250;
+		res.y = 82;
+		break;
+	}
 
-			break;
+	default:
+	{
 
-		}
+		break;
+
+	}
 	}
 	return res;
 }
@@ -187,7 +187,7 @@ void ATM_GiState::getAllScreen()
 	//mat操作
 	giFrame.create(cv::Size(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8U, nChannels));
 
-	GetBitmapBits(hBmp, bmp.bmHeight*bmp.bmWidth*nChannels, giFrame.data);
+	GetBitmapBits(hBmp, bmp.bmHeight * bmp.bmWidth * nChannels, giFrame.data);
 
 }
 
@@ -231,8 +231,56 @@ void ATM_GiState::getGiScreen()
 	//mat操作
 	giFrame.create(cv::Size(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8U, nChannels));
 
-	GetBitmapBits(hBmp, bmp.bmHeight*bmp.bmWidth*nChannels, giFrame.data);
+	GetBitmapBits(hBmp, bmp.bmHeight * bmp.bmWidth * nChannels, giFrame.data);
+
 }
+
+void ATM_GiState::reSizeFrame()
+{
+	int& x = giFrame.cols, & y = giFrame.rows;
+	double f = 1, fx = 1, fy = 1;
+
+	if (static_cast<double>(x) / static_cast<double>(y) == 16.0 / 9.0)
+	{
+
+		//正常，不做处理
+		if (x != 1920 && y != 1080)
+		{
+			cv::resize(giFrame, giFrame, cv::Size(1920, 1080));
+		}
+	}
+	else if (static_cast<double>(x) / static_cast<double>(y) > 16.0 / 9.0)
+	{
+
+		//高型，以宽为比例
+
+		// x = (y * 16) / 9;
+		f = y / 1080.0;
+		//将giFrame缩放到1920*1080的比例
+		fx = x / f;
+		// 将图片缩放
+		cv::resize(giFrame, giFrame, cv::Size(static_cast<int>(fx), 1080));
+
+	}
+	else if (static_cast<double>(x) / static_cast<double>(y) < 16.0 / 9.0)
+	{
+
+		//宽型，以高为比例
+
+		// x = (y * 16) / 9;
+		f = x / 1920.0;
+		//将giFrame缩放到1920*1080的比例
+		fy = y / f;
+		// 将图片缩放
+		cv::resize(giFrame, giFrame, cv::Size(1920, static_cast<int>(fy)));
+	}
+	else
+	{
+		//出错
+
+	}
+}
+
 void ATM_GiState::getGiScreen2()
 {
 	static HBITMAP	hBmp;
@@ -240,7 +288,7 @@ void ATM_GiState::getGiScreen2()
 
 	DeleteObject(hBmp);
 
-	cout << "getGiScreen2: " << giHandle << endl;
+	//cout << "getGiScreen2: " << giHandle << endl;
 
 	if (giHandle == NULL)return;
 
@@ -304,6 +352,9 @@ void ATM_GiState::getGiFrame()
 	{
 		getAllScreen();
 	}
+
+	reSizeFrame();
+
 	getGiRectMode();
 	if (giRectMode > 0)
 	{
@@ -312,7 +363,7 @@ void ATM_GiState::getGiFrame()
 		getGiFrameUID();
 	}
 #ifdef _DEBUG
-	cout << "Gi Window Rect Mode: "<<giRectMode << endl;
+	//cout << "Gi Window Rect Mode: "<<giRectMode << endl;
 #endif
 }
 
@@ -321,57 +372,24 @@ void ATM_GiState::getGiFramePaimon()
 	Rect PaimonRect;
 	switch (giRectMode)
 	{
-		case FW_1920x1080:
-		{
-			PaimonRect = Rect(26, 12, 68, 77);
-			resIdPaimon = 0;
-			break;
-		}
-		case FW_1680x1050:
-		{
+	case FW_1920x1080:
+	{
+		PaimonRect = Rect(26, 12, 68, 77);
+		resIdPaimon = 0;
+		break;
+	}
+	default:
+	{
 
-			PaimonRect = Rect(23, 10, 59, 68);
-			resIdPaimon = 1;
-			break;
-		}
-		case FW_1600x900:
+		PaimonRect = Rect(cvCeil(giSize.width * 0.0135), cvCeil(giSize.width * 0.006075), cvCeil(giSize.width * 0.035), cvCeil(giSize.width * 0.0406));
+		resIdPaimon = 0;
+		// 适配带鱼屏
+		if (giSize.width / giSize.height == 64 / 27)
 		{
-
-			PaimonRect = Rect(20, 9, 50, 58);//???
-			break;
+			PaimonRect = Rect(cvCeil(giSize.width * 0.038), cvCeil(giSize.height * 0.012), cvCeil(giSize.height / 9.0 * 16.0 * 0.035), cvCeil(giSize.height / 9.0 * 16.0 * 0.0406));
 		}
-		case FW_1440x900:
-		{
-
-			PaimonRect = Rect(20, 9, 50, 58);
-			resIdPaimon = 2;
-			break;
-		}
-		case FW_1400x1050:
-		{
-
-			PaimonRect = Rect(20, 9, 59, 68);//???
-			break;
-		}
-		case FW_1366x768:
-		{
-
-			PaimonRect = Rect(19, 8, 48, 56);
-			resIdPaimon = 3;
-			break;
-		}
-		default:
-		{
-
-			PaimonRect = Rect(cvCeil(giSize.width*0.0135), cvCeil(giSize.width*0.006075), cvCeil(giSize.width*0.035), cvCeil(giSize.width*0.0406));
-			resIdPaimon = 0;
-			// 适配带鱼屏
-			if (giSize.width / giSize.height == 64 / 27)
-			{
-				PaimonRect = Rect(cvCeil(giSize.width*0.038), cvCeil(giSize.height*0.012), cvCeil(giSize.height / 9.0 * 16.0 *0.035), cvCeil(giSize.height / 9.0 * 16.0 *0.0406));
-			}
-			break;
-		}
+		break;
+	}
 	}
 	giFrame(PaimonRect).copyTo(giFramePaimon);
 
@@ -382,25 +400,20 @@ void ATM_GiState::getGiFrameMap()
 	Rect mapRect;
 	switch (giRectMode)
 	{
-		case FW_1920x1080:
+	case FW_1920x1080:
+	{
+		mapRect = Rect(62, 19, 212, 212);
+		break;
+	}
+	default:
+	{
+		mapRect = Rect(cvCeil(giSize.width * 0.032), cvCeil(giSize.width * 0.01), cvCeil(giSize.width * 0.11), cvCeil(giSize.width * 0.11));
+		if (giSize.width / giSize.height == 64 / 27)
 		{
-			mapRect = Rect(62, 19, 212, 212);
-			break;
+			mapRect = Rect(cvCeil(giSize.width * 0.051), cvCeil(giSize.height / 9.0 * 16.0 * 0.01), cvCeil(giSize.height / 9.0 * 16.0 * 0.11), cvCeil(giSize.height / 9.0 * 16.0 * 0.11));
 		}
-		case FW_1680x1050:
-		{
-			mapRect = Rect(54, 17, 185, 185);
-			break;
-		}
-		default:
-		{
-			mapRect = Rect(cvCeil(giSize.width*0.032), cvCeil(giSize.width*0.01), cvCeil(giSize.width *0.11), cvCeil(giSize.width*0.11));
-			if (giSize.width / giSize.height == 64 / 27)
-			{
-				mapRect = Rect(cvCeil(giSize.width*0.051), cvCeil(giSize.height / 9.0 * 16.0 *0.01), cvCeil(giSize.height/9.0*16.0 *0.11), cvCeil(giSize.height / 9.0 * 16.0 *0.11));
-			}
-			break;
-		}
+		break;
+	}
 	}
 	giFrame(mapRect).copyTo(giFrameMap);
 }
@@ -410,41 +423,16 @@ void ATM_GiState::getGiFrameUID()
 	Rect uidRect;
 	switch (giRectMode)
 	{
-		case FW_1920x1080:
-		{
-			uidRect = Rect(giFrame.cols - 240, giFrame.rows - 25, 180, 18);
-			break;
-		}
-		case FW_1680x1050:
-		{
-			uidRect = Rect(giFrame.cols - 207, giFrame.rows - 23, 155, 18);
-			break;
-		}
-		case FW_1600x900:
-		{
-			uidRect = Rect(giFrame.cols - 207, giFrame.rows - 23, 155, 18);
-			break;
-		}
-		case FW_1440x900:
-		{
-			uidRect = Rect(giFrame.cols - 207, giFrame.rows - 23, 155, 18);
-			break;
-		}
-		case FW_1400x1050:
-		{
-			uidRect = Rect(giFrame.cols - 207, giFrame.rows - 23, 155, 18);
-			break;
-		}
-		case FW_1366x768:
-		{
-			uidRect = Rect(giFrame.cols - 207, giFrame.rows - 23, 155, 18);
-			break;
-		}
-		default:
-		{
-			uidRect = Rect(giFrame.cols - 240, giFrame.rows - 25, 180, 18);
-			break;
-		}
+	case FW_1920x1080:
+	{
+		uidRect = Rect(giFrame.cols - 240, giFrame.rows - 25, 180, 18);
+		break;
+	}
+	default:
+	{
+		uidRect = Rect(giFrame.cols - 240, giFrame.rows - 25, 180, 18);
+		break;
+	}
 	}
 	giFrame(uidRect).copyTo(giFrameUID);
 }
@@ -453,21 +441,21 @@ void ATM_GiState::setGiNameClass(LANGID SystemLanguageID)
 {
 	switch (SystemLanguageID)
 	{
-		case 0X0804:
-		{
-			giName = "原神";
-			break;
-		}
-		case 0x0409:
-		{
-			giName = "Genshin Impact";
-			break;     
-		}
-		default:
-		{
-			giName = "Genshin Impact";//GenshinImpact.
-			break;
-		}
+	case 0X0804:
+	{
+		giName = "原神";
+		break;
+	}
+	case 0x0409:
+	{
+		giName = "Genshin Impact";
+		break;
+	}
+	default:
+	{
+		giName = "Genshin Impact";//GenshinImpact.
+		break;
+	}
 	}
 }
 

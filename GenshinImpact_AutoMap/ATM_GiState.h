@@ -163,6 +163,7 @@ public:
 	void getAllScreen();
 
 	//void getScreen(HWND handle); 
+	void reSizeFrame();
 
 	void getGiScreen();
 	void getGiScreen2();
