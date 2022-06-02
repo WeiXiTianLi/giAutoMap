@@ -3,7 +3,7 @@
 #include <QFontdatabase>
 #include <QTimer>
 #include <QPainter>
-#include <QMouseEvent>
+#include <QGraphicsBlurEffect>
 #include <QtWidgets/QMainWindow>
 #include "ui_GenshinImpact_AutoMap.h"
 #include "AutomaticTrackingMap.h"
@@ -28,6 +28,7 @@ private:
 	//×Ô¶¯×·×ÙµØÍ¼
 	ATmap map;
 	QCursor *myCursor;
+	QGraphicsBlurEffect* maskBlurEffect;
 	QtClassMyHotKeyObject *hotKeyAutoMode;
 	QtClassMyHotKeyObject *hotKeyAddFlag;
 	QtClassMyHotKeyObject *hotKeyActivationKongYingJiuGuan;

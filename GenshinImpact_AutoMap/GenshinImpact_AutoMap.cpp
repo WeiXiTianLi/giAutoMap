@@ -32,6 +32,11 @@ GenshinImpact_AutoMap::GenshinImpact_AutoMap(QWidget *parent)
 	connect(this, &GenshinImpact_AutoMap::mapUpdataFrontEnd, this, &GenshinImpact_AutoMap::updataFrontEnd);
 	connect(this, &GenshinImpact_AutoMap::mapUpdataBackEnd, this, &GenshinImpact_AutoMap::updataBackEnd);
 
+	//设置模糊遮罩
+	maskBlurEffect = new QGraphicsBlurEffect(this);
+	maskBlurEffect->setBlurRadius(160);
+	ui.MainView->setGraphicsEffect(maskBlurEffect);
+
 	//设置鼠标指针
 	myCursor = new QCursor(QPixmap(":/CurMain/resource/GenshinImpactCur.cur"), 2, 2);
 	this->setCursor(*myCursor);
@@ -158,6 +163,7 @@ void GenshinImpact_AutoMap::displayUID(int uid)
 
 void GenshinImpact_AutoMap::uiHideButton()
 {
+	ui.UIObjMask->setVisible(false);
 	ui.UIObjFlagButton->setVisible(false);
 	for (int i = 0; i < UIObjList.size(); i++)
 	{
@@ -168,6 +174,7 @@ void GenshinImpact_AutoMap::uiHideButton()
 
 void GenshinImpact_AutoMap::uiShowButton()
 {
+	ui.UIObjMask->setVisible(true);
 	ui.UIObjFlagButton->setVisible(true);
 	for (int i = 0; i < UIObjList.size(); i++)
 	{
@@ -180,6 +187,7 @@ void GenshinImpact_AutoMap::uiConnectButton()
 {
 	UIObjList.clear();
 
+	/**********************************************************/
 	// 在此：添加新的按钮
 	UIObjList.push_back(ui.UIObjList0Button); // 风神瞳
 	UIObjList.push_back(ui.UIObjList1Button); // 岩神瞳
@@ -194,6 +202,9 @@ void GenshinImpact_AutoMap::uiConnectButton()
 	UIObjList.push_back(ui.UIObjList104Button); // 钩钩果
 	UIObjList.push_back(ui.UIObjList105Button); // 小灯草
 	UIObjList.push_back(ui.UIObjList205Button); // 星螺
+	// log:2022.06.02 添加宝箱
+	UIObjList.push_back(ui.UIObjList300Button);//宝箱
+	/**********************************************************/
 
 	connect(ui.UIObjFlagButton, SIGNAL(clicked()), this, SLOT(setUIObjListToMapData()));
 	for (int i = 0; i < UIObjList.size(); i++)

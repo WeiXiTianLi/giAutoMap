@@ -9,6 +9,10 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DeStatic|x64">
+      <Configuration>DeStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="R450T1_W|x64">
       <Configuration>R450T1_W</Configuration>
       <Platform>x64</Platform>
@@ -34,6 +38,7 @@
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='Release动态库|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='ReStatic|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='R450T1_W|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
@@ -55,6 +60,10 @@
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReStatic|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -83,6 +92,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReStatic|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R450T1_W|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -91,11 +103,12 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Users\Administrator\Documents\Programming\GenshinImpact_AutoMap\opencv2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(opencvinc);$(opencvinc)\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>$(opencvlib);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D452T1_C|x64'">
-    <IncludePath>$(opencvinc);$(opencvinc)\opencv2;$(VC_IncludePath);$(IncludePath)</IncludePath>
-    <LibraryPath>$(opencvlib);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(opencvStaticinc);$(IncludePath)</IncludePath>
+    <LibraryPath>$(opencvstaticlib);$(LibraryPath)</LibraryPath>
     <TargetName>TianLi_Map</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
@@ -111,6 +124,10 @@
     <IncludePath>$(opencvStaticinc);$(opencvinc)\opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(opencvStaticlib);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'">
+    <IncludePath>$(opencvStaticinc);$(opencvinc)\opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(opencvStaticlib);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R450T1_W|x64'">
     <IncludePath>$(opencvinc);$(opencvinc)\opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(opencvlib);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
@@ -118,7 +135,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D452T1_C|x64'">
     <Link>
-      <AdditionalDependencies>opencv_world450d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>IlmImfd.lib;ippiwd.lib;ittnotifyd.lib;libjpeg-turbod.lib;libopenjp2d.lib;libpngd.lib;libprotobufd.lib;libtiffd.lib;libwebpd.lib;opencv_img_hash450d.lib;opencv_world450d.lib;quircd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <ClCompile>
@@ -153,10 +170,24 @@
       <AdditionalLibraryDirectories>$(Qt_LIBPATH_);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'">
+    <Link>
+      <AdditionalDependencies>opencv_world450d.lib;ade.lib;ippiwd.lib;ittnotifyd.lib;libjpeg-turbod.lib;libopenjp2d.lib;libpngd.lib;libprotobufd.lib;libtiffd.lib;libwebpd.lib;opencv_img_hash450d.lib;quircd.lib;zlibd.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Qt_LIBPATH_);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R450T1_W|x64'">
     <Link>
       <AdditionalDependencies>opencv_world450.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>opencv_world450d.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
@@ -183,6 +214,11 @@
     <QtInstall>5.14.2_msvc2017_64_static</QtInstall>
     <QtModules>core;gui;websockets;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'" Label="QtSettings">
+    <QtInstall>5.14.2_msvc2017_64_static</QtInstall>
+    <QtModules>core;gui;websockets;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R450T1_W|x64'" Label="QtSettings">
     <QtInstall>5.14.2_msvc2017_64_old</QtInstall>
@@ -255,6 +291,20 @@
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DeStatic|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

@@ -544,21 +544,6 @@ void AutomaticTrackingMap::testSaveScreen()
 		static int i = 0;
 		imwrite("TestOutput"+ to_string(i)+".png", GIS.giFrame);
 		i++;
-		//CURSORINFO hCur;
-		//ZeroMemory(&hCur, sizeof(hCur));
-		//hCur.cbSize = sizeof(hCur);
-		//GetCursorInfo(&hCur);
-		//ICONINFO iconinfo;
-		//GetIconInfo(hCur.hCursor, &iconinfo);
-		//BITMAP bmp;
-		//::GetObject(iconinfo.hbmColor, sizeof(BITMAP), &bmp);
-		//int nChannels = bmp.bmBitsPixel == 1 ? 1 : bmp.bmBitsPixel / 8;
-		////int depth = bmp.bmBitsPixel == 1 ? IPL_DEPTH_1U : IPL_DEPTH_8U;
-		////mat操作
-		//cv::Mat v_mat;
-		//v_mat.create(cvSize(bmp.bmWidth, bmp.bmHeight), CV_MAKETYPE(CV_8UC3, nChannels));
-		//GetBitmapBits(iconinfo.hbmColor, bmp.bmHeight*bmp.bmWidth*nChannels, v_mat.data);
-		//imwrite("Cur.png", v_mat);
 	}
 }
 
@@ -891,8 +876,11 @@ void AutomaticTrackingMap::drawObjectLists()
 	Mat ObjIconROIMat;
 	const int dx = 16, dy = 16;//图标顶点到图标中心的偏移
 	//double minDist = 9999;
-	for (int objKlass = 5; objKlass < OLS.objectListsNumber(); objKlass++)/*********/
+	/****************************************************/
+	for (int objKlass = 5; objKlass < OLS.objectListsNumber(); objKlass++)
 	{
+		// objKlass 是第一个不可标记物品
+		/****************************************************/
 		if (OLS.isShow(objKlass))
 		{
 			for (int objOrder = 0; objOrder < OLS.objectsNumber(objKlass); objOrder++)
@@ -1054,7 +1042,7 @@ void AutomaticTrackingMap::addWeightedPNG(Mat & backgroundImage, Mat & Image)
 	split(Image, scr_channels);
 	split(backgroundImage, dstt_channels);
 
-	Mat Alpha = scr_channels[3];
+	Mat Alpha = scr_channels[3].clone();
 	//Mat Alpha = Mat(scr_channels[0].size(), CV_8UC1, Scalar(255));
 
 	for (int i = 0; i < 3; i++)

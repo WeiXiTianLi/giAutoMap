@@ -48,11 +48,13 @@ public:
 class ATM_ObjectLists
 {
 	// 在此：添加新的物品需改数量
+	/*******************************/
 	/******/
-	int _objectListsNumber = 13;
-	int _objectMaxNumbers[13] = { 65,131,95,80,55,169,104,36,17,120,33,75,69 };
-	bool _isShow[13] = { false };
+	int _objectListsNumber = 14;
+	int _objectMaxNumbers[14] = { 65,131,95,80,55,169,104,36,17,120,33,75,69 ,8531};
+	bool _isShow[14] = { false };
 	/******/
+	/*******************************/
 	bool _isShowFlag = false;
 	ATM_ObjectList *_objList = nullptr;
 	ATM_ObjectFlag _objFlag;
@@ -61,6 +63,7 @@ class ATM_ObjectLists
 
 	int funCount = 0;
 public:
+	/*******************************/
 	/******/
 	ATM_Matrix _collectionStateFST = ATM_Matrix(1, 65);
 	ATM_Matrix _collectionStateYST = ATM_Matrix(1, 131);
@@ -78,13 +81,19 @@ public:
 	ATM_Matrix _collectionStateGGG = ATM_Matrix(1, 33);
 	ATM_Matrix _collectionStateXDC = ATM_Matrix(1, 75);
 	ATM_Matrix _collectionStateXL = ATM_Matrix(1, 69);
+	ATM_Matrix _collectionStateBX_ALL = ATM_Matrix(1, 8531);
 	/******/
+	// 坐标映射比例：天理坐标系 : 程序坐标系 = 2.56 ：1
+	// 坐标系原点映射： 璃月 -> 左上角 Point(1428, 2937);
+	/*******************************/
 
 
 	ATM_Matrix _collectionStateFlag;
+	/*******************************/
 	/******/
-	ATM_Matrix *collectionState[13];
+	ATM_Matrix *collectionState[14];
 	/******/
+	/*******************************/
 	vector<int> visualStarKlassList;
 	vector<int> visualStarIdList;
 	vector<double> visualStarDisList;
@@ -127,6 +136,7 @@ public:
 	void copyTo(int klass, ATM_Matrix *mat);
 
 private:
+	/*******************************/
 	void Init0();
 	void Init1();
 	void Init2();
@@ -140,6 +150,8 @@ private:
 	void Init10();
 	void Init11();
 	void Init12();
+	void Init13();
+	/*******************************/
 	//void InitId(int id);
 	int getFunCount();
 	void append(int i, int x, int y);

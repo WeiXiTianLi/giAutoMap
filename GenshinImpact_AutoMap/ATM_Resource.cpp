@@ -3,20 +3,22 @@
 
 ATM_Resource::ATM_Resource()
 {
-	hGIOBJICON = new HBITMAP[13];//OBJ
-	hGIOBJICONMASK = new HBITMAP[13];//OBJ
+	/**************************************************/
+	hGIOBJICON = new HBITMAP[14];//OBJ
+	hGIOBJICONMASK = new HBITMAP[14];//OBJ
 	hGIOBJFLAGICON = new HBITMAP[2];
 	hGIOBJFLAGICONMASK = new HBITMAP[2];
-	hGIPAIMON = new HBITMAP[11];
+	hGIPAIMON = new HBITMAP[4];
 	hGINUMUID = new HBITMAP[11];//NUM
 
 
-	GIOBJICON = new Mat[13];//OBJ
-	GIOBJICONMASK = new Mat[13];//OBJ
+	GIOBJICON = new Mat[14];//OBJ
+	GIOBJICONMASK = new Mat[14];//OBJ
 	GIOBJFLAGICON = new Mat[2];
 	GIOBJFLAGICONMASK = new Mat[2];
 	GIPAIMON = new Mat[4];
 	GINUMUID = new Mat[11];//NUM
+	/**************************************************/
 
 	loadPngGiMap();
 	//loadGiMap();
@@ -171,6 +173,7 @@ void ATM_Resource::loadGiPaimon()
 
 void ATM_Resource::loadGiObjIcon()
 {
+	/**************************************************/
 	int i = 0;
 	hGIOBJICON[i] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON0));
 	HBitmap2Mat(hGIOBJICON[i], GIOBJICON[i]);
@@ -226,10 +229,20 @@ void ATM_Resource::loadGiObjIcon()
 	hGIOBJICON[i] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON205));
 	HBitmap2Mat(hGIOBJICON[i], GIOBJICON[i]);
 	DeleteObject(hGIOBJICON[i]);
+
+	i++;
+	hGIOBJICON[i] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON300));
+	HBitmap2Mat(hGIOBJICON[i], GIOBJICON[i]);
+	DeleteObject(hGIOBJICON[i]);
+
+	//TODO:
+
+	/**************************************************/
 }
 
 void ATM_Resource::loadGiObjIconMask()
 {
+	/**************************************************/
 	int i = 0;
 	hGIOBJICONMASK[i] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON0MASK));
 	HBitmap2Mat(hGIOBJICONMASK[i], GIOBJICONMASK[i]);
@@ -301,6 +314,16 @@ void ATM_Resource::loadGiObjIconMask()
 	HBitmap2Mat(hGIOBJICONMASK[i], GIOBJICONMASK[i]);
 	Mat2MaskMat(GIOBJICONMASK[i], GIOBJICONMASK[i]);
 	DeleteObject(hGIOBJICONMASK[i]);
+
+	i++;
+	hGIOBJICONMASK[i] = LoadBitmap(GetModuleHandle(0), MAKEINTRESOURCE(IDB_OBJICON300MASK));
+	HBitmap2Mat(hGIOBJICONMASK[i], GIOBJICONMASK[i]);
+	Mat2MaskMat(GIOBJICONMASK[i], GIOBJICONMASK[i]);
+	DeleteObject(hGIOBJICONMASK[i]);
+
+	//TODO:
+
+	/**************************************************/
 }
 
 void ATM_Resource::loadGiObjFlagIcon()
