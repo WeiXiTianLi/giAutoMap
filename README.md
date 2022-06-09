@@ -1,6 +1,6 @@
 You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
-#  原神自动地图 TianLi_Map [![Build status](https://ci.appveyor.com/api/projects/status/8kmemyn4jssya2xs?svg=true)](https://ci.appveyor.com/project/GengGode/genshinimpact-automap)
+#  原神自动地图（天理地图） TianLi_Map [![Build status](https://ci.appveyor.com/api/projects/status/8kmemyn4jssya2xs?svg=true)](https://ci.appveyor.com/project/GengGode/genshinimpact-automap)
  
  [![](https://img.shields.io/github/downloads/GengGode/GenshinImpact_AutoMap/total)](https://github.com/GengGode/GenshinImpact_AutoMap/releases) ![](https://img.shields.io/github/v/release/GengGode/GenshinImpact_AutoMap?include_prereleases) ![](https://img.shields.io/github/languages/top/GengGode/GenshinImpact_AutoMap)
 
@@ -14,8 +14,22 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * 开启自动追踪，右下角图标会变成蓝色，根据电脑性能，3至60秒即可加载完成，悬浮窗会自动显示角色所在位置的地图
 
-# 更新记录
+<Details>
+<summary>分流下载</summary>
+    
+### 百度云
+ 
+### `2.6.2 版`
+ 
+#### 添加了2.7版本地图，以及宝箱资源 
+ 
+[下载链接](http://8.134.219.60:5244/d/WeiXiTianLi/download/GenshinImpactAutoMap/last/GenshinImpact_AutoMap.exe)   
+`2.6.2版本`
+</Details>
 
+# 更新记录
+    
+    2022.06.09.09:03 添加更新记录
     2021.10.03.21:52 添加了免责声明
     2021.10.03.21:45 添加了对【腾讯云游戏】的支持
     ---- 之前的忘了
@@ -28,7 +42,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * `Alt + Enter` 切换为无边框模式
 
-* `Alt + M` 激活「空荧酒馆」原神地图客户端的大地图覆盖模式
+* `Alt + M`  截图 -激活「空荧酒馆」原神地图客户端的大地图覆盖模式- 
 
 * `Alt + F8` 选择原神游戏窗口
 
@@ -40,23 +54,34 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * `左键双击`左上角派蒙退出
 
+* `左键单击`右下角Home图标显示更多物品
+
+## 视频教程
+
+### Bilibili
+
+* [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
+
+* [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
+
+## 交流
+
+#### [QQ](538198823):538198823
+----
+
 # 无法使用？
 
 1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
    * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
-   * 原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080  
+   * 不再限制分辨率 -原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080-  
    * 系统 > 显示设置 > 文字缩放，设置为100%
 2. 请查看：[视频教程](#视频教程)
 3. 提交[Issues](/issues)
 3. 无论有没有问题，你都可以加群[♂](#交流)
 
-# Devs
+# 已知问题
 
-[DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
-<details>
-  <summary>此项目的开发</summary>
- 解压resource.rar在项目目录下，释放资源文件，否则编译不过。
- 编译 MSBuild 即可，需要VS安装Qt VS Tools插件。
+* 手柄适配 无
  
   ## 已经实现
 
@@ -76,6 +101,10 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
  
   * [x] 保存日志，包含可追溯数据，如存档损坏，可以此追溯
 
+  * [x] 除1920 * 1080外分辨率的 uid 识别
+
+  * [x] 除 16 ：9 分辨率外的自动追踪
+
   ## 计划实现
 
   * [ ] 添加更多点位
@@ -88,6 +117,15 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
  
   * [ ] 添加惯性导航部分
  
+# Devs
+
+[DLL动态链接库](https://github.com/GengGode/GenshinImpact_AutoTrack_DLL)
+<details>
+  <summary>此项目的开发</summary>
+ 解压resource.rar在项目目录下，释放资源文件，否则编译不过。
+ 编译 MSBuild 即可，需要VS安装Qt VS Tools插件。
+</details>
+
   ## 开发环境
 
   * Visual Studio 2017 
@@ -103,6 +141,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
   通过Api来设置地图为顶层窗口，使其保持在原神游戏窗口的上方。
 
   目前所有涉及对原神窗口的操作如下：
+
   ``` C++
    giHandle = FindWindowA(NULL, "原神"); //获取原神窗口句柄
 
@@ -120,54 +159,15 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
   
   ## 系统权限
  
-  之后的开发中将会涉及到数据文件的保存与读取，目前会在Temp（目前版本应该会改到My Game目录下，Temp下容易被删除）目录中建立名为GenshinImpactAutoMap的文件夹，并在该文件夹中建立数据存档。
-
-  （说不定会改到AppData下的LocalLow里）
-
-  如：`C:\Users\%USERNAME%\AppData\Local\Temp\GenshinImpactAutoMap`
+  涉及到数据文件的保存与读取，目前会在路径为：`C:\Users\GengG\AppData\LocalLow\天理系统\天理地图`
 
   日后可能会开发GPU加速图像处理的功能，需要使用GPU运算。
 
-  目前为了与“「空荧酒馆」原神地图”客户端通信还使用了本机的23333端口用来发送原神角色的位置、朝向以及UID。
-
-  还有读写文件存档。
-
   除此之外不存在其他系统资源的使用，也没有获取系统权限的需求。
 
-</details>
+
 
 ----
-# 已知问题
-
-* 手柄适配 无
-* 除1920 * 1080外分辨率的 uid 识别 无
-* 除 16 ：9 分辨率外的自动追踪 无
-
-## 视频教程
-
-### Bilibili
-
-* [安装](https://www.bilibili.com/video/BV1Wy4y1x754)
-
-* [使用](https://www.bilibili.com/video/BV1ar4y1A7c5)  
-
-## 交流
-
-#### [QQ](538198823):538198823
-----
-<Details>
-<summary>分流下载</summary>
-    
-### 百度云
- 
-### `v2.011 预览版`
- 
-#### 添加了雷神瞳+稻妻地图，更新了启动器 
- 
-[下载链接](https://pan.baidu.com/s/1ZWTO_az6ONBqL7UbTXFQ6Q) 
-提取码：88yg  
-`链接版本只经过简单测试，如有任何问题可以提交反馈。`
-</Details>
 
 # 免责声明
 
