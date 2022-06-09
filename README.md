@@ -42,7 +42,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 * `Alt + Enter` 切换为无边框模式
 
-* `Alt + M`  截图 -激活「空荧酒馆」原神地图客户端的大地图覆盖模式- 
+* `Alt + M`  截图
 
 * `Alt + F8` 选择原神游戏窗口
 
@@ -73,8 +73,8 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 
 1. 项目仅在有限的条件下测试过，如需排查错误，强烈建议按照以下描述进行环境配置。
    * 原神客户端 > 右上角派蒙 > 设置 > 抗锯齿，设置为 SMAA
-   * 不再限制分辨率 -原神客户端 > 右上角派蒙 > 设置 > 分辨率，设置为 1920x1080-  
    * 系统 > 显示设置 > 文字缩放，设置为100%
+
 2. 请查看：[视频教程](#视频教程)
 3. 提交[Issues](/issues)
 3. 无论有没有问题，你都可以加群[♂](#交流)
