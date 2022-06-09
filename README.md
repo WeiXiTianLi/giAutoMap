@@ -17,7 +17,7 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
 <Details>
 <summary>分流下载</summary>
     
-### 百度云
+### Alist 直链
  
 ### `2.6.2 版`
  
