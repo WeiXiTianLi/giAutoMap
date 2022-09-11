@@ -19,11 +19,8 @@ You are now viewing in [Chinese Simplified](DOCS/CN.md) !
     
 ### Alist 直链
  
-### `2.6.2 版`
- 
-#### 添加了2.7版本地图，以及宝箱资源 
- 
-[下载链接](http://8.134.219.60:5244/d/WeiXiTianLi/download/GenshinImpactAutoMap/last/GenshinImpact_AutoMap.exe)   
+ `2.6.2 版` 添加了2.7版本地图，以及宝箱资源 
+[下载链接](http://download.weixitianli.com/d/WeiXiTianLi/GenshinImpactAutoMap/last/GenshinImpact_AutoMap.exe)   
 `2.6.2版本`
 </Details>
 
