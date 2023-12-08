@@ -32,14 +32,21 @@ class ATM_TM_SurfMap
 
 	Point2d pos;
 
-	 int stateNum = 4;
-	 int measureNum = 2;
+	int stateNum = 2;
+	int measureNum = 2;
+	int controlNum = 2;
 
 	KalmanFilter KF;
 	Mat state; /* (phi, delta_phi) */
 	Mat processNoise;
 	Mat measurement;
 
+	// ab's inertia filter
+	cv::Mat last_mini_map;
+	bool inited = false;
+	bool orb_match(cv::Mat &img1, cv::Mat &img2, cv::Point2f &offset);
+	void set_mini_map(const cv::Mat &giMiniMapRef);
+	bool control_odometer_calculation(const cv::Mat &giMiniMapRef, cv::Point2d &control, double scale);
 public:
 	ATM_TM_SurfMap();
 	~ATM_TM_SurfMap();
