@@ -74,9 +74,6 @@
     <ClCompile Include="ATM_ObjectLists.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ATM_SendSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ATM_ActivationKYJG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,9 +87,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ATM_Modules.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QtSingleApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ATM_TM_SurfMap.cpp">
@@ -152,9 +146,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ATM_ObjectLists.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ATM_SendSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ATM_ActivationKYJG.h">
@@ -371,9 +362,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QtWidgetsClassMySelectGenshinImpactHandle.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="QtSingleApplication.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

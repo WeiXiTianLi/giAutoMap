@@ -8,7 +8,6 @@
 #include "ATM_GiState.h"
 #include "ATM_ThreadMatch.h"
 #include "ATM_ObjectLists.h"
-#include "ATM_SendSocket.h"
 #include "ATM_ActivationKYJG.h"
 #include "ATM_SaveLoadFile.h"
 #include "ATM_Modules.h"
@@ -34,7 +33,7 @@ class AutomaticTrackingMap
 	//加载物品标记
 	ATM_ObjectLists OLS;
 	//Socket通信
-	ATM_SendSocket SST;
+	//ATM_SendSocket SST;
 	//空荧酒馆激活
 	ATM_ActivationKYJG AKY;
 	//存档

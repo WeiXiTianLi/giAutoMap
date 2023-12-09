@@ -22,7 +22,6 @@ void AutomaticTrackingMap::Init(HWND mapWindowsHandle)
 	//数据状态初始化
 	MET.zerosMinMap = zerosMinMap;
 	MET.offGiMinMap = offGiMinMap;
-	SST.setPort(23333);//6666
 
 	getGiHandle();
 	getThisHandle(mapWindowsHandle);
@@ -101,7 +100,6 @@ void AutomaticTrackingMap::BackEndUpdata()
 				TMS.continuityState.setState(TMS.isContinuity);
 				if(TMS.isContinuity)
 				{
-					SST.AutoMapUdpSocketSend(zerosMinMap.x, zerosMinMap.y, TMS.rotationAngle, TMS.uid);
 				}
 				SLF.logAvatarEvent(zerosMinMap.x, zerosMinMap.y, TMS.rotationAngle);
 			}

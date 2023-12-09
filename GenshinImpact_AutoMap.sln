@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenshinImpact_AutoMap", "GenshinImpact_AutoMap\GenshinImpact_AutoMap.vcxproj", "{CCBAE52E-A530-413D-93A8-5C71E12AA50E}"
 EndProject
@@ -13,54 +13,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		D452T1_C|Any CPU = D452T1_C|Any CPU
-		D452T1_C|x64 = D452T1_C|x64
-		D452T1_C|x86 = D452T1_C|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		DeStatic|Any CPU = DeStatic|Any CPU
-		DeStatic|x64 = DeStatic|x64
-		DeStatic|x86 = DeStatic|x86
-		R450T1_W|Any CPU = R450T1_W|Any CPU
-		R450T1_W|x64 = R450T1_W|x64
-		R450T1_W|x86 = R450T1_W|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-		Release动态库|Any CPU = Release动态库|Any CPU
-		Release动态库|x64 = Release动态库|x64
-		Release动态库|x86 = Release动态库|x86
 		ReStatic|Any CPU = ReStatic|Any CPU
 		ReStatic|x64 = ReStatic|x64
 		ReStatic|x86 = ReStatic|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.D452T1_C|Any CPU.ActiveCfg = D452T1_C|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.D452T1_C|x64.ActiveCfg = D452T1_C|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.D452T1_C|x64.Build.0 = D452T1_C|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.D452T1_C|x86.ActiveCfg = D452T1_C|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Debug|x64.ActiveCfg = Debug|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Debug|x64.Build.0 = Debug|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Debug|x86.ActiveCfg = Debug|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.DeStatic|Any CPU.ActiveCfg = DeStatic|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.DeStatic|x64.ActiveCfg = DeStatic|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.DeStatic|x64.Build.0 = DeStatic|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.DeStatic|x86.ActiveCfg = DeStatic|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.R450T1_W|Any CPU.ActiveCfg = R450T1_W|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.R450T1_W|x64.ActiveCfg = R450T1_W|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.R450T1_W|x64.Build.0 = R450T1_W|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.R450T1_W|x86.ActiveCfg = R450T1_W|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release|Any CPU.ActiveCfg = Release|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release|x64.ActiveCfg = Release|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release|x64.Build.0 = Release|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release|x86.ActiveCfg = Release|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release动态库|Any CPU.ActiveCfg = Release动态库|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release动态库|x64.ActiveCfg = Release动态库|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release动态库|x64.Build.0 = Release动态库|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.Release动态库|x86.ActiveCfg = Release动态库|x64
-		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.ReStatic|Any CPU.ActiveCfg = ReStatic|x64
+		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.ReStatic|Any CPU.ActiveCfg = Release|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.ReStatic|x64.ActiveCfg = ReStatic|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.ReStatic|x64.Build.0 = ReStatic|x64
 		{CCBAE52E-A530-413D-93A8-5C71E12AA50E}.ReStatic|x86.ActiveCfg = ReStatic|x64
