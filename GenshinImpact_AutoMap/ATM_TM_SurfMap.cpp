@@ -1,42 +1,123 @@
 #include "ATM_TM_SurfMap.h"
 
+bool ATM_TM_SurfMap::orb_match(cv::Mat &img1, cv::Mat &img2, cv::Point2f &offset) 
+{
+	auto beg_time = std::chrono::steady_clock::now();
+    
+    auto img1_cp = img1.clone();
+    auto img2_cp = img2.clone();
+    // resize 是等比例缩放，就不超了
+
+    // 分别计算orb特征点
+    cv::Ptr<cv::ORB> orb = cv::ORB::create(5000);
+    std::vector<cv::KeyPoint> kp1, kp2;
+    cv::Mat desp1, desp2;
+    orb->detectAndCompute(img1_cp, cv::Mat(), kp1, desp1);
+    orb->detectAndCompute(img2_cp, cv::Mat(), kp2, desp2);
+    
+    if (desp1.empty() || desp2.empty()) {
+        return false;
+    }
+    
+    // 首先采用knnMatch剔除最近匹配点距离与次近匹配点距离比率大于0.6的舍去
+    cv::BFMatcher matcher(cv::NORM_HAMMING);
+    std::vector<std::vector<cv::DMatch>> matches;
+    matcher.knnMatch(desp1, desp2, matches, 2);
+    // 解决没有匹配点的情况
+    if (matches.size() == 0) {
+        return false;
+    }
+    std::vector<cv::DMatch> good_matches;
+    for (int i = 0; i < matches.size(); i++) {
+        if (matches[i][0].distance < 0.6 * matches[i][1].distance) {
+            good_matches.push_back(matches[i][0]);
+        }
+    }
+
+    if (good_matches.size() == 0) {
+        return false;
+    }
+
+    // auto img2_copy = img2_cp.clone();
+    // 画出good matches，然后保存
+    // cv::drawMatches(img1_cp, kp1, img2_cp, kp2, good_matches, img2_copy);
+    // cv::imwrite("good_matches.jpg", img2_copy);
+
+    // 计算偏移量，直接取平均
+    cv::Point2f sum_offset(0, 0);
+    for (int i = 0; i < good_matches.size(); i++) {
+        sum_offset += kp2[good_matches[i].trainIdx].pt - kp1[good_matches[i].queryIdx].pt;
+    }
+    offset = cv::Point2f(sum_offset.x / good_matches.size(), sum_offset.y / good_matches.size());
+    auto end_time = std::chrono::steady_clock::now();
+    auto time_cost = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - beg_time).count();
+    std::cout << "orb match time cost: " << time_cost << " ms" << std::endl;
+    return true;
+
+}
+
+void ATM_TM_SurfMap::set_mini_map(const cv::Mat &giMiniMapRef) 
+{
+    last_mini_map = giMiniMapRef.clone();
+    inited = true;
+}
+
+bool ATM_TM_SurfMap::control_odometer_calculation(const cv::Mat &giMiniMapRef, cv::Point2d &control, double scale)
+{
+    if (!inited) {
+        // JUST INIT IT
+        last_mini_map = giMiniMapRef.clone();
+        inited = true;
+        control = cv::Point2d(0, 0);
+        return false;
+    }
+    else {
+        auto curr_mini_map = giMiniMapRef.clone();
+        // use orb match to get the u, aka offset
+        cv::Point2f offset;
+        if (orb_match(last_mini_map, curr_mini_map, offset)) {
+            control = cv::Point2d( -offset.x * scale, -offset.y * scale);
+            last_mini_map = curr_mini_map.clone();
+            return true;
+        }
+        else {
+            control = cv::Point2d(0, 0);
+            return false;
+        }
+    }
+}
+
+
 ATM_TM_SurfMap::ATM_TM_SurfMap()
 {
 	hisP[0] = Point();
 	hisP[1] = Point();
 	hisP[2] = Point();
 
-	KF = KalmanFilter(stateNum, measureNum, 0);
+	KF = KalmanFilter(stateNum, measureNum, controlNum);
 	state = Mat(stateNum, 1, CV_32F); //state(x,y,detaX,detaY)
 	processNoise= Mat(stateNum, 1, CV_32F);
 	measurement = Mat::zeros(measureNum, 1, CV_32F);	//measurement(x,y)
 
 	randn(state, Scalar::all(0), Scalar::all(0.1)); //随机生成一个矩阵，期望是0，标准差为0.1;
-	KF.transitionMatrix = (Mat_<float>(4, 4) <<
-		1, 0, 1, 0,
-		0, 1, 0, 1,
-		0, 0, 1, 0,
-		0, 0, 0, 1);//元素导入矩阵，按行;
+	// set A
+	KF.transitionMatrix = (cv::Mat_<float>(stateNum, stateNum) <<
+		1, 0, 
+		0, 1);
+	// set B
+	KF.controlMatrix = (cv::Mat_<float>(stateNum, controlNum) <<
+		1, 0,
+		0, 1);
+	// set Q
+	setIdentity(KF.processNoiseCov, cv::Scalar::all(1e-5));
+	// set H
+	KF.measurementMatrix = (cv::Mat_<float>(measureNum, stateNum) <<
+		1, 0,
+		0, 1);
+	// set R
+	setIdentity(KF.measurementNoiseCov, cv::Scalar::all(1e-3));
 
-	//setIdentity: 缩放的单位对角矩阵;
-	//!< measurement matrix (H) 观测模型
-	setIdentity(KF.measurementMatrix);
-
-	//!< process noise covariance matrix (Q)
-	// wk 是过程噪声，并假定其符合均值为零，协方差矩阵为Qk(Q)的多元正态分布;
-	setIdentity(KF.processNoiseCov, Scalar::all(1e-5));
-
-	//!< measurement noise covariance matrix (R)
-	//vk 是观测噪声，其均值为零，协方差矩阵为Rk,且服从正态分布;
-	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-1));
-
-	//!< priori error estimate covariance matrix (P'(k)): P'(k)=A*P(k-1)*At + Q)*/  A代表F: transitionMatrix
-	//预测估计协方差矩阵;
-	setIdentity(KF.errorCovPost, Scalar::all(1));
-
-	//!< corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))
-//initialize post state of kalman filter at random 
-	randn(KF.statePost, Scalar::all(0), Scalar::all(0.1));
+	randn(KF.statePost, cv::Scalar::all(0), cv::Scalar::all(0.1));
 
 }
 
@@ -110,7 +191,7 @@ void ATM_TM_SurfMap::SURFMatch()
 					}
 					else
 					{
-						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
 						std::vector< std::vector<DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 						std::vector<DMatch> good_matchesTmp;
@@ -174,7 +255,7 @@ void ATM_TM_SurfMap::SURFMatch()
 							}
 							else
 							{
-								Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+								Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
 								std::vector< std::vector<DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 								std::vector<DMatch> good_matchesTmp;
@@ -279,7 +360,7 @@ void ATM_TM_SurfMap::SURFMatch()
 
 					if (Kp_SomeMap.size() >= 2 && Kp_MinMap.size() >= 2)
 					{
-						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
 						std::vector< std::vector<DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 						std::vector<DMatch> good_matchesTmp;
@@ -370,7 +451,7 @@ void ATM_TM_SurfMap::SURFMatch()
 		}
 		else
 		{
-			Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
+			Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
 			std::vector< std::vector<DMatch> > KNN_m;
 #ifdef _DEBUG
 			std::vector<DMatch> good_matches;
@@ -425,9 +506,13 @@ void ATM_TM_SurfMap::SURFMatch()
 			}
 		}
 	}
-	if (isConveying)
+	auto pos_raw = cv::Point2d(pos.x, pos.y);
+	auto u_k = cv::Point2d(0, 0);
+	auto od_valid = control_odometer_calculation(img_object, u_k, 1);
+	if (!od_valid)
 	{
-		KF.init(stateNum, measureNum, 0);
+		cout << "no u_k update" << " with pos: " << pos << endl;
+		// KF.init(stateNum, measureNum, 0);
 
 		KF.statePost.at<float>(0) = pos.x;
 		KF.statePost.at<float>(1) = pos.y;
@@ -444,13 +529,21 @@ void ATM_TM_SurfMap::SURFMatch()
 
 		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
 		//isConveying = false;
+		set_mini_map(img_object);
 	}
 	else
 	{
+		cout << "u_k: " << u_k << " with pos: " << pos << endl;
+		// cv::imshow("img_object", img_object);
+		// cv::waitKey();
+
+		cv::Mat u_k_mat = cv::Mat::zeros(controlNum, 1, CV_32F);
+		u_k_mat.at<float>(0, 0) = u_k.x;
+		u_k_mat.at<float>(1, 0) = u_k.y;
 		//Point statePt = Point((int)KF.statePost.at<float>(0), (int)KF.statePost.at<float>(1));
 
 		//2.kalman prediction   
-		Mat prediction = KF.predict();
+		Mat prediction = KF.predict(u_k_mat);
 		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
 
 		//3.update measurement
@@ -462,6 +555,7 @@ void ATM_TM_SurfMap::SURFMatch()
 
 		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
 	}
+	// pos = pos_raw;
 
 	hisP[0] = hisP[1];
 	hisP[1] = hisP[2];
