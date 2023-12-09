@@ -1,3 +1,6 @@
 [submodule "third_party/opencv-static"]
 	path = third_party/opencv-static
 	url = https://github.com/GengGode/opencv-xfeatures2d-release-static.git
+[submodule "third_party/qt-static"]
+	path = third_party/qt-static
+	url = https://github.com/GengGode/qt-5.15.2-lite-release-static.git
