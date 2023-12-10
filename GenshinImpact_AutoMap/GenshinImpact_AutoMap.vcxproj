@@ -90,6 +90,7 @@
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>../third_party/opencv-static/include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,6 +177,9 @@
     <ClCompile Include="ATM_TM_TemplateStar.cpp" />
     <ClCompile Include="ATM_TM_TemplateUID.cpp" />
     <ClCompile Include="ATM_TM_ThreadBase.cpp" />
+    <ClCompile Include="global\resource.include.cpp" />
+    <ClCompile Include="global\resource.qrc.cpp" />
+    <ClCompile Include="global\resource.rc.cpp" />
     <ClCompile Include="QtClassMyExitButton.cpp" />
     <ClCompile Include="QtClassMyHotKayNativeEventFilter.cpp" />
     <ClCompile Include="QtClassMyHotKeyObject.cpp" />
@@ -217,6 +221,9 @@
     <ClInclude Include="ATM_TM_ThreadBase.h" />
     <ClInclude Include="AutomaticTrackingMap.h" />
     <QtMoc Include="QtClassMyExitButton.h" />
+    <ClInclude Include="global\resource.include.h" />
+    <ClInclude Include="global\resource.qrc.h" />
+    <ClInclude Include="global\resource.rc.h" />
     <ClInclude Include="QtClassMyHotKayNativeEventFilter.h" />
     <QtMoc Include="QtClassMyHotKeyObject.h" />
     <QtMoc Include="QtWidgetsClassMySelectGenshinImpactHandle.h" />
