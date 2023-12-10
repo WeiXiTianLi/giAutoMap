@@ -90,16 +90,16 @@ bool ATM_TM_SurfMap::control_odometer_calculation(const cv::Mat &giMiniMapRef, c
 
 ATM_TM_SurfMap::ATM_TM_SurfMap()
 {
-	hisP[0] = Point();
-	hisP[1] = Point();
-	hisP[2] = Point();
+	hisP[0] = cv::Point();
+	hisP[1] = cv::Point();
+	hisP[2] = cv::Point();
 
-	KF = KalmanFilter(stateNum, measureNum, controlNum);
-	state = Mat(stateNum, 1, CV_32F); //state(x,y,detaX,detaY)
-	processNoise= Mat(stateNum, 1, CV_32F);
-	measurement = Mat::zeros(measureNum, 1, CV_32F);	//measurement(x,y)
+	KF = cv::KalmanFilter(stateNum, measureNum, controlNum);
+	state = cv::Mat(stateNum, 1, CV_32F); //state(x,y,detaX,detaY)
+	processNoise= cv::Mat(stateNum, 1, CV_32F);
+	measurement = cv::Mat::zeros(measureNum, 1, CV_32F);	//measurement(x,y)
 
-	randn(state, Scalar::all(0), Scalar::all(0.1)); //随机生成一个矩阵，期望是0，标准差为0.1;
+	randn(state, cv::Scalar::all(0), cv::Scalar::all(0.1)); //随机生成一个矩阵，期望是0，标准差为0.1;
 	// set A
 	KF.transitionMatrix = (cv::Mat_<float>(stateNum, stateNum) <<
 		1, 0, 
@@ -125,12 +125,12 @@ ATM_TM_SurfMap::~ATM_TM_SurfMap()
 {
 }
 
-void ATM_TM_SurfMap::setMap(Mat mapMat)
+void ATM_TM_SurfMap::setMap(cv::Mat mapMat)
 {
 	_mapMat = mapMat;
 }
 
-void ATM_TM_SurfMap::setMinMap(Mat minMapMat)
+void ATM_TM_SurfMap::setMinMap(cv::Mat minMapMat)
 {
 	_minMapMat = minMapMat;
 }
@@ -138,8 +138,8 @@ void ATM_TM_SurfMap::setMinMap(Mat minMapMat)
 void ATM_TM_SurfMap::Init()
 {
 	if (isInit)return;
-	detector = xfeatures2d::SURF::create(minHessian);
-	detector->detectAndCompute(_mapMat, noArray(), Kp_Map, Dp_Map);
+	detector = cv::xfeatures2d::SURF::create(minHessian);
+	detector->detectAndCompute(_mapMat, cv::noArray(), Kp_Map, Dp_Map);
 	isInit = true;
 }
 
@@ -147,8 +147,8 @@ void ATM_TM_SurfMap::SURFMatch()
 {
 	//static Point hisP[3];
 
-	Mat img_scene(_mapMat);
-	Mat img_object(_minMapMat(Rect(30, 30, _minMapMat.cols - 60, _minMapMat.rows - 60)));
+	cv::Mat img_scene(_mapMat);
+	cv::Mat img_object(_minMapMat(cv::Rect(30, 30, _minMapMat.cols - 60, _minMapMat.rows - 60)));
 
 	//someSizeR = cvCeil(img_object.rows / 2);
 
@@ -158,8 +158,8 @@ void ATM_TM_SurfMap::SURFMatch()
 	}
 
 	isContinuity = false;
-	Point2d dp1 = hisP[1] - hisP[0];
-	Point2d dp2 = hisP[2] - hisP[1];
+	cv::Point2d dp1 = hisP[1] - hisP[0];
+	cv::Point2d dp2 = hisP[2] - hisP[1];
 
 	//角色移动连续性判断
 	if (dis(dp2) < 1000)
@@ -177,22 +177,22 @@ void ATM_TM_SurfMap::SURFMatch()
 				if (isOnCity == false)
 				{
 					//不在城镇中时
-					Mat someMap(img_scene(Rect(static_cast<int>(hisP[2].x - someSizeR), static_cast<int>(hisP[2].y - someSizeR), someSizeR * 2, someSizeR * 2)));
-					Mat minMap(img_object);
+					cv::Mat someMap(img_scene(cv::Rect(static_cast<int>(hisP[2].x - someSizeR), static_cast<int>(hisP[2].y - someSizeR), someSizeR * 2, someSizeR * 2)));
+					cv::Mat minMap(img_object);
 					//resize(someMap, someMap, Size(), MatchMatScale, MatchMatScale, 1);
 					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
 
-					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
-					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+					detectorSomeMap = cv::xfeatures2d::SURF::create(minHessian);
+					detectorSomeMap->detectAndCompute(someMap, cv::noArray(), Kp_SomeMap, Dp_SomeMap);
+					detectorSomeMap->detectAndCompute(minMap, cv::noArray(), Kp_MinMap, Dp_MinMap);
 					if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
 					{
 						isContinuity = false;
 					}
 					else
 					{
-						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
-						std::vector< std::vector<DMatch> > KNN_mTmp;
+						cv::Ptr<cv::DescriptorMatcher> matcherTmp = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
+						std::vector< std::vector<cv::DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 						std::vector<DMatch> good_matchesTmp;
 #endif
@@ -233,21 +233,21 @@ void ATM_TM_SurfMap::SURFMatch()
 
 						}
 #endif
-						if (min(lisx.size(), lisy.size()) <= 4)
+						if (std::min(lisx.size(), lisy.size()) <= 4)
 						{
 
 							//有可能处于城镇中
 
 							/***********************/
 							//重新从完整中地图取出角色周围部分地图
-							img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)).copyTo(someMap);
+							img_scene(cv::Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)).copyTo(someMap);
 							//Mat minMap(img_object);
 
-							resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
+							resize(someMap, someMap, cv::Size(someSizeR * 4, someSizeR * 4));
 							//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
 
-							detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-							detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
+							detectorSomeMap = cv::xfeatures2d::SURF::create(minHessian);
+							detectorSomeMap->detectAndCompute(someMap, cv::noArray(), Kp_SomeMap, Dp_SomeMap);
 							//detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
 							if (Kp_SomeMap.size() == 0 || Kp_MinMap.size() == 0)
 							{
@@ -255,8 +255,8 @@ void ATM_TM_SurfMap::SURFMatch()
 							}
 							else
 							{
-								Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
-								std::vector< std::vector<DMatch> > KNN_mTmp;
+								cv::Ptr<cv::DescriptorMatcher> matcherTmp = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
+								std::vector< std::vector<cv::DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 								std::vector<DMatch> good_matchesTmp;
 #endif
@@ -296,13 +296,13 @@ void ATM_TM_SurfMap::SURFMatch()
 
 								drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 #endif
-								if (min(lisx.size(), lisy.size()) <= 4)
+								if (std::min(lisx.size(), lisy.size()) <= 4)
 								{
 									isContinuity = false;
 								}
 								else
 								{
-									if (min(lisx.size(), lisy.size()) >= 10)
+									if (std::min(lisx.size(), lisy.size()) >= 10)
 									{
 										isOnCity = true;
 									}
@@ -313,7 +313,7 @@ void ATM_TM_SurfMap::SURFMatch()
 
 									//double meanx = sumx / lisx.size(); //均值
 									//double meany = sumy / lisy.size(); //均值
-									Point2d p = SPC(lisx, sumx, lisy, sumy);
+									cv::Point2d p = SPC(lisx, sumx, lisy, sumy);
 
 									//int x = (int)meanx;
 									//int y = (int)meany;
@@ -321,7 +321,7 @@ void ATM_TM_SurfMap::SURFMatch()
 									double x = (p.x - someMap.cols / 2.0) / 2.0;
 									double y = (p.y - someMap.rows / 2.0) / 2.0;
 
-									pos = Point2d(x + hisP[2].x, y + hisP[2].y);
+									pos = cv::Point2d(x + hisP[2].x, y + hisP[2].y);
 								}
 							}
 							/***********************/
@@ -333,13 +333,13 @@ void ATM_TM_SurfMap::SURFMatch()
 
 							//double meanx = sumx / lisx.size(); //均值
 							//double meany = sumy / lisy.size(); //均值
-							Point2d p = SPC(lisx, sumx, lisy, sumy);
+							cv::Point2d p = SPC(lisx, sumx, lisy, sumy);
 
 
 							double x = p.x;
 							double y = p.y;
 
-							pos = Point2d(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
+							pos = cv::Point2d(x + hisP[2].x - someSizeR, y + hisP[2].y - someSizeR);
 						}
 					}
 				}
@@ -348,20 +348,20 @@ void ATM_TM_SurfMap::SURFMatch()
 					//在城镇中
 					/***********************/
 					//重新从完整中地图取出角色周围部分地图
-					Mat someMap(img_scene(Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
-					Mat minMap(img_object);
+					cv::Mat someMap(img_scene(cv::Rect(hisP[2].x - someSizeR, hisP[2].y - someSizeR, someSizeR * 2, someSizeR * 2)));
+					cv::Mat minMap(img_object);
 
-					resize(someMap, someMap, Size(someSizeR * 4, someSizeR * 4));
+					cv::resize(someMap, someMap, cv::Size(someSizeR * 4, someSizeR * 4));
 					//resize(minMap, minMap, Size(), MatchMatScale, MatchMatScale, 1);
 
-					detectorSomeMap = xfeatures2d::SURF::create(minHessian);
-					detectorSomeMap->detectAndCompute(someMap, noArray(), Kp_SomeMap, Dp_SomeMap);
-					detectorSomeMap->detectAndCompute(minMap, noArray(), Kp_MinMap, Dp_MinMap);
+					detectorSomeMap = cv::xfeatures2d::SURF::create(minHessian);
+					detectorSomeMap->detectAndCompute(someMap, cv::noArray(), Kp_SomeMap, Dp_SomeMap);
+					detectorSomeMap->detectAndCompute(minMap, cv::noArray(), Kp_MinMap, Dp_MinMap);
 
 					if (Kp_SomeMap.size() >= 2 && Kp_MinMap.size() >= 2)
 					{
-						Ptr<DescriptorMatcher> matcherTmp = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
-						std::vector< std::vector<DMatch> > KNN_mTmp;
+						cv::Ptr<cv::DescriptorMatcher> matcherTmp = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
+						std::vector< std::vector<cv::DMatch> > KNN_mTmp;
 #ifdef _DEBUG
 						std::vector<DMatch> good_matchesTmp;
 #endif
@@ -397,9 +397,9 @@ void ATM_TM_SurfMap::SURFMatch()
 
 						drawMatches(img_object, Kp_MinMap, someMap, Kp_SomeMap, good_matchesTmp, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 #endif
-						if (max(lisx.size(), lisy.size()) > 4)
+						if (std::max(lisx.size(), lisy.size()) > 4)
 						{
-							if (min(lisx.size(), lisy.size()) >= 10)
+							if (std::min(lisx.size(), lisy.size()) >= 10)
 							{
 								isOnCity = true;
 							}
@@ -414,12 +414,12 @@ void ATM_TM_SurfMap::SURFMatch()
 
 							//double meanx = sumx / lisx.size(); //均值
 							//double meany = sumy / lisy.size(); //均值
-							Point2d p = SPC(lisx, sumx, lisy, sumy);
+							cv::Point2d p = SPC(lisx, sumx, lisy, sumy);
 
 							double x = (p.x - someMap.cols / 2.0) / 2.0;
 							double y = (p.y - someMap.rows / 2.0) / 2.0;
 
-							pos = Point2d(x + hisP[2].x, y + hisP[2].y);
+							pos = cv::Point2d(x + hisP[2].x, y + hisP[2].y);
 						}
 						else
 						{
@@ -440,7 +440,7 @@ void ATM_TM_SurfMap::SURFMatch()
 	}
 	if (!isContinuity)
 	{
-		detector->detectAndCompute(img_object, noArray(), Kp_MinMap, Dp_MinMap);
+		detector->detectAndCompute(img_object, cv::noArray(), Kp_MinMap, Dp_MinMap);
 
 		if (Kp_MinMap.size() == 0)
 		{
@@ -451,8 +451,8 @@ void ATM_TM_SurfMap::SURFMatch()
 		}
 		else
 		{
-			Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
-			std::vector< std::vector<DMatch> > KNN_m;
+			cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
+			std::vector< std::vector<cv::DMatch> > KNN_m;
 #ifdef _DEBUG
 			std::vector<DMatch> good_matches;
 #endif
@@ -488,7 +488,7 @@ void ATM_TM_SurfMap::SURFMatch()
 			drawMatches(img_object, Kp_MinMap, img_scene, Kp_Map, good_matches, img_matches, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 #endif
 
-			if (min(lisx.size(), lisy.size()) == 0)
+			if (std::min(lisx.size(), lisy.size()) == 0)
 			{
 #ifdef _DEBUG
 				cout << "SURF Match Fail" << endl;
@@ -511,14 +511,14 @@ void ATM_TM_SurfMap::SURFMatch()
 	auto od_valid = control_odometer_calculation(img_object, u_k, 1);
 	if (!od_valid)
 	{
-		cout << "no u_k update" << " with pos: " << pos << endl;
+		//cout << "no u_k update" << " with pos: " << pos << endl;
 		// KF.init(stateNum, measureNum, 0);
 
 		KF.statePost.at<float>(0) = pos.x;
 		KF.statePost.at<float>(1) = pos.y;
 
-		Mat prediction = KF.predict();
-		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
+		cv::Mat prediction = KF.predict();
+		cv::Point2d predictPt = cv::Point2d(prediction.at<float>(0), prediction.at<float>(1));
 
 		//3.update measurement
 		measurement.at<float>(0, 0) = static_cast<float>(pos.x);
@@ -527,13 +527,13 @@ void ATM_TM_SurfMap::SURFMatch()
 		//4.update
 		KF.correct(measurement);
 
-		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+		pos = cv::Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
 		//isConveying = false;
 		set_mini_map(img_object);
 	}
 	else
 	{
-		cout << "u_k: " << u_k << " with pos: " << pos << endl;
+		//cout << "u_k: " << u_k << " with pos: " << pos << endl;
 		// cv::imshow("img_object", img_object);
 		// cv::waitKey();
 
@@ -543,8 +543,8 @@ void ATM_TM_SurfMap::SURFMatch()
 		//Point statePt = Point((int)KF.statePost.at<float>(0), (int)KF.statePost.at<float>(1));
 
 		//2.kalman prediction   
-		Mat prediction = KF.predict(u_k_mat);
-		Point2d predictPt = Point2d(prediction.at<float>(0), prediction.at<float>(1));
+		cv::Mat prediction = KF.predict(u_k_mat);
+		cv::Point2d predictPt = cv::Point2d(prediction.at<float>(0), prediction.at<float>(1));
 
 		//3.update measurement
 		measurement.at<float>(0, 0) = static_cast<float>(pos.x);
@@ -553,7 +553,7 @@ void ATM_TM_SurfMap::SURFMatch()
 		//4.update
 		KF.correct(measurement);
 
-		pos = Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
+		pos = cv::Point2d(KF.statePost.at<float>(0), KF.statePost.at<float>(1));
 	}
 	// pos = pos_raw;
 
@@ -563,12 +563,12 @@ void ATM_TM_SurfMap::SURFMatch()
 
 }
 
-Point2d ATM_TM_SurfMap::SURFMatch(Mat minMapMat)
+cv::Point2d ATM_TM_SurfMap::SURFMatch(cv::Mat minMapMat)
 {
-	return Point2d();
+	return cv::Point2d();
 }
 
-Point2d ATM_TM_SurfMap::getLocalPos()
+cv::Point2d ATM_TM_SurfMap::getLocalPos()
 {
 	return pos;
 }
@@ -578,25 +578,25 @@ bool ATM_TM_SurfMap::getIsContinuity()
 	return isContinuity;
 }
 
-double ATM_TM_SurfMap::dis(Point2d & p)
+double ATM_TM_SurfMap::dis(cv::Point2d & p)
 {
 	return sqrt(p.x*p.x + p.y*p.y);
 }
 
-Point2d ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
+cv::Point2d ATM_TM_SurfMap::SPC(std::vector<double> lisx, double sumx, std::vector<double> lisy, double sumy)
 {
 	//这个剔除异常点算法
 	//回头要改
-	Point2d mpos;
+	cv::Point2d mpos;
 	double meanx = sumx / lisx.size(); //均值
 	double meany = sumy / lisy.size(); //均值
 	double x = meanx;
 	double y = meany;
-	if (min(lisx.size(), lisy.size()) > 3)
+	if (std::min(lisx.size(), lisy.size()) > 3)
 	{
 		double accumx = 0.0;
 		double accumy = 0.0;
-		for (int i = 0; i < min(lisx.size(), lisy.size()); i++)
+		for (int i = 0; i < std::min(lisx.size(), lisy.size()); i++)
 		{
 			accumx += (lisx[i] - meanx)*(lisx[i] - meanx);
 			accumy += (lisy[i] - meany)*(lisy[i] - meany);
@@ -609,7 +609,7 @@ Point2d ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lis
 		sumy = 0;
 		double numx = 0;
 		double numy = 0;
-		for (int i = 0; i < min(lisx.size(), lisy.size()); i++)
+		for (int i = 0; i < std::min(lisx.size(), lisy.size()); i++)
 		{
 			if (abs(lisx[i] - meanx) < 1 * stdevx)
 			{
@@ -625,11 +625,11 @@ Point2d ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lis
 		}
 		double xx = sumx / numx;
 		double yy = sumy / numy;
-		mpos = Point2d(xx, yy);
+		mpos = cv::Point2d(xx, yy);
 	}
 	else
 	{
-		mpos = Point2d(x, y);
+		mpos = cv::Point2d(x, y);
 	}
 	return mpos;
 }
@@ -641,11 +641,11 @@ Point2d ATM_TM_SurfMap::SPC(vector<double> lisx, double sumx, vector<double> lis
 //	return Point();
 //}
 
-double ATM_TM_SurfMap::var(vector<double> lisx, double sumx, vector<double> lisy, double sumy)
+double ATM_TM_SurfMap::var(std::vector<double> lisx, double sumx, std::vector<double> lisy, double sumy)
 {
 	double accumx = 0.0;
 	double accumy = 0.0;
-	for (int i = 0; i < min(lisx.size(), lisy.size()); i++)
+	for (int i = 0; i < std::min(lisx.size(), lisy.size()); i++)
 	{
 		accumx = (lisx[i] - sumx)*(lisx[i] - sumx);
 		accumy = (lisy[i] - sumy)*(lisy[i] - sumy);

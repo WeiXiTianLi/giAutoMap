@@ -18,9 +18,6 @@
 #include "ATM_TM_TemplateUID.h"
 #include "ATM_TM_TemplateStar.h"
 
-using namespace std;
-using namespace cv;
-
 class ATM_TM_Continuity
 {
 	bool continuity[3] = { false };
@@ -31,20 +28,20 @@ public:
 
 class ATM_ThreadMatch
 {
-	Mat mapGray;
-	Mat objMinMap;
+	cv::Mat mapGray;
+	cv::Mat objMinMap;
 
-	Mat templateAvatar;
-	Mat objAvatar;
+	cv::Mat templateAvatar;
+	cv::Mat objAvatar;
 
-	Mat templatePaimon;
-	Mat objPaimon;
+	cv::Mat templatePaimon;
+	cv::Mat objPaimon;
 
-	Mat templateStar;
-	Mat objStar;
+	cv::Mat templateStar;
+	cv::Mat objStar;
 
-	Mat *templateUID;
-	Mat objUID;
+	cv::Mat *templateUID;
+	cv::Mat objUID;
 
 	ATM_TM_SurfMap surfMap;
 	ATM_TM_TemplatePaimon tempPaimon;
@@ -99,74 +96,74 @@ public:
 	void cThreadInit();
 
 	//SURF Match Map
-	void cThreadSurfMapInit(Mat &Map);
+	void cThreadSurfMapInit(cv::Mat &Map);
 	void cThreadSurfMapMatch();
-	void setSurfMap(Mat mapMat);
+	void setSurfMap(cv::Mat mapMat);
 
 	//Template Match Paimon
-	void cThreadTemplatePaimonMatch(Mat &Template);
-	void setTemplatePaimon(Mat TemplatePaimonMat);
-	void setPaimon(Mat PaimonMat);
+	void cThreadTemplatePaimonMatch(cv::Mat &Template);
+	void setTemplatePaimon(cv::Mat TemplatePaimonMat);
+	void setPaimon(cv::Mat PaimonMat);
 
 	//ORB Match Avatar
-	void cThreadOrbAvatarInit(Mat &TemplatAvatar);
+	void cThreadOrbAvatarInit(cv::Mat &TemplatAvatar);
 	void cThreadOrbAvatarMatch();
-	void setAvatat(Mat AvatarMat);
+	void setAvatat(cv::Mat AvatarMat);
 
 	//Template Match UID
-	void cThreadTemplateUIDInit(Mat * TemplateUID);
+	void cThreadTemplateUIDInit(cv::Mat * TemplateUID);
 	void cThreadTemplateUIDMatch();
-	void setUID(Mat UIDMat);
+	void setUID(cv::Mat UIDMat);
 
 	//Template Match Star
-	void cThreadTemplateStarInit(Mat &TemplateStar);
+	void cThreadTemplateStarInit(cv::Mat &TemplateStar);
 	void cThreadTemplateStarMatch();
-	void setTemplateStar(Mat TemplateStarMat);
-	void setStar(Mat StarMat);
+	void setTemplateStar(cv::Mat TemplateStarMat);
+	void setStar(cv::Mat StarMat);
 
 	//Set Some Mat
-	void getObjMinMap(Mat &obj);
-	void getObjPaimon(Mat &obj);
-	void getObjUID(Mat &obj);
+	void getObjMinMap(cv::Mat &obj);
+	void getObjPaimon(cv::Mat &obj);
+	void getObjUID(cv::Mat &obj);
 
 	//Check Thread End
 	void CheckThread();
 
 	//SURF Init
 	void CheckThread_SurfMapInit();
-	void thread_SurfMapInit(Mat& tar);
+	void thread_SurfMapInit(cv::Mat& tar);
 
 	//SURF Match
 	void CheckThread_SurfMapMatch();
-	void thread_SurfMapMatch(Mat& Obj);
+	void thread_SurfMapMatch(cv::Mat& Obj);
 
 	//Template Match
 	void CheckThread_TemplatePaimonMatch();
-	void thread_TemplatePaimonMatch(Mat &Template, Mat& Obj);
+	void thread_TemplatePaimonMatch(cv::Mat &Template, cv::Mat& Obj);
 
 	//ORB Init
 	void CheckThread_OrbAvatarInit();
-	void thread_OrbAvatarInit(Mat& tar);
+	void thread_OrbAvatarInit(cv::Mat& tar);
 
 	//ORB Match
 	void CheckThread_OrbAvatarMatch();
-	void thread_OrbAvatarMatch(Mat& Obj);
+	void thread_OrbAvatarMatch(cv::Mat& Obj);
 
 	//Template UID Init
 	void CheckThread_TemplateUIDInit();
-	void thread_TemplateUIDInit(Mat * tar);
+	void thread_TemplateUIDInit(cv::Mat * tar);
 
 	//Template UID Match
 	void CheckThread_TemplateUIDMatch();
-	void thread_TemplateUIDMatch(Mat& Obj);
+	void thread_TemplateUIDMatch(cv::Mat& Obj);
 
 	//Template Star Init
 	void CheckThread_TemplateStarInit();
-	void thread_TemplateStarInit(Mat & tar);
+	void thread_TemplateStarInit(cv::Mat & tar);
 
 	//Template Star Match
 	void CheckThread_TemplateStarMatch();
-	void thread_TemplateStarMatch(Mat& Obj);
+	void thread_TemplateStarMatch(cv::Mat& Obj);
 
 	void GetMatchResults();
 };

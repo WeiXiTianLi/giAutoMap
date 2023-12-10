@@ -8,14 +8,12 @@
 #include <opencv2/video/tracking.hpp>
 
 #include <opencv2/imgproc/imgproc_c.h>
-using namespace std;
-using namespace cv;
 
 class ATM_TM_SurfMap
 {
-	Mat _mapMat;
-	Mat _minMapMat;
-	Mat _minMapLastMat;
+	cv::Mat _mapMat;
+	cv::Mat _minMapMat;
+	cv::Mat _minMapLastMat;
 
 	int minHessian = 400;
 	double ratio_thresh = 0.66;
@@ -23,23 +21,23 @@ class ATM_TM_SurfMap
 	int someSizeR = 106;
 	double MatchMatScale = 2.0;
 
-	Ptr<xfeatures2d::SURF> detector, detectorSomeMap;
-	std::vector<KeyPoint> Kp_MinMap, Kp_Map, Kp_SomeMap;
-	Mat Dp_MinMap, Dp_Map, Dp_SomeMap;
+	cv::Ptr<cv::xfeatures2d::SURF> detector, detectorSomeMap;
+	std::vector<cv::KeyPoint> Kp_MinMap, Kp_Map, Kp_SomeMap;
+	cv::Mat Dp_MinMap, Dp_Map, Dp_SomeMap;
 
 	//static Point hisP[3];
-	Point2d hisP[3];
+	cv::Point2d hisP[3];
 
-	Point2d pos;
+	cv::Point2d pos;
 
 	int stateNum = 2;
 	int measureNum = 2;
 	int controlNum = 2;
 
-	KalmanFilter KF;
-	Mat state; /* (phi, delta_phi) */
-	Mat processNoise;
-	Mat measurement;
+	cv::KalmanFilter KF;
+	cv::Mat state; /* (phi, delta_phi) */
+	cv::Mat processNoise;
+	cv::Mat measurement;
 
 	// ab's inertia filter
 	cv::Mat last_mini_map;
@@ -56,17 +54,17 @@ public:
 	bool isContinuity = false;
 	bool isConveying = false;
 	bool isOnCity = false;
-	void setMap(Mat mapMat);
-	void setMinMap(Mat minMapMat);
+	void setMap(cv::Mat mapMat);
+	void setMinMap(cv::Mat minMapMat);
 
 	void Init();
 	void SURFMatch();
-	Point2d SURFMatch(Mat minMapMat);
-	Point2d getLocalPos();
+	cv::Point2d SURFMatch(cv::Mat minMapMat);
+	cv::Point2d getLocalPos();
 	bool getIsContinuity();
 private:
-	double dis(Point2d &p);
-	Point2d SPC(vector<double> lisx, double sumx, vector<double> lisy, double sumy);
+	double dis(cv::Point2d &p);
+	cv::Point2d SPC(std::vector<double> lisx, double sumx, std::vector<double> lisy, double sumy);
 	//Point SPC2(vector<double> lisx, double sumx, vector<double> lisy, double sumy);
-	double var(vector<double> lisx, double sumx, vector<double> lisy, double sumy);
+	double var(std::vector<double> lisx, double sumx, std::vector<double> lisy, double sumy);
 };

@@ -116,7 +116,7 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lparam)
 	//GetWindow
 	char nameLis[256];
 	GetWindowTextA(hwnd, nameLis, 256);
-	if (string(nameLis) == "腾讯云游戏")
+	if (std::string(nameLis) == "腾讯云游戏")
 	{
 		RECT r;
 		GetClientRect(hwnd, &r);

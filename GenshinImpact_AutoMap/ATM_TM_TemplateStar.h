@@ -1,30 +1,21 @@
 #pragma once
-//#include <thread>
-//#include <Windows.h>
 #include <opencv2/opencv.hpp>
-//#include <opencv2/features2d.hpp>
-//#include <opencv2/xfeatures2d.hpp>
-//#include <opencv2/xfeatures2d/nonfree.hpp>
-
-//#include <opencv2/imgproc/imgproc_c.h>
-using namespace std;
-using namespace cv;
 
 class ATM_TM_TemplateStar
 {
-	Mat _starTemplate;
-	Mat _starMat;
+	cv::Mat _starTemplate;
+	cv::Mat _starMat;
 	bool isStarVisible = false;
-	vector<Point2d> pos;
+	std::vector<cv::Point2d> pos;
 public:
 	bool isInit = false;
 
 	void Init();
-	void setStarTemplate(Mat starTemplateMat);
-	void setStarMat(Mat starMat);
+	void setStarTemplate(cv::Mat starTemplateMat);
+	void setStarMat(cv::Mat starMat);
 	void TemplateStar();
 	bool getStar();
-	vector<Point2d> getStarPos();
+	std::vector<cv::Point2d> getStarPos();
 };
 
 

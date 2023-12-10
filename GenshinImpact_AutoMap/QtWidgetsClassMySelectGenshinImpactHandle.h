@@ -5,7 +5,6 @@
 #include "ui_QtWidgetsClassMySelectGenshinImpactHandle.h"
 #include <iostream>
 #include <Windows.h>
-using namespace std;
 
 class QtWidgetsClassMySelectGenshinImpactHandle : public QWidget
 {
@@ -19,9 +18,9 @@ private:
 	Ui::QtWidgetsClassMySelectGenshinImpactHandle ui;
 
 private:
-	string giName="";
+	std::string giName="";
 	HWND giHandle = NULL;
-	string giClass="";
+	std::string giClass="";
 	POINT pos;
 	bool isStartSelect = false;
 

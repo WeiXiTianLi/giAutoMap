@@ -4,17 +4,17 @@
 #include <direct.h>    
 #include <iostream>
 #include "ATM_Matrix.h"
-using namespace std;
+
 class ATM_SaveLoadFile
 {
-	string _uidStr = "000000000";
+	std::string _uidStr = "000000000";
 
-	string _saveIndex = "";
+	std::string _saveIndex = "";
 	char _lastSaveTimeChars[60] = {'\0'};
-	string _uidFilePath = "";
-	string logFilePath = "";
+	std::string _uidFilePath = "";
+	std::string logFilePath = "";
 
-	const string _uid_ = "UID-";
+	const std::string _uid_ = "UID-";
 public:
 	ATM_Matrix _stateFST = ATM_Matrix(1, 65);
 	ATM_Matrix _stateYST = ATM_Matrix(1, 131);
@@ -27,14 +27,14 @@ public:
 
 	ATM_SaveLoadFile();
 	~ATM_SaveLoadFile();
-	void setIndex(string index);
+	void setIndex(std::string index);
 	void setUID(int uid);
 	void save();
 	void load();
 
 	bool tryLoad();
 
-	void logError(string mes);
+	void logError(std::string mes);
 	void logExeRun();
 	void logExeExit();
 	void logUIDEvent(int newUID);
@@ -49,7 +49,7 @@ private:
 	
 	void getUIDStr();
 	void getFilePath();
-	string getSystemTime();
+	std::string getSystemTime();
 
 	void saveMatrix(FILE * fpSave,ATM_Matrix &mat);
 	void loadMatrix(FILE * fpLoad, ATM_Matrix &mat);

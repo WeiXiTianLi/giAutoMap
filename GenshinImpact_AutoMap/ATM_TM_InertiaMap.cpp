@@ -1,4 +1,6 @@
 #include "ATM_TM_InertiaMap.h"
+using namespace std;
+using namespace cv;
 
 void ATM_TM_InertiaMap::setNowMap(Mat mapMat)
 {

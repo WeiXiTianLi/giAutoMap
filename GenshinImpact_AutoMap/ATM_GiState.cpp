@@ -1,5 +1,7 @@
 #include "ATM_GiState.h"
 
+using namespace std;
+using namespace cv;
 bool ATM_GiState::isRun()
 {
 	isRunning = IsWindow(giHandle);

@@ -67,4 +67,3 @@ private:
 	Mat QImage2Mat(QImage &in);
 	QImage Mat2QImage(Mat &in);
 };
-

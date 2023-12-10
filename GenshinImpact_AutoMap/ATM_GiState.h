@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>
-using namespace std;
-using namespace cv;
 
 //基于分辨率
 enum RectMode
@@ -55,20 +53,20 @@ public:
 	RECT giClientRect;
 
 	//原神游戏窗口截图
-	Mat giFrame;
+	cv::Mat giFrame;
 	//原神游戏窗口截图有效区域
 	//Mat giFrameROI;
 	//
-	Mat giFrameRect;
+	cv::Mat giFrameRect;
 	//
-	Mat giFramePaimon;
+	cv::Mat giFramePaimon;
 	//
-	Mat giFrameMap;
+	cv::Mat giFrameMap;
 
-	Mat giFrameUID;
+	cv::Mat giFrameUID;
 
-	string giWndClass = "UnityWndClass";
-	string giName = "原神";
+	std::string giWndClass = "UnityWndClass";
+	std::string giName = "原神";
 
 	//原神是否运行中
 	bool isRunning = false;
@@ -81,7 +79,7 @@ public:
 
 	int resIdPaimon = 0;
 	//窗口大小
-	Size giSize;
+	cv::Size giSize;
 
 	bool isAutoScreen = true;
 
@@ -90,7 +88,7 @@ public:
 	void getRect();
 	int getGiRectMode();
 	int getGiState();
-	Point getOffset();
+	cv::Point getOffset();
 
 	void getAllScreen();
 

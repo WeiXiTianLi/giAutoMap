@@ -4,20 +4,17 @@
 #include <functional>
 #include <opencv2/opencv.hpp>
 
-using namespace std;
-using namespace cv;
-
 template <class FunOut, class FunIn, class _Obj >
 class ATM_TM_ThreadBase
 {
 	//实现线程的单独控制
 
 	//线程实体
-	thread *tLoopWork = nullptr;
+	std::thread *tLoopWork = nullptr;
 
 	//工作函数
 	//FunOut(_Obj::*ptr)(FunIn funIn) = nullptr;
-	function<FunOut(FunIn)> fptr = nullptr;
+	std::function<FunOut(FunIn)> fptr = nullptr;
 
 	//输入输出变量
 	FunOut *_funOut = nullptr;
@@ -70,7 +67,7 @@ public:
 	ATM_TM_ThreadBase()
 	{
 		//构造线程实体，并且运行线程执行实体
-		tLoopWork = new thread(&ATM_TM_ThreadBase::run, this);
+		tLoopWork = new std::thread(&ATM_TM_ThreadBase::run, this);
 	};
 
 	//运行结束最后一次工作析构
@@ -91,16 +88,16 @@ public:
 	}
 
 	//带工作函数构造
-	ATM_TM_ThreadBase(function<FunOut(FunIn)> funPtr)
+	ATM_TM_ThreadBase(std::function<FunOut(FunIn)> funPtr)
 	{
 		//直接设置工作函数
 		fptr = funPtr;
 		//构造线程实体，并且运行线程执行实体
-		tLoopWork = new thread(&ATM_TM_ThreadBase::run, this);
+		tLoopWork = new std::thread(&ATM_TM_ThreadBase::run, this);
 	}
 
 	//设置工作函数
-	void setFunction(function<FunOut(FunIn)> funPtr)
+	void setFunction(std::function<FunOut(FunIn)> funPtr)
 	{
 		//不在工作中
 		if (isRunWork)

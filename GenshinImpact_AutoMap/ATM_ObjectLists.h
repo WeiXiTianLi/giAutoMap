@@ -3,7 +3,6 @@
 #include <vector>
 #include "ATM_Matrix.h"
 
-using namespace std;
 class ATM_ObjectList
 {
 	int _maxNumber=0;
@@ -27,8 +26,8 @@ public:
 class ATM_ObjectFlag
 {
 	int _maxNumber = 0;
-	vector<int> _x;
-	vector<int> _y;
+	std::vector<int> _x;
+	std::vector<int> _y;
 	int _orderPtr = 0;
 public:
 	ATM_ObjectFlag();
@@ -59,7 +58,7 @@ class ATM_ObjectLists
 	ATM_ObjectList *_objList = nullptr;
 	ATM_ObjectFlag _objFlag;
 
-	vector<vector<vector<int>>> _objLists;
+	std::vector<std::vector<std::vector<int>>> _objLists;
 
 	int funCount = 0;
 public:
@@ -94,9 +93,9 @@ public:
 	ATM_Matrix *collectionState[14];
 	/******/
 	/*******************************/
-	vector<int> visualStarKlassList;
-	vector<int> visualStarIdList;
-	vector<double> visualStarDisList;
+	std::vector<int> visualStarKlassList;
+	std::vector<int> visualStarIdList;
+	std::vector<double> visualStarDisList;
 
 	bool isSelect = false;
 	int selectID = -1;

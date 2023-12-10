@@ -11,33 +11,31 @@
 #include <opencv2/core/cuda.hpp>
 
 #include <opencv2/imgproc/imgproc_c.h>
-using namespace std;
-using namespace cv;
 
 class ATM_TM_ORBAvatar
 {
 
-	Mat _avatarTemplate;
-	Mat _avatarMat;
+	cv::Mat _avatarTemplate;
+	cv::Mat _avatarMat;
 	double rotationAngle = 0;
 
-	Mat gray0;
-	Mat gray1;
-	Mat gray2;
-	Mat and12;
-	Mat dilate_element = getStructuringElement(MORPH_RECT, Size(2, 2));
-	Mat erode_element = getStructuringElement(MORPH_RECT, Size(2, 2));
+	cv::Mat gray0;
+	cv::Mat gray1;
+	cv::Mat gray2;
+	cv::Mat and12;
+	cv::Mat dilate_element = getStructuringElement(cv::MORPH_RECT, cv::Size(2, 2));
+	cv::Mat erode_element = getStructuringElement(cv::MORPH_RECT, cv::Size(2, 2));
 
 public:
 	bool isInit = false;
 
-	void setAvatarTemplate(Mat avatarTemplateMat);
-	void setAvatarMat(Mat avatarMat);
+	void setAvatarTemplate(cv::Mat avatarTemplateMat);
+	void setAvatarMat(cv::Mat avatarMat);
 	void Init();
 	void ORBMatch();
 	double getRotationAngle();
 private:
-	double dis(Point p);
-	std::vector<Point2f> Vector2UnitVector(std::vector<Point2f> pLis);
-	double Line2Angle(Point2f p);
+	double dis(cv::Point p);
+	std::vector<cv::Point2f> Vector2UnitVector(std::vector<cv::Point2f> pLis);
+	double Line2Angle(cv::Point2f p);
 };

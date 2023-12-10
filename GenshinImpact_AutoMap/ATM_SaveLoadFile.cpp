@@ -1,6 +1,7 @@
 #include "ATM_SaveLoadFile.h"
-
 #include<Windows.h>
+using namespace std;
+
 ATM_SaveLoadFile::ATM_SaveLoadFile()
 {
 }
